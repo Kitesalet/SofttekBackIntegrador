@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IntegradorSofttekImanol.Entities
 {
     [Table("servicios")]
-    public class Servicio
+    public class Servicio : EntidadBase
     {
 
         [Key]
@@ -20,5 +20,7 @@ namespace IntegradorSofttekImanol.Entities
         [Column("valorHora")]
         public decimal ValorHora { get; set; }
 
+        //Navigation Properties
+        public List<Trabajo> Trabajo { get; set; }
     }
 }
