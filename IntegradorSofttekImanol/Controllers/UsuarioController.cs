@@ -7,7 +7,7 @@ namespace IntegradorSofttekImanol.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-
+        
         public UsuarioController()
         {
             
