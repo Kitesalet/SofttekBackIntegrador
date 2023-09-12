@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntegradorSofttekImanol.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230912221710_this_is_the_first_DB_migration")]
-    partial class this_is_the_first_DB_migration
+    [Migration("20230912234239_first_new_migration")]
+    partial class first_new_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,7 +96,7 @@ namespace IntegradorSofttekImanol.Migrations
                         .HasColumnName("fechaUpdate");
 
                     b.Property<decimal>("ValorHora")
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("decimal(18, 2)")
                         .HasColumnName("valorHora");
 
                     b.HasKey("CodServicio");
@@ -106,12 +106,12 @@ namespace IntegradorSofttekImanol.Migrations
 
             modelBuilder.Entity("IntegradorSofttekImanol.Entities.Trabajo", b =>
                 {
-                    b.Property<int>("codTrabajo")
+                    b.Property<int>("CodTrabajo")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("codTrabajo");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("codTrabajo"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodTrabajo"));
 
                     b.Property<int>("CantHoras")
                         .HasColumnType("int")
@@ -126,7 +126,7 @@ namespace IntegradorSofttekImanol.Migrations
                         .HasColumnName("codServicio");
 
                     b.Property<decimal>("Costo")
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("decimal(18, 2)")
                         .HasColumnName("costo");
 
                     b.Property<DateTime>("Fecha")
@@ -146,10 +146,10 @@ namespace IntegradorSofttekImanol.Migrations
                         .HasColumnName("fechaUpdate");
 
                     b.Property<decimal>("valorHora")
-                        .HasColumnType("decimal(18,2)")
+                        .HasColumnType("decimal(18, 2)")
                         .HasColumnName("valorHora");
 
-                    b.HasKey("codTrabajo");
+                    b.HasKey("CodTrabajo");
 
                     b.HasIndex("CodProyecto");
 
@@ -205,13 +205,13 @@ namespace IntegradorSofttekImanol.Migrations
             modelBuilder.Entity("IntegradorSofttekImanol.Entities.Trabajo", b =>
                 {
                     b.HasOne("IntegradorSofttekImanol.Entities.Proyecto", "Proyecto")
-                        .WithMany()
+                        .WithMany("Trabajo")
                         .HasForeignKey("CodProyecto")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("IntegradorSofttekImanol.Entities.Servicio", "Servicio")
-                        .WithMany()
+                        .WithMany("Trabajo")
                         .HasForeignKey("CodServicio")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -219,6 +219,16 @@ namespace IntegradorSofttekImanol.Migrations
                     b.Navigation("Proyecto");
 
                     b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("IntegradorSofttekImanol.Entities.Proyecto", b =>
+                {
+                    b.Navigation("Trabajo");
+                });
+
+            modelBuilder.Entity("IntegradorSofttekImanol.Entities.Servicio", b =>
+                {
+                    b.Navigation("Trabajo");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace IntegradorSofttekImanol.Migrations
 {
     /// <inheritdoc />
-    public partial class this_is_the_first_DB_migration : Migration
+    public partial class first_new_migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -20,5 +20,7 @@ namespace IntegradorSofttekImanol.Entities
         [Column("valorHora")]
         public decimal ValorHora { get; set; }
 
+        //Navigation Properties
+        public List<Trabajo> Trabajo { get; set; }
     }
 }
