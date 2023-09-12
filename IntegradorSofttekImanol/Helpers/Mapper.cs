@@ -14,6 +14,8 @@ namespace IntegradorSofttekImanol.Helpers
 
             CreateMap<Proyecto, ProyectoDTO>().ReverseMap();
             CreateMap<Servicio,ServicioDTO>().ReverseMap();
+            CreateMap<Trabajo, TrabajoDTO>().ReverseMap();
+            CreateMap<Usuario, UsuarioDTO>().ReverseMap();
         
         }
 

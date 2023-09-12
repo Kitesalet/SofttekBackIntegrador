@@ -10,7 +10,7 @@ namespace IntegradorSofttekImanol.Controllers
         
         public UsuarioController()
         {
-            
+
         }
 
     }
