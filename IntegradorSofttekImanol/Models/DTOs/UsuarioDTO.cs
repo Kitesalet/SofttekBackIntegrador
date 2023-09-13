@@ -10,6 +10,6 @@ namespace IntegradorSofttekImanol.Models.DTOs
         public int Dni { get; set; }
         public int Tipo { get; set; }
         public string Contrasena { get; set; }
-
+        public string Token { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using IntegradorSofttekImanol.Models.DTOs;
+using IntegradorSofttekImanol.Models.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -21,7 +22,7 @@ namespace IntegradorSofttekImanol.Helpers
         /// </summary>
         /// <param name="user">UsuarioDto</param>
         /// <returns>JWT Token serializado en una cadena de caracteres.</returns>
-        public string GenerateToken(UsuarioDTO user)
+        public string GenerateToken(Usuario user)
         {
             //Se crea el array de claims, informacion que necesitamos en nuestro JWT
             var claims = new[]

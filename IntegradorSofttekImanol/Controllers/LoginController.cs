@@ -1,4 +1,5 @@
-﻿using IntegradorSofttekImanol.Helpers;
+﻿using AutoMapper;
+using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -12,13 +13,15 @@ namespace IntegradorSofttekImanol.Controllers
     {
 
         private TokenJwtHelper _tokenJWTHelper;
+        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public LoginController(IUnitOfWork unitOfWork, IConfiguration configuration)
+        public LoginController(IUnitOfWork unitOfWork, IConfiguration configuration, IMapper mapper)
         {
             
             _unitOfWork = unitOfWork;
             _tokenJWTHelper = new TokenJwtHelper(configuration);
+            _mapper = mapper;
 
         }
 
@@ -35,6 +38,9 @@ namespace IntegradorSofttekImanol.Controllers
             }
 
             var token = _tokenJWTHelper.GenerateToken(userCredentials);
+
+            var user = _mapper.Map<UsuarioDTO>(userCredentials);
+            user.Token = token; 
 
             return Ok(token);
 
