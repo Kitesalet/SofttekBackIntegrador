@@ -1,6 +1,11 @@
-﻿namespace IntegradorSofttekImanol.DAL.Repositories
+﻿using IntegradorSofttekImanol.Entities;
+
+namespace IntegradorSofttekImanol.DAL.Repositories.Interfaces
 {
-    internal interface IUserRepository<T>
+    public interface IUsuarioRepository : IRepository<Usuario>
     {
+
+
+
     }
 }

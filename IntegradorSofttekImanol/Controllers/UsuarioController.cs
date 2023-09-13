@@ -15,5 +15,10 @@ namespace IntegradorSofttekImanol.Controllers
             _unitOfWork = unitOfWork; 
         }
 
+        public async Task<IEnumerable<IActionResult>> GetAllUsuarios()
+        {
+            return await _unitOfWork.UsuarioRepository.GetAll();
+        }
+
     }
 }

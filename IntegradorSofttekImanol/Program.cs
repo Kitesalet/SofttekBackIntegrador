@@ -1,5 +1,7 @@
 using AutoMapper;
 using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.Services;
+using IntegradorSofttekImanol.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(Mapper));
 builder.Services.AddDbContext<AppDbContext>(e => e.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
