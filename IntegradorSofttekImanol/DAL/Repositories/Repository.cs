@@ -1,32 +1,47 @@
 ﻿using IntegradorSofttekImanol.DAL.Repositories.Interfaces;
+using IntegradorSofttekImanol.Migrations;
+using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
-    public class Repository<T> : IRepository<T>
+    public class Repository<T> : IRepository<T> where T : class
     {
-        public void Add(T entity)
+
+        private readonly AppDbContext _context;
+        private readonly DbSet<T> _set;
+
+        public Repository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _set = context.Set<T>();
         }
 
-        public void Delete(int id)
+        public virtual void Add(T entity)
         {
-            throw new NotImplementedException();
+            _set.AddAsync(entity);
         }
 
-        public Task<IEnumerable<T>> GetAll()
+        public virtual void Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = _set.Find(id);
+
+            _context.Entry(entity).State = EntityState.Deleted;
+
         }
 
-        public Task<T> GetById(int id)
+        public virtual async Task<IEnumerable<T>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _set.ToListAsync();
         }
 
-        public void Update(T entity)
+        public virtual async Task<T> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _set.FindAsync(id);
+        }
+
+        public virtual void Update(T entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

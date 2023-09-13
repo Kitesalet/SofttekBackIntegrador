@@ -1,4 +1,6 @@
 ﻿using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.Entities;
+using IntegradorSofttekImanol.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +10,15 @@ namespace IntegradorSofttekImanol.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        public AppDbContext _context { get; set; }
-        public UsuarioController(AppDbContext context)
+        public IUnitOfWork _unitOfWork { get; set; }
+        public UsuarioController(IUnitOfWork unitOfWork)
         {
-            _context = context; 
+            _unitOfWork = unitOfWork; 
+        }
+
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios()
+        {
+            return Ok(await _unitOfWork.UsuarioRepository.GetAll());
         }
 
     }

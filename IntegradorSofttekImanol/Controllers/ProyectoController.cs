@@ -7,5 +7,8 @@ namespace IntegradorSofttekImanol.Controllers
     [ApiController]
     public class ProyectoController : ControllerBase
     {
+
+        
+
     }
 }
