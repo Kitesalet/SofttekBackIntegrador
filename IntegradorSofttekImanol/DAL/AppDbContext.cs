@@ -21,6 +21,57 @@ namespace IntegradorSofttekImanol.DAL
         public DbSet<Usuario> Usuarios { get; set; }
 
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            /*
+            //Setteo de las relaciones entre entidades
+           
+
+            //Se settea la relacion one to many entre las entidades Trabajo - Proyecto
+            modelBuilder.Entity<Trabajo>()
+                .HasOne(e => e.Proyecto)
+                .WithMany(e => e.Trabajo)
+                .HasForeignKey("CodTrabajo");
+
+            //Se settea la relacion one to many entre las entidades Trabajo - Proyecto
+            modelBuilder.Entity<Trabajo>()
+                .HasOne(e => e.Servicio)
+                .WithMany(e => e.Trabajo)
+                .HasForeignKey("CodServicio");
+
+             */
+
+            /*
+            //Setteo de las propiedades de las entidades
+            */
+
+            /*
+            //Se settean las PKs de las entidades
+
+            modelBuilder.Entity<Usuario>().HasKey(e => e.CodUsuario);
+            modelBuilder.Entity<Proyecto>().HasKey(e => e.CodProyecto);
+            modelBuilder.Entity<Trabajo>().HasKey(e => e.CodTrabajo);
+            modelBuilder.Entity<Servicio>().HasKey(e => e.CodServicio);
+            */
+
+            //Se settea y se arregla el problema del decimal
+
+            modelBuilder.Entity<Servicio>()
+                 .Property(e => e.ValorHora)
+                 .HasColumnType("decimal(18, 2)");
+
+            modelBuilder.Entity<Trabajo>()
+                .Property(e => e.valorHora)
+                .HasColumnType("decimal(18, 2)");
+
+            modelBuilder.Entity<Trabajo>()
+                .Property(e => e.Costo)
+                .HasColumnType("decimal(18, 2)");
+
+            base.OnModelCreating(modelBuilder);
+
+
+        }
 
     }
 }

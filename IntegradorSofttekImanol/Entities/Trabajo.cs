@@ -9,7 +9,7 @@ namespace IntegradorSofttekImanol.Entities
 
         [Key]
         [Column("codTrabajo")]
-        public int codTrabajo { get; set; }
+        public int CodTrabajo { get; set; }
 
         [Column("fecha")]
         public DateTime Fecha { get; set; }

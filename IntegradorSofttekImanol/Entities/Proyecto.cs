@@ -24,5 +24,9 @@ namespace IntegradorSofttekImanol.Entities
         [Range(1,3,ErrorMessage = "El valor del estado debe estar comprendido entre 1 y 3")]
         public int Estado { get; set; }
 
+
+        //Navigation properties
+        public List<Trabajo> Trabajo { get; set; }
+
     }
 }
