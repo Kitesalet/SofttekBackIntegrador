@@ -1,4 +1,5 @@
-﻿using IntegradorSofttekImanol.Models.Entities;
+﻿using IntegradorSofttekImanol.Helpers;
+using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +19,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 new Usuario
                 {
                     CodUsuario = 1,
-                    Contrasena = "xxxxxxxx",
+                    Contrasena = EncrypterHelper.Encrypter("xxxdsaddsds"),
                     Dni = 39382743,
                     Nombre = "random",
                     FechaAlta = DateTime.Now
