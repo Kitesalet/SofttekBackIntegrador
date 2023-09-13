@@ -39,10 +39,13 @@ namespace IntegradorSofttekImanol.Controllers
 
             var token = _tokenJWTHelper.GenerateToken(userCredentials);
 
-            var user = _mapper.Map<UsuarioDTO>(userCredentials);
-            user.Token = token; 
+            var user = _mapper.Map<UsuarioLoginDTO>(userCredentials);
+            user.Token = token;
 
-            return Ok(token);
+            //Nunca devolver Id ni password, si no que se puede devolver nombre, apellido y rol
+
+
+            return Ok(user);
 
         }
 
