@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IntegradorSofttekImanol.DAL;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntegradorSofttekImanol.Controllers
@@ -7,10 +8,10 @@ namespace IntegradorSofttekImanol.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        
-        public UsuarioController()
+        public AppDbContext _context { get; set; }
+        public UsuarioController(AppDbContext context)
         {
-            
+            _context = context; 
         }
 
     }

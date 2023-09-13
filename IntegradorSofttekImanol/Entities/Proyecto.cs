@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IntegradorSofttekImanol.Entities
 {
     [Table("proyectos")]
-    public class Proyecto
+    public class Proyecto : EntidadBase
     {
 
         [Key]
@@ -23,6 +23,10 @@ namespace IntegradorSofttekImanol.Entities
         [Column("estado")]
         [Range(1,3,ErrorMessage = "El valor del estado debe estar comprendido entre 1 y 3")]
         public int Estado { get; set; }
+
+
+        //Navigation properties
+        public List<Trabajo> Trabajo { get; set; }
 
     }
 }
