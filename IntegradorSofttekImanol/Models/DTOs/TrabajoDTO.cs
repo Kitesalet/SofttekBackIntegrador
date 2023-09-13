@@ -1,5 +1,4 @@
-﻿using IntegradorSofttekImanol.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace IntegradorSofttekImanol.Models.DTOs

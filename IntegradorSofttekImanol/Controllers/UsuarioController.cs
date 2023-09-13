@@ -17,7 +17,8 @@ namespace IntegradorSofttekImanol.Controllers
             _unitOfWork = unitOfWork; 
         }
 
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios()
         {
             return Ok(await _unitOfWork.UsuarioRepository.GetAll());

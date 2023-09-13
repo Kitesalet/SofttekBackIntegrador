@@ -19,9 +19,26 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 new Usuario
                 {
                     CodUsuario = 1,
-                    Contrasena = EncrypterHelper.Encrypter("xxxdsaddsds"),
+                    Contrasena = EncrypterHelper.Encrypter("random"),
                     Dni = 39382743,
                     Nombre = "random",
+                    Tipo = 1,
+                    FechaAlta = DateTime.Now
+                }, new Usuario
+                {
+                    CodUsuario = 2,
+                    Contrasena = EncrypterHelper.Encrypter("xxxdsaddsds"),
+                    Dni = 39382743,
+                    Nombre = "randoms",
+                    Tipo = 2,
+                    FechaAlta = DateTime.Now
+                }, new Usuario
+                {
+                    CodUsuario = 3,
+                    Contrasena = EncrypterHelper.Encrypter("xxxdsaddsds"),
+                    Dni = 39382743,
+                    Nombre = "randomdd",
+                    Tipo = 2,
                     FechaAlta = DateTime.Now
                 }
                 );

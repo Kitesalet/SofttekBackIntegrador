@@ -1,6 +1,4 @@
-﻿using IntegradorSofttekImanol.DAL;
-using IntegradorSofttekImanol.DAL.Repositories;
-using IntegradorSofttekImanol.DAL.Repositories.Interfaces;
+﻿using IntegradorSofttekImanol.DAL.Repositories;
 
 namespace IntegradorSofttekImanol.Models.Interfaces
 {
