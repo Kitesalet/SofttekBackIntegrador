@@ -18,7 +18,15 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 {
                     CodProyecto = 1,
                     Direccion = "xxxxxxxx",
-                    Estado = 2,
+                    Estado = (Estado)2,
+                    Nombre = "random",
+                    FechaAlta = DateTime.Now
+                },
+                new Proyecto
+                {
+                    CodProyecto = 2,
+                    Direccion = "xxxxxxxx",
+                    Estado = Estado.Pendiente,
                     Nombre = "random",
                     FechaAlta = DateTime.Now
                 }

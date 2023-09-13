@@ -7,6 +7,5 @@
         Confirmado = 2,
         Terminado = 3
         
-
     }
 }
