@@ -1,6 +1,6 @@
 ﻿namespace IntegradorSofttekImanol.Models.DTOs.Usuario
 {
-    public class UsuarioLoginDTO
+    public class UsuarioLoginDto
     {
         public string Nombre { get; set; }
         public int Dni { get; set; }
