@@ -5,8 +5,8 @@ namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
     public interface IUsuarioService
     {
 
-        Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync();
-        Task<UsuarioGetDto> GetUsuarioByIdAsync(int id);
+        Task<IEnumerable<UsuarioLoginDto>> GetAllUsuariosAsync();
+        Task<UsuarioLoginDto> GetUsuarioByIdAsync(int id);
         Task<bool> CreateUsuario(UsuarioCreateDto usuarioDto);
         Task<bool> UpdateUsuario(UsuarioUpdateDto usuarioDto);
         Task<bool> DeleteUsuarioAsync(int id);

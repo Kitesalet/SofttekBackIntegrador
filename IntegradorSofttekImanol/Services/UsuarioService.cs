@@ -50,21 +50,45 @@ namespace IntegradorSofttekImanol.Services
 
         }
 
-        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync()
+        public async Task<IEnumerable<UsuarioLoginDto>> GetAllUsuariosAsync()
         {
             
-            return _mapper.Map<List<UsuarioGetDto>>(await _unitOfWork.UsuarioRepository.GetAll());
+            return _mapper.Map<List<UsuarioLoginDto>>(await _unitOfWork.UsuarioRepository.GetAll());
 
         }
 
-        public Task<UsuarioGetDto> GetUsuarioByIdAsync(int id)
+        public async Task<UsuarioLoginDto> GetUsuarioByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            
+            var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
+
+            return _mapper.Map<UsuarioLoginDto>(usuario);
+            
         }
 
-        public Task<bool> UpdateUsuario(UsuarioUpdateDto usuarioDto)
+        public async Task<bool> UpdateUsuario(UsuarioUpdateDto usuarioDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                var usuario = await _unitOfWork.UsuarioRepository.GetById(usuarioDto.CodUsuario);
+
+                _unitOfWork.UsuarioRepository.Update(usuario);
+
+                await _unitOfWork.Complete();
+
+                return true;
+
+            }
+            catch(Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+
+            return false;
+
+
         }
     }
 }

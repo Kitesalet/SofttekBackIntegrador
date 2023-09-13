@@ -2,6 +2,7 @@
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +11,13 @@ namespace IntegradorSofttekImanol.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsuarioController : ControllerBase
     {
-        public IUnitOfWork _unitOfWork { get; set; }
-        public UsuarioController(IUnitOfWork unitOfWork)
+        private readonly IUsuarioService _service;
+        public UsuarioController(IUsuarioService service)
         {
-            _unitOfWork = unitOfWork; 
+            _service = service; 
         }
 
         //[Authorize(Policy = "Admin")]
@@ -23,28 +25,27 @@ namespace IntegradorSofttekImanol.Controllers
         [Route("usuarios")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios()
         {
-            return Ok(await _unitOfWork.UsuarioRepository.GetAll());
+            return Ok(await _service.GetAllUsuariosAsync());
         }
 
         [HttpGet]
         [Route("usuarios/{id}")]
-        public async Task<ActionResult<UsuarioGetDto>> GetUsuario(int id)
+        public async Task<ActionResult<UsuarioLoginDto>> GetUsuario(int id)
         {
-            if (ModelState.IsValid)
-            {
-
-                
-
-            }
-
-            return BadRequest();
+            
+           return Ok(await _service.GetUsuarioByIdAsync(id));
+            
         }
 
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult> CreateUsuario(UsuarioGetDto usuario)
+        public async Task<ActionResult> CreateUsuario(UsuarioCreateDto usuario)
         {
-            
+
+            var user = await _service.CreateUsuario(usuario);
+
+            return Created("",user);
+
         }
 
 

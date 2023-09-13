@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IntegradorSofttekImanol.Models.DTOs.Usuario
 {
-    public class UsuarioGetDto
+    public class UsuarioLoginDto
     {
         public int CodUsuario { get; set; }
         public string Nombre { get; set; }

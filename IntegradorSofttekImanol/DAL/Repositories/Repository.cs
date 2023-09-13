@@ -15,7 +15,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
             _set = context.Set<T>();
         }
 
-        public async Task AddAsync(T entity)
+        public virtual async Task AddAsync(T entity)
         {
             await _set.AddAsync(entity);
         }
