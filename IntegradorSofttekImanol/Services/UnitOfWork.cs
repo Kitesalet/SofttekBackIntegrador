@@ -24,5 +24,10 @@ namespace IntegradorSofttekImanol.Services
             return await _context.SaveChangesAsync();
            
         }
+
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
     }
 }
