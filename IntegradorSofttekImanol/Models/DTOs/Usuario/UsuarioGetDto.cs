@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace IntegradorSofttekImanol.Models.DTOs
+namespace IntegradorSofttekImanol.Models.DTOs.Usuario
 {
-    public class UsuarioDTO
+    public class UsuarioGetDto
     {
         public int CodUsuario { get; set; }
         public string Nombre { get; set; }

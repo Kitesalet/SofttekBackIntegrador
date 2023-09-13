@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
+using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 
@@ -17,19 +18,43 @@ namespace IntegradorSofttekImanol.Services
             _mapper = mapper;
         }
 
-        public Task<bool> CreateUsuario(UsuarioCreateDto usuarioDto)
+        public async Task<bool> CreateUsuario(UsuarioCreateDto usuarioDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var usuario = _mapper.Map<Usuario>(usuarioDto);
+                //Cargar su rol luego
+                await _unitOfWork.UsuarioRepository.AddAsync(usuario);
+
+                await _unitOfWork.Complete();
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message + " - Error");
+            }
+
+            return false;
+
         }
 
-        public Task<bool> DeleteUsuarioAsync(int id)
+        public async Task<bool> DeleteUsuarioAsync(int id)
         {
-            throw new NotImplementedException();
+
+            var flag = _unitOfWork.UsuarioRepository.Delete(id);
+
+            await _unitOfWork.Complete();
+
+            return flag;
+
         }
 
-        public Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync()
+        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync()
         {
-            throw new NotImplementedException();
+            
+            return _mapper.Map<List<UsuarioGetDto>>(await _unitOfWork.UsuarioRepository.GetAll());
+
         }
 
         public Task<UsuarioGetDto> GetUsuarioByIdAsync(int id)

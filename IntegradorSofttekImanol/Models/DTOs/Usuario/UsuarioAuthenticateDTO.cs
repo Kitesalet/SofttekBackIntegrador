@@ -1,11 +1,11 @@
-﻿namespace IntegradorSofttekImanol.Models.DTOs
+﻿namespace IntegradorSofttekImanol.Models.DTOs.Usuario
 {
-    public class AuthenticateDTO
+    public class UsuarioAuthenticateDTO
     {
 
         public string Dni { get; set; }
 
-        public string contrasena { get;set; }   
+        public string contrasena { get; set; }
 
     }
 }

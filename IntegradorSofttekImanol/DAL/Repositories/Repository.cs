@@ -15,16 +15,23 @@ namespace IntegradorSofttekImanol.DAL.Repositories
             _set = context.Set<T>();
         }
 
-        public virtual void Add(T entity)
+        public async Task AddAsync(T entity)
         {
-            _set.AddAsync(entity);
+            await _set.AddAsync(entity);
         }
 
-        public virtual void Delete(int id)
+        public virtual bool Delete(int id)
         {
             var entity = _set.Find(id);
 
+            if (entity == null)
+            {
+                return false;
+            }
+
             _context.Entry(entity).State = EntityState.Deleted;
+
+            return true;
 
         }
 

@@ -1,13 +1,14 @@
-﻿namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+
+namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
 {
     public interface IRepository<T> where T : class
     {
-
         Task<IEnumerable<T>> GetAll();
         Task<T> GetById(int id);
+        public Task AddAsync(T entity);
+        public bool Delete(int id);
         public void Update(T entity);
-        public void Delete(int id);
-        public void Add(T entity);
-
     }
 }
