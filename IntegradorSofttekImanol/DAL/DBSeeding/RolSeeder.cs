@@ -17,8 +17,8 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
             modelbuilder.Entity<Rol>().HasData(
                 new Rol
                 {
-                    Id = 1,
-                    Description = "xxxxxxxx",
+                    codRol = 1,
+                    Descripcion = "xxxxxxxx",
                     FechaAlta = DateTime.Now
 
                 }
