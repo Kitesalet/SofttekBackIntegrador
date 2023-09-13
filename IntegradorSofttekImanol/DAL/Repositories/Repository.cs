@@ -1,9 +1,18 @@
 ﻿using IntegradorSofttekImanol.DAL.Repositories.Interfaces;
+using IntegradorSofttekImanol.Migrations;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
     public class Repository<T> : IRepository<T>
     {
+
+        private readonly AppDbContext _context;
+
+        public Repository(AppDbContext context)
+        {
+            _context = context;
+        }
+
         public void Add(T entity)
         {
             throw new NotImplementedException();
