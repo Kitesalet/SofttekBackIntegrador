@@ -1,4 +1,4 @@
-﻿namespace IntegradorSofttekImanol.DAL.Repositories.Interfaces
+﻿namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
 {
     public interface IRepository<T> where T : class
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IntegradorSofttekImanol.Entities
+namespace IntegradorSofttekImanol.Models.Entities
 {
     public class EntidadBase
     {

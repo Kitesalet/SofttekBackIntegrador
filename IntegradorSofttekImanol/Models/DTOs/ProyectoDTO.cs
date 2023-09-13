@@ -1,4 +1,4 @@
-﻿namespace IntegradorSofttekImanol.DTOs
+﻿namespace IntegradorSofttekImanol.Models.DTOs
 {
     public class ProyectoDTO
     {

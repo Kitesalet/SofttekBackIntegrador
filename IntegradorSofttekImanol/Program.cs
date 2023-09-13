@@ -1,8 +1,9 @@
 using AutoMapper;
 using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.Models.Interfaces;
 using IntegradorSofttekImanol.Services;
-using IntegradorSofttekImanol.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,12 @@ builder.Services.AddDbContext<AppDbContext>(e => e.UseSqlServer(builder.Configur
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+builder.Services.AddAuthorization(option =>
+{
+    //Cuando utilizemos un authorice de tipo admin, tiene que tener id 1
+    option.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "1"));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +37,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 

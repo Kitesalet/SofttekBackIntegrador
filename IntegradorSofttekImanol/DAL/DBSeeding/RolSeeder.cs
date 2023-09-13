@@ -4,25 +4,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.DBSeeding
 {
-    public class ProyectoSeeder : IEntitySeeder
+    public class RolSeeder : IEntitySeeder
     {
+
         /// <summary>
-        /// Realiza el seedeo de objetos Proyecto en la base de datos al
+        /// Realiza el seedeo de objetos Role en la base de datos al
         /// realizar la migracion
         /// </summary>
         /// <param name="modelbuilder">Toma un objeto modelbuilder para utilizar fluent api</param>
         public void SeedDatabase(ModelBuilder modelbuilder)
         {
-            modelbuilder.Entity<Proyecto>().HasData(
-                new Proyecto
+            modelbuilder.Entity<Rol>().HasData(
+                new Rol
                 {
-                    CodProyecto = 1,
-                    Direccion = "xxxxxxxx",
-                    Estado = 2,
-                    Nombre = "random",
+                    codRol = 1,
+                    Descripcion = "xxxxxxxx",
                     FechaAlta = DateTime.Now
+
                 }
                 );
         }
+
     }
 }

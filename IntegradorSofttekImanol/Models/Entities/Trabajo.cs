@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IntegradorSofttekImanol.Entities
+namespace IntegradorSofttekImanol.Models.Entities
 {
     [Table("trabajos")]
     public class Trabajo : EntidadBase
@@ -33,7 +33,7 @@ namespace IntegradorSofttekImanol.Entities
         /// <summary>
         /// Esta propiedad devuelve el producto de las propiedades ValorHora y CantHoras
         /// </summary>
-        [Column("costo")]  
+        [Column("costo")]
         public decimal Costo
         {
             set

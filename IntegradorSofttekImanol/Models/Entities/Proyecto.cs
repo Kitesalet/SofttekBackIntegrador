@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IntegradorSofttekImanol.Entities
+namespace IntegradorSofttekImanol.Models.Entities
 {
     [Table("proyectos")]
     public class Proyecto : EntidadBase
@@ -9,10 +9,10 @@ namespace IntegradorSofttekImanol.Entities
 
         [Key]
         [Column("codProyecto")]
-        public int CodProyecto { get;set; }
+        public int CodProyecto { get; set; }
 
         [Column("nombre")]
-        public string Nombre { get;set; }
+        public string Nombre { get; set; }
 
         [Column("direccion")]
         public string Direccion { get; set; }
@@ -21,7 +21,7 @@ namespace IntegradorSofttekImanol.Entities
         /// Esta propiedad devuelve el estado del proyecto en formato numerico, comprendido los numeros 1 y 3
         /// </summary>
         [Column("estado")]
-        [Range(1,3,ErrorMessage = "El valor del estado debe estar comprendido entre 1 y 3")]
+        [Range(1, 3, ErrorMessage = "El valor del estado debe estar comprendido entre 1 y 3")]
         public int Estado { get; set; }
 
 

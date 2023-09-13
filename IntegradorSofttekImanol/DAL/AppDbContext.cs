@@ -1,6 +1,6 @@
 ﻿using IntegradorSofttekImanol.DAL.DBSeeding;
-using IntegradorSofttekImanol.DAL.DBSeeding.Interface;
-using IntegradorSofttekImanol.Entities;
+using IntegradorSofttekImanol.Models.Entities;
+using IntegradorSofttekImanol.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL
@@ -30,11 +30,12 @@ namespace IntegradorSofttekImanol.DAL
              */
 
             var seeder = new List<IEntitySeeder>()
-            {         
+            {
                 new ProyectoSeeder(),
                 new ServicioSeeder(),
                 new TrabajoSeeder(),
                 new UsuarioSeeder(),
+                new RolSeeder()
             };
 
             foreach(var seed in seeder)

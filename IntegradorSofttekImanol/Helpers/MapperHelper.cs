@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using IntegradorSofttekImanol.DTOs;
-using IntegradorSofttekImanol.Entities;
+using IntegradorSofttekImanol.Models.DTOs;
+using IntegradorSofttekImanol.Models.Entities;
 
 namespace IntegradorSofttekImanol.Helpers
 {
-    public class Mapper : Profile
+    public class MapperHelper : Profile
     {
         /// <summary>
         /// Este constructor va a contener la logica de los mapeos Entidad-DTO utilizando la libreria AutoMapper y sus metodos
         /// </summary>
-        public Mapper() 
+        public MapperHelper() 
         {
             
             CreateMap<Proyecto, ProyectoDTO>().ReverseMap();

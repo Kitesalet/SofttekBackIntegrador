@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace IntegradorSofttekImanol.DTOs
+namespace IntegradorSofttekImanol.Models.DTOs
 {
     public class TrabajoDTO
     {
