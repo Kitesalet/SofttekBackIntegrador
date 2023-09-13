@@ -1,10 +1,10 @@
-﻿using IntegradorSofttekImanol.DAL.DBSeeding.Interface;
-using IntegradorSofttekImanol.Entities;
+﻿using IntegradorSofttekImanol.Models.Entities;
+using IntegradorSofttekImanol.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.DBSeeding
 {
-    public class RoleSeeder : IEntitySeeder
+    public class RolSeeder : IEntitySeeder
     {
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 {
                     Id = 1,
                     Description = "xxxxxxxx",
-                    Activo = true
+                    FechaAlta = DateTime.Now
 
                 }
                 );

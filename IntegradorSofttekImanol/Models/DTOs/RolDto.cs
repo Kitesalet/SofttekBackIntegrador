@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IntegradorSofttekImanol.Entities
+namespace IntegradorSofttekImanol.Models.DTOs
 {
-    public class RoleDto
+    public class RolDto
     {
         public string Id { get; set; }
         public string Name { get; set; }

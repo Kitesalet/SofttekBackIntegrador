@@ -3,6 +3,7 @@ using IntegradorSofttekImanol.DAL;
 using IntegradorSofttekImanol.Models.Interfaces;
 using IntegradorSofttekImanol.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,12 @@ builder.Services.AddAutoMapper(typeof(Mapper));
 builder.Services.AddDbContext<AppDbContext>(e => e.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddAuthorization(option =>
+{
+    //Cuando utilizemos un authorice de tipo admin, tiene que tener id 1
+    option.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "1"));
+});
 
 var app = builder.Build();
 

@@ -1,4 +1,4 @@
-﻿namespace IntegradorSofttekImanol.Services.Interfaces
+﻿namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
 {
     public interface IUsuarioService
     {

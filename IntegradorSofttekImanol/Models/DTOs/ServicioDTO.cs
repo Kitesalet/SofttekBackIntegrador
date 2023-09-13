@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using IntegradorSofttekImanol.Entities;
 
-namespace IntegradorSofttekImanol.DTOs
+namespace IntegradorSofttekImanol.Models.DTOs
 {
     public class ServicioDTO
     {

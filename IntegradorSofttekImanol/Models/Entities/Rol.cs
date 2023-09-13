@@ -1,20 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IntegradorSofttekImanol.Entities
+namespace IntegradorSofttekImanol.Models.Entities
 {
     [Table("roles")]
     public class Rol : EntidadBase
     {
 
-        [Column("rolId")]
-        public int Id { get; set; }
+        [Column("codRol")]
+        public int codRol { get; set; }
 
-        [Column("rolName")]
-        public string Name { get; set; }
+        [Column("nombre")]
+        public string Nombre { get; set; }
 
-        [Column("rolDescription")]
-        public string Description { get; set; }
+        [Column("description")]
+        public string Descripcion { get; set; }
 
+        
+        //Navigation Properties
+
+        public IEnumerable<Usuario> Usuarios { get; set; }
 
     }
 }
