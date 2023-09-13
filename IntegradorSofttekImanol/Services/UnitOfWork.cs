@@ -2,7 +2,7 @@
 using IntegradorSofttekImanol.DAL.Repositories;
 using IntegradorSofttekImanol.DAL.Repositories.Interfaces;
 using IntegradorSofttekImanol.Migrations;
-using IntegradorSofttekImanol.Services.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces;
 
 namespace IntegradorSofttekImanol.Services
 {

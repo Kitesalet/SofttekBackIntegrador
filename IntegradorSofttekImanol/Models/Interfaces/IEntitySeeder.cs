@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace IntegradorSofttekImanol.DAL.DBSeeding.Interface
+namespace IntegradorSofttekImanol.Models.Interfaces
 {
     public interface IEntitySeeder
     {

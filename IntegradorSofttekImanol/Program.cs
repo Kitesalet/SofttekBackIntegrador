@@ -1,7 +1,7 @@
 using AutoMapper;
 using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.Models.Interfaces;
 using IntegradorSofttekImanol.Services;
-using IntegradorSofttekImanol.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

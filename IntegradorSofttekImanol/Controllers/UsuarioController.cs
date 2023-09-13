@@ -1,6 +1,6 @@
 ﻿using IntegradorSofttekImanol.DAL;
-using IntegradorSofttekImanol.Entities;
-using IntegradorSofttekImanol.Services.Interfaces;
+using IntegradorSofttekImanol.Models.Entities;
+using IntegradorSofttekImanol.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

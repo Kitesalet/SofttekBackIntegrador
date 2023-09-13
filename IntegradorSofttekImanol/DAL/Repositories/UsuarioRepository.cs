@@ -1,6 +1,6 @@
-﻿using IntegradorSofttekImanol.DAL.Repositories.Interfaces;
-using IntegradorSofttekImanol.Entities;
-using IntegradorSofttekImanol.Migrations;
+﻿using IntegradorSofttekImanol.Migrations;
+using IntegradorSofttekImanol.Models.Entities;
+using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
 {

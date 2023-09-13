@@ -2,7 +2,7 @@
 using IntegradorSofttekImanol.DAL.Repositories;
 using IntegradorSofttekImanol.DAL.Repositories.Interfaces;
 
-namespace IntegradorSofttekImanol.Services.Interfaces
+namespace IntegradorSofttekImanol.Models.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -1,5 +1,5 @@
-﻿using IntegradorSofttekImanol.DAL.DBSeeding.Interface;
-using IntegradorSofttekImanol.Entities;
+﻿using IntegradorSofttekImanol.Models.Entities;
+using IntegradorSofttekImanol.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.DBSeeding
