@@ -18,9 +18,16 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 new Rol
                 {
                     codRol = 1,
-                    Descripcion = "xxxxxxxx",
+                    Nombre = "Administrador",
+                    Descripcion = "Usuario con derechos maximos",
                     FechaAlta = DateTime.Now
 
+                },
+                new Rol
+                {
+                    codRol = 2,
+                    Nombre = "Consultor",
+                    Descripcion = "Usuario con derechos basicos"
                 }
                 );
         }

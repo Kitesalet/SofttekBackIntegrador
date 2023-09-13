@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using IntegradorSofttekImanol.Entities;
 
 namespace IntegradorSofttekImanol.Models.DTOs
 {

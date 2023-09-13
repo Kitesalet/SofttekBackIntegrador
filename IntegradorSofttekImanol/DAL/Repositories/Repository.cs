@@ -1,5 +1,4 @@
-﻿using IntegradorSofttekImanol.Migrations;
-using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
+﻿using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
