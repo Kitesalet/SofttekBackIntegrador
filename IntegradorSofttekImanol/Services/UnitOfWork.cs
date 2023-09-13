@@ -1,4 +1,7 @@
-﻿using IntegradorSofttekImanol.DAL.Repositories.Interfaces;
+﻿using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.DAL.Repositories;
+using IntegradorSofttekImanol.DAL.Repositories.Interfaces;
+using IntegradorSofttekImanol.Migrations;
 using IntegradorSofttekImanol.Services.Interfaces;
 
 namespace IntegradorSofttekImanol.Services
@@ -6,16 +9,20 @@ namespace IntegradorSofttekImanol.Services
     public class UnitOfWork : IUnitOfWork
     {
 
-        public IUsuarioRepository UsuarioRepository => throw new NotImplementedException();
+        private readonly AppDbContext _context;
+        public UsuarioRepository UsuarioRepository { get ; private set; }
 
-        public UnitOfWork(IUnitOfWork unitOfWork)
+        public UnitOfWork(AppDbContext context)
         {
-            
+            _context = context;
+            UsuarioRepository = new UsuarioRepository(context);
         }
 
-        public Task<int> Complete()
+        public async Task<int> Complete()
         {
-            throw new NotImplementedException();
+
+            return await _context.SaveChangesAsync();
+           
         }
     }
 }

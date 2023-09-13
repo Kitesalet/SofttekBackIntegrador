@@ -1,12 +1,12 @@
 ﻿using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.DAL.Repositories;
 using IntegradorSofttekImanol.DAL.Repositories.Interfaces;
 
 namespace IntegradorSofttekImanol.Services.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-        AppDbContext _context { get; }
-        public IUsuarioRepository UsuarioRepository { get; set; }
+        public UsuarioRepository UsuarioRepository { get; }
         Task<int> Complete();
 
     }

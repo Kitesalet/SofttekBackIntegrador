@@ -1,4 +1,5 @@
 ﻿using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.Entities;
 using IntegradorSofttekImanol.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,9 @@ namespace IntegradorSofttekImanol.Controllers
             _unitOfWork = unitOfWork; 
         }
 
-        public async Task<IEnumerable<IActionResult>> GetAllUsuarios()
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios()
         {
-            return await _unitOfWork.UsuarioRepository.GetAll();
+            return Ok(await _unitOfWork.UsuarioRepository.GetAll());
         }
 
     }
