@@ -23,7 +23,9 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         /// <returns>Un objeto usuario o un valor null</returns>
         public async Task<Usuario?> AuthenticateCredentials(AuthenticateDTO dto)
         {
-            return await _context.Usuarios.Include(e => e.Rol).SingleOrDefaultAsync(e => e.Dni.ToString() == dto.Dni && e.Contrasena == dto.contrasena);
+            return await _context.Usuarios.Include(e => e.Rol)
+                                          .SingleOrDefaultAsync(e => e.Dni.ToString() == dto.Dni && e.Contrasena == dto.contrasena);
+
         }
 
     }
