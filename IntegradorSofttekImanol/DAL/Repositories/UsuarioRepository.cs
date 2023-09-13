@@ -20,7 +20,10 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         /// Evalua si un usuario existe en la base de datos autenticandolo y filtrandolo en base a sus credentials.
         /// </summary>
         /// <param name="dto">AuthenticateDTO</param>
-        /// <returns>Un objeto usuario o un valor null</returns>
+        /// <returns> 
+        /// * Un objeto usuario si la autenticacion es exitosa
+        /// * Un valor nulo si la autenticacion falla
+        /// </returns>
         public async Task<Usuario?> AuthenticateCredentials(AuthenticateDTO dto)
         {
             return await _context.Usuarios.Include(e => e.Rol)

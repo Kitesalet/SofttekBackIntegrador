@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Models.DTOs;
+using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
 
 namespace IntegradorSofttekImanol.Helpers
@@ -15,7 +16,7 @@ namespace IntegradorSofttekImanol.Helpers
             CreateMap<Proyecto, ProyectoDTO>().ReverseMap();
             CreateMap<Servicio,ServicioDTO>().ReverseMap();
             CreateMap<Trabajo, TrabajoDTO>().ReverseMap();
-            CreateMap<Usuario, UsuarioDTO>().ReverseMap();
+            CreateMap<Usuario, UsuarioGetDto>().ReverseMap();
         
         }
 

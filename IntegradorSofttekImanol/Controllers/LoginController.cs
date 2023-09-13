@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Helpers;
-using IntegradorSofttekImanol.Models.DTOs;
+using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +27,7 @@ namespace IntegradorSofttekImanol.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] AuthenticateDTO authenticate)
+        public async Task<IActionResult> Login([FromBody] UsuarioAuthenticateDTO authenticate)
         {
 
             var userCredentials = await _unitOfWork.UsuarioRepository.AuthenticateCredentials(authenticate);

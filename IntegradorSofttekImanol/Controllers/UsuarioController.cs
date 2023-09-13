@@ -1,4 +1,5 @@
 ﻿using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -19,10 +20,33 @@ namespace IntegradorSofttekImanol.Controllers
 
         //[Authorize(Policy = "Admin")]
         [HttpGet]
+        [Route("usuarios")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios()
         {
             return Ok(await _unitOfWork.UsuarioRepository.GetAll());
         }
+
+        [HttpGet]
+        [Route("usuarios/{id}")]
+        public async Task<ActionResult<UsuarioGetDto>> GetUsuario(int id)
+        {
+            if (ModelState.IsValid)
+            {
+
+                
+
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost]
+        [Route("register")]
+        public async Task<ActionResult> CreateUsuario(UsuarioGetDto usuario)
+        {
+            
+        }
+
 
     }
 }
