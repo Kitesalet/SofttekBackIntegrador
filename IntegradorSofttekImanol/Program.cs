@@ -1,6 +1,8 @@
 using AutoMapper;
 using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using IntegradorSofttekImanol.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -44,10 +46,12 @@ builder.Services.AddSwaggerGen(c =>
 
 });
 
-builder.Services.AddAutoMapper(typeof(Mapper));
+builder.Services.AddAutoMapper(typeof(MapperHelper));
 builder.Services.AddDbContext<AppDbContext>(e => e.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 //Se agrega la autorizacion con el JWT como service definiendo al bearer como scheme de auth
 //Luego, los parametros para validar el token Jwt

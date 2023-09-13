@@ -28,21 +28,19 @@ namespace IntegradorSofttekImanol.Models.Entities
         [Column("valorHora")]
         public decimal valorHora { get; set; }
 
-        private decimal _Costo { get; set; }
-
         /// <summary>
         /// Esta propiedad devuelve el producto de las propiedades ValorHora y CantHoras
         /// </summary>
         [Column("costo")]
         public decimal Costo
         {
-            set
+            private set
             {
-                _Costo = valorHora * CantHoras;
+                
             }
             get
             {
-                return _Costo;
+                return valorHora * CantHoras;
             }
         }
 

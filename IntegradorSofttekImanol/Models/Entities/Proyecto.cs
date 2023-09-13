@@ -22,7 +22,7 @@ namespace IntegradorSofttekImanol.Models.Entities
         /// </summary>
         [Column("estado")]
         [Range(1, 3, ErrorMessage = "El valor del estado debe estar comprendido entre 1 y 3")]
-        public int Estado { get; set; }
+        public Estado Estado { get; set; }
 
 
         //Navigation properties
