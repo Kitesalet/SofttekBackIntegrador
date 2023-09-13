@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces;
@@ -26,6 +27,8 @@ namespace IntegradorSofttekImanol.Services
                 //Cargar su rol luego
                 await _unitOfWork.UsuarioRepository.AddAsync(usuario);
 
+                usuario.FechaAlta = DateTime.Now;
+
                 await _unitOfWork.Complete();
 
                 return true;
@@ -42,27 +45,50 @@ namespace IntegradorSofttekImanol.Services
         public async Task<bool> DeleteUsuarioAsync(int id)
         {
 
-            var flag = _unitOfWork.UsuarioRepository.Delete(id);
+            var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
 
-            await _unitOfWork.Complete();
+            if(usuario.FechaBaja != null || usuario != null)
+            {
+                usuario.FechaBaja = DateTime.Now;
 
-            return flag;
+                await _unitOfWork.Complete();
+
+                return true;
+            }
+
+            return false;
 
         }
 
-        public async Task<IEnumerable<UsuarioLoginDto>> GetAllUsuariosAsync()
+        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(bool condition)
         {
+
+            var usuarios = await _unitOfWork.UsuarioRepository.GetAll();
+
+            if (condition == true)
+            {
+                return _mapper.Map<List<UsuarioGetDto>>(usuarios);
+            }
             
-            return _mapper.Map<List<UsuarioLoginDto>>(await _unitOfWork.UsuarioRepository.GetAll());
+                return _mapper.Map<List<UsuarioGetDto>>(usuarios.Where(e => e.FechaBaja != null));
+            
+            
+            
+
 
         }
 
-        public async Task<UsuarioLoginDto> GetUsuarioByIdAsync(int id)
+        public async Task<UsuarioGetDto> GetUsuarioByIdAsync(int id)
         {
             
             var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
 
-            return _mapper.Map<UsuarioLoginDto>(usuario);
+            if(usuario.FechaBaja != null)
+            {
+                return _mapper.Map<UsuarioGetDto>(usuario);
+            }
+
+            return null;
             
         }
 
@@ -72,6 +98,8 @@ namespace IntegradorSofttekImanol.Services
             {
 
                 var usuario = await _unitOfWork.UsuarioRepository.GetById(usuarioDto.CodUsuario);
+
+                usuario.FechaUpdate = DateTime.Now;
 
                 _unitOfWork.UsuarioRepository.Update(usuario);
 

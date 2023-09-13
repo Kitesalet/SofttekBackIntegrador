@@ -1,4 +1,5 @@
 ﻿using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces;
@@ -22,10 +23,10 @@ namespace IntegradorSofttekImanol.Controllers
 
         //[Authorize(Policy = "Admin")]
         [HttpGet]
-        [Route("usuarios")]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios()
+        [Route("usuarios/{condition}")]
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios(bool condition)
         {
-            return Ok(await _service.GetAllUsuariosAsync());
+            return Ok(await _service.GetAllUsuariosAsync(condition));
         }
 
         [HttpGet]
@@ -48,6 +49,19 @@ namespace IntegradorSofttekImanol.Controllers
 
         }
 
+        [HttpPut]
+        [Route("usuario/{id}")]
+        public async Task<ActionResult> UpdateUsuario(int id, UsuarioUpdateDto usuario)
+        {
+            var result = await _service.UpdateUsuario(usuario);
+
+            if(result == true)
+            {
+                return NoContent();
+            }
+
+            return BadRequest(result);
+        }
 
     }
 }
