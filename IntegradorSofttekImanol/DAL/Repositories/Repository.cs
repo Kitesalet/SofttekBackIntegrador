@@ -1,6 +1,7 @@
 ﻿using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
@@ -47,7 +48,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
 
         public virtual void Update(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            _context.Update(entity);
         }
     }
 }

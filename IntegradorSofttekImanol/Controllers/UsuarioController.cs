@@ -1,16 +1,12 @@
-﻿using IntegradorSofttekImanol.DAL;
-using IntegradorSofttekImanol.Models.DTOs;
-using IntegradorSofttekImanol.Models.DTOs.Usuario;
+﻿using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
-using IntegradorSofttekImanol.Models.Interfaces;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntegradorSofttekImanol.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     [Authorize]
     public class UsuarioController : ControllerBase
@@ -21,7 +17,7 @@ namespace IntegradorSofttekImanol.Controllers
             _service = service; 
         }
 
-        //[Authorize(Policy = "Admin")]
+
         [HttpGet]
         [Route("usuarios")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios()
@@ -30,7 +26,7 @@ namespace IntegradorSofttekImanol.Controllers
         }
 
         [HttpGet]
-        [Route("usuarios/{id}")]
+        [Route("usuario/{id}")]
         public async Task<ActionResult<UsuarioLoginDto>> GetUsuario(int id)
         {
             
@@ -45,22 +41,37 @@ namespace IntegradorSofttekImanol.Controllers
 
             var user = await _service.CreateUsuarioAsync(usuario);
 
-            return Created("",user);
+            return CreatedAtRoute("",user);
 
         }
 
         [HttpPut]
         [Route("usuario/{id}")]
         public async Task<ActionResult> UpdateUsuario(int id, UsuarioUpdateDto usuario)
-        {
+        {   
+
             var result = await _service.UpdateUsuario(usuario);
 
-            if(result == true)
+            if(result != true)
             {
-                return NoContent();
+                return BadRequest(result);
             }
 
-            return BadRequest(result);
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("usuario/{id}")]
+        public async Task<ActionResult> DeleteUsuario(int id)
+        {
+            var result = await _service.DeleteUsuarioAsync(id);
+
+            if(result != true)
+            {
+                return NotFound(result);
+            }
+
+            return NoContent();
         }
 
     }
