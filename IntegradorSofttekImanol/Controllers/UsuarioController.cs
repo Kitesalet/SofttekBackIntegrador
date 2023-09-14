@@ -23,10 +23,10 @@ namespace IntegradorSofttekImanol.Controllers
 
         //[Authorize(Policy = "Admin")]
         [HttpGet]
-        [Route("usuarios/{condition}")]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios(bool condition)
+        [Route("usuarios")]
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios()
         {
-            return Ok(await _service.GetAllUsuariosAsync(condition));
+            return Ok(await _service.GetAllUsuariosAsync());
         }
 
         [HttpGet]

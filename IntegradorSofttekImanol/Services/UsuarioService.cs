@@ -94,28 +94,21 @@ namespace IntegradorSofttekImanol.Services
 
         public async Task<bool> UpdateUsuario(UsuarioUpdateDto usuarioDto)
         {
-            try
+
+            var usuario = await _unitOfWork.UsuarioRepository.GetById(usuarioDto.CodUsuario);
+
+            if(usuario == null)
             {
 
-                var usuario = await _unitOfWork.UsuarioRepository.GetById(usuarioDto.CodUsuario);
-
-                usuario.FechaUpdate = DateTime.Now;
-
-                _unitOfWork.UsuarioRepository.Update(usuario);
-
-                await _unitOfWork.Complete();
-
-                return true;
+                return false;
 
             }
-            catch(Exception ex)
-            {
 
-                Console.WriteLine(ex.Message);
-            }
+            usuario.FechaUpdate = DateTime.Now;
+            _unitOfWork.UsuarioRepository.Update(usuario);
+            await _unitOfWork.Complete();
 
-            return false;
-
+            return true;
 
         }
     }
