@@ -9,6 +9,7 @@ namespace IntegradorSofttekImanol.Models.DTOs.Usuario
         public string Nombre { get; set; }
         public int Dni { get; set; }
         public int Tipo { get; set; }
+        public DateTime? FechaBaja { get; set; }
 
     }
 }

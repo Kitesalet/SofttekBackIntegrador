@@ -29,7 +29,13 @@ namespace IntegradorSofttekImanol.Controllers
         [Route("usuario/{id}")]
         public async Task<ActionResult<UsuarioLoginDto>> GetUsuario(int id)
         {
-            
+           var user = await _service.GetUsuarioByIdAsync(id);
+
+           if(user == null)
+           {
+                return NotFound("No se ha encontrado el usuario!");
+           }
+
            return Ok(await _service.GetUsuarioByIdAsync(id));
             
         }
@@ -66,11 +72,13 @@ namespace IntegradorSofttekImanol.Controllers
         [Route("usuario/{id}")]
         public async Task<ActionResult> DeleteUsuario(int id)
         {
+            //Agregar not found
+
             var result = await _service.DeleteUsuarioAsync(id);
 
             if(result != true)
             {
-                return NotFound(result);
+                return BadRequest(result);
             }
 
             return NoContent();
