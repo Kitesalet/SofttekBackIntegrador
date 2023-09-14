@@ -83,6 +83,6 @@ Imanol Echazarreta
 ## Acknowledgments
 
 * Al equipo de SoftTek por la oportunidad de participar en la academia de .Net 2023
-* A Marcio Abriola por ser un excelente instructor en lo que va de la academia
+* A Marcio Abriola por ser un excelente instructor en lo que va de la academia y a Alkemy por impartirla
   
 ______________________________________________
