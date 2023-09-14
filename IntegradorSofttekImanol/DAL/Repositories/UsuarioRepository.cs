@@ -13,8 +13,10 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         {
 
             _context = context;
+           
 
         }
+
 
         /// <summary>
         /// Evalua si un usuario existe en la base de datos autenticandolo y filtrandolo en base a sus credentials.

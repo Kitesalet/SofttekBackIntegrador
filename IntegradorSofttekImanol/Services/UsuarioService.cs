@@ -45,8 +45,13 @@ namespace IntegradorSofttekImanol.Services
         public async Task<bool> DeleteUsuarioAsync(int id)
         {
 
-            var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
+            var flag = _unitOfWork.UsuarioRepository.Delete(id);
 
+            await _unitOfWork.Complete();
+
+            return flag;
+
+            /*
             if(usuario.FechaBaja != null || usuario != null)
             {
                 usuario.FechaBaja = DateTime.Now;
@@ -55,27 +60,17 @@ namespace IntegradorSofttekImanol.Services
 
                 return true;
             }
-
-            return false;
+            */
 
         }
 
-        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(bool condition)
+        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync()
         {
 
-            var usuarios = await _unitOfWork.UsuarioRepository.GetAll();
-
-            if (condition == true)
-            {
-                return _mapper.Map<List<UsuarioGetDto>>(usuarios);
-            }
+            var usuarios = await _unitOfWork.UsuarioRepository.GetAll();      
             
-                return _mapper.Map<List<UsuarioGetDto>>(usuarios.Where(e => e.FechaBaja != null));
-            
-            
-            
-
-
+            return _mapper.Map<List<UsuarioGetDto>>(usuarios.Where(e => e.FechaBaja != null));
+                   
         }
 
         public async Task<UsuarioGetDto> GetUsuarioByIdAsync(int id)
@@ -83,39 +78,33 @@ namespace IntegradorSofttekImanol.Services
             
             var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
 
-            if(usuario.FechaBaja != null)
+            if(usuario == null)
             {
-                return _mapper.Map<UsuarioGetDto>(usuario);
+                return null;
             }
 
-            return null;
+            return _mapper.Map<UsuarioGetDto>(usuario);
             
         }
 
         public async Task<bool> UpdateUsuario(UsuarioUpdateDto usuarioDto)
         {
-            try
+            var usuario = await _unitOfWork.UsuarioRepository.GetById(usuarioDto.CodUsuario);
+
+            if (usuario == null)
             {
-
-                var usuario = await _unitOfWork.UsuarioRepository.GetById(usuarioDto.CodUsuario);
-
-                usuario.FechaUpdate = DateTime.Now;
-
-                _unitOfWork.UsuarioRepository.Update(usuario);
-
-                await _unitOfWork.Complete();
-
-                return true;
-
-            }
-            catch(Exception ex)
-            {
-
-                Console.WriteLine(ex.Message);
+                return false;
             }
 
-            return false;
+            usuario.Nombre = usuarioDto.Nombre;
+            usuario.Tipo = usuarioDto.Tipo;
+            usuario.Contrasena = usuarioDto.Contrasena;
 
+            _unitOfWork.UsuarioRepository.Update(usuario);
+
+            await _unitOfWork.Complete();
+
+            return true;
 
         }
     }

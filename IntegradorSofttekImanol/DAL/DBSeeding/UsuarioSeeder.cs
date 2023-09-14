@@ -20,7 +20,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 {
                     CodUsuario = 1,
                     Contrasena = "random",
-                    Dni = 39382743,
+                    Dni = 39321874,
                     Nombre = "random",
                     Tipo = 1,
                     FechaAlta = DateTime.Now

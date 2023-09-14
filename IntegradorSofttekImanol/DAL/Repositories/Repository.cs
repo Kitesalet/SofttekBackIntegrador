@@ -1,6 +1,7 @@
 ﻿using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class

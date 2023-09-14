@@ -1,16 +1,12 @@
-﻿using IntegradorSofttekImanol.DAL;
-using IntegradorSofttekImanol.Models.DTOs;
-using IntegradorSofttekImanol.Models.DTOs.Usuario;
+﻿using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
-using IntegradorSofttekImanol.Models.Interfaces;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntegradorSofttekImanol.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     [Authorize]
     public class UsuarioController : ControllerBase
@@ -21,19 +17,27 @@ namespace IntegradorSofttekImanol.Controllers
             _service = service; 
         }
 
-        //[Authorize(Policy = "Admin")]
+
         [HttpGet]
-        [Route("usuarios/{condition}")]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios(bool condition)
+        [Route("usuarios")]
+        public async Task<ActionResult<IEnumerable<UsuarioGetDto>>> GetAllUsuarios()
         {
-            return Ok(await _service.GetAllUsuariosAsync(condition));
+            var users = await _service.GetAllUsuariosAsync();
+
+            return Ok(users);
         }
 
         [HttpGet]
-        [Route("usuarios/{id}")]
-        public async Task<ActionResult<UsuarioLoginDto>> GetUsuario(int id)
+        [Route("usuario/{id}")]
+        public async Task<ActionResult<UsuarioLoginDto>> GetUsuario([FromRoute] int id)
         {
-            
+           var user = await _service.GetUsuarioByIdAsync(id);
+
+           if(user == null)
+           {
+                return NotFound("No se ha encontrado el usuario!");
+           }
+
            return Ok(await _service.GetUsuarioByIdAsync(id));
             
         }
@@ -43,24 +47,55 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<ActionResult> CreateUsuario(UsuarioCreateDto usuario)
         {
 
-            var user = await _service.CreateUsuarioAsync(usuario);
+            var flag = await _service.CreateUsuarioAsync(usuario);
 
-            return Created("",user);
+            if(flag == false)
+            {
+                return BadRequest(flag);
+            }
+
+            return CreatedAtRoute("",flag);
 
         }
 
         [HttpPut]
         [Route("usuario/{id}")]
         public async Task<ActionResult> UpdateUsuario(int id, UsuarioUpdateDto usuario)
-        {
-            var result = await _service.UpdateUsuario(usuario);
+        {   
 
-            if(result == true)
+            if(await _service.GetUsuarioByIdAsync(id) == null)
             {
-                return NoContent();
+                return NotFound("El usuario no ha sido encontrado!");
             }
 
-            return BadRequest(result);
+            var result = await _service.UpdateUsuario(usuario);
+
+            if(result != true)
+            {
+                return BadRequest("Ha habido un error en el update del usuario");
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("usuario/{id}")]
+        public async Task<ActionResult> DeleteUsuario([FromRoute] int id)
+        {
+
+            if (await _service.GetUsuarioByIdAsync(id) == null)
+            {
+                return NotFound("El usuario no ha sido encontrado!");
+            }
+
+            var result = await _service.DeleteUsuarioAsync(id);
+
+            if(result != true)
+            {
+                return BadRequest(result);
+            }
+
+            return NoContent();
         }
 
     }
