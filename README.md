@@ -3,6 +3,7 @@
 Trabajo Integrador Academia Softtek TechOil 🌠
 
 ![TechOil Logo](https://github.com/Kitesalet/ProyectoIntegradorSofttekImanol/assets/104630744/fe19a6e6-aaa1-4dcf-8190-5f1cb8fceba3)
+
 (Prestar atención al slogan 😉 )
 
 ## Description
