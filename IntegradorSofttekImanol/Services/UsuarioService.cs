@@ -19,7 +19,7 @@ namespace IntegradorSofttekImanol.Services
             _mapper = mapper;
         }
 
-        public async Task<bool> CreateUsuario(UsuarioCreateDto usuarioDto)
+        public async Task<bool> CreateUsuarioAsync(UsuarioCreateDto usuarioDto)
         {
             try
             {

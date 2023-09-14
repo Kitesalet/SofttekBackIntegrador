@@ -43,7 +43,7 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<ActionResult> CreateUsuario(UsuarioCreateDto usuario)
         {
 
-            var user = await _service.CreateUsuario(usuario);
+            var user = await _service.CreateUsuarioAsync(usuario);
 
             return Created("",user);
 
