@@ -48,7 +48,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
 
         public virtual void Update(T entity)
         {
-            _context.Update(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

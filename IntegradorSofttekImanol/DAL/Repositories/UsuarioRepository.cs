@@ -13,6 +13,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         {
 
             _context = context;
+           
 
         }
 

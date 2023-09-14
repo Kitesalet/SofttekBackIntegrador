@@ -50,11 +50,13 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<ActionResult> UpdateUsuario(int id, UsuarioUpdateDto usuario)
         {   
 
+            //Agregar not found
+
             var result = await _service.UpdateUsuario(usuario);
 
             if(result != true)
             {
-                return BadRequest(result);
+                return BadRequest("Ha habido un error en el update del usuario");
             }
 
             return NoContent();
