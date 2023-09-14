@@ -9,6 +9,6 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
         Task<T> GetById(int id);
         public Task AddAsync(T entity);
         public bool Delete(int id);
-        public Task<bool> Update(T entity);
+        public void Update(T entity);
     }
 }

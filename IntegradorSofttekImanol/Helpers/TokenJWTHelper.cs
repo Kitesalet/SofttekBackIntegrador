@@ -1,5 +1,7 @@
 ﻿using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.Entities;
+using IntegradorSofttekImanol.Models.HelperClasses;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -10,11 +12,11 @@ namespace IntegradorSofttekImanol.Helpers
     public class TokenJwtHelper
     {
 
-        private readonly IConfiguration _configuration;
+        private readonly JwtSettings _jwtSettings;
 
-        public TokenJwtHelper(IConfiguration configuration)
+        public TokenJwtHelper(IOptions<JwtSettings> jwtSettings)
         {
-            _configuration = configuration;
+            _jwtSettings = jwtSettings.Value;
         }
 
         /// <summary>
@@ -27,20 +29,20 @@ namespace IntegradorSofttekImanol.Helpers
             //Se crea el array de claims, informacion que necesitamos en nuestro JWT
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+                new Claim(JwtRegisteredClaimNames.Sub, _jwtSettings.Subject),
                 new Claim(ClaimTypes.NameIdentifier, user.Dni.ToString()),
                 new Claim(ClaimTypes.Name, user.Nombre)
             };
 
             //Se hace un retrieve de la key en appsettings.json, logrando la generacion de las credenciales junto con
             //La key y el algoritmo
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             //Se crea el JwtSecurityToken, mediante la utilizacion de las claims ( data contenida ), tiempo de expiracion y las credentials
             var securityToken = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(_jwtSettings.ExpirationMinutes),
                 signingCredentials: credentials
                 );
 
