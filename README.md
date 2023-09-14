@@ -65,10 +65,7 @@ escribir los siguientes comandos en la Nugget Package Manager Console:
 
 ## Help
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+Ante cualquier consulta o problema, comunicarse via email conmigo a : kitesalett@gmail.com
 
 ## Authors
 
@@ -84,4 +81,8 @@ Imanol Echazarreta
 
 
 ## Acknowledgments
+
+* Al equipo de SoftTek por la oportunidad de participar en la academia de .Net 2023
+* A Marcio Abriola por ser un excelente instructor en lo que va de la academia
+  
 ______________________________________________
