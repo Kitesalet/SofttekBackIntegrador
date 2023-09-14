@@ -45,8 +45,13 @@ namespace IntegradorSofttekImanol.Services
         public async Task<bool> DeleteUsuarioAsync(int id)
         {
 
-            var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
+            var flag = _unitOfWork.UsuarioRepository.Delete(id);
 
+            await _unitOfWork.Complete();
+
+            return flag;
+
+            /*
             if(usuario.FechaBaja != null || usuario != null)
             {
                 usuario.FechaBaja = DateTime.Now;
@@ -55,26 +60,20 @@ namespace IntegradorSofttekImanol.Services
 
                 return true;
             }
-
-            return false;
+            */
 
         }
 
-        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(bool condition)
+        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync()
         {
 
             var usuarios = await _unitOfWork.UsuarioRepository.GetAll();
 
-            if (condition == true)
-            {
-                return _mapper.Map<List<UsuarioGetDto>>(usuarios);
-            }
+            return _mapper.Map<List<UsuarioGetDto>>(usuarios);
+          
             
-                return _mapper.Map<List<UsuarioGetDto>>(usuarios.Where(e => e.FechaBaja != null));
-            
-            
-            
-
+            //return _mapper.Map<List<UsuarioGetDto>>(usuarios.Where(e => e.FechaBaja != null));
+                   
 
         }
 
@@ -83,12 +82,12 @@ namespace IntegradorSofttekImanol.Services
             
             var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
 
-            if(usuario.FechaBaja != null)
+            if(usuario == null)
             {
-                return _mapper.Map<UsuarioGetDto>(usuario);
+                return null;
             }
 
-            return null;
+            return _mapper.Map<UsuarioGetDto>(usuario);
             
         }
 
