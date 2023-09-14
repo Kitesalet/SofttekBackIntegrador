@@ -20,14 +20,16 @@ namespace IntegradorSofttekImanol.Controllers
 
         [HttpGet]
         [Route("usuarios")]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios()
+        public async Task<ActionResult<IEnumerable<UsuarioGetDto>>> GetAllUsuarios()
         {
-            return Ok(await _service.GetAllUsuariosAsync());
+            var users = await _service.GetAllUsuariosAsync();
+
+            return Ok(users);
         }
 
         [HttpGet]
         [Route("usuario/{id}")]
-        public async Task<ActionResult<UsuarioLoginDto>> GetUsuario(int id)
+        public async Task<ActionResult<UsuarioLoginDto>> GetUsuario([FromRoute] int id)
         {
            var user = await _service.GetUsuarioByIdAsync(id);
 
@@ -45,9 +47,14 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<ActionResult> CreateUsuario(UsuarioCreateDto usuario)
         {
 
-            var user = await _service.CreateUsuarioAsync(usuario);
+            var flag = await _service.CreateUsuarioAsync(usuario);
 
-            return CreatedAtRoute("",user);
+            if(flag == false)
+            {
+                return BadRequest(flag);
+            }
+
+            return CreatedAtRoute("",flag);
 
         }
 
@@ -56,7 +63,10 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<ActionResult> UpdateUsuario(int id, UsuarioUpdateDto usuario)
         {   
 
-            //Agregar not found
+            if(await _service.GetUsuarioByIdAsync(id) == null)
+            {
+                return NotFound("El usuario no ha sido encontrado!");
+            }
 
             var result = await _service.UpdateUsuario(usuario);
 
@@ -70,9 +80,13 @@ namespace IntegradorSofttekImanol.Controllers
 
         [HttpDelete]
         [Route("usuario/{id}")]
-        public async Task<ActionResult> DeleteUsuario(int id)
+        public async Task<ActionResult> DeleteUsuario([FromRoute] int id)
         {
-            //Agregar not found
+
+            if (await _service.GetUsuarioByIdAsync(id) == null)
+            {
+                return NotFound("El usuario no ha sido encontrado!");
+            }
 
             var result = await _service.DeleteUsuarioAsync(id);
 
