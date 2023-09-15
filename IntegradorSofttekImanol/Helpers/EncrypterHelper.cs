@@ -10,8 +10,12 @@ namespace IntegradorSofttekImanol.Helpers
         /// </summary>
         /// <param name="password">string</param>
         /// <returns>Un string encriptado con una cantidad especifica de caracteres</returns>
-        public static string Encrypter(string password)
+        public static string Encrypter(string password, string mail)
         {
+
+            var salt = CreateSalt(mail);
+            string saltAndPwd = String.Concat(password, salt);
+
             //Algoritmo de encriptacion
             SHA256 sha256 = SHA256.Create();
             ASCIIEncoding encoding = new ASCIIEncoding();
@@ -19,7 +23,7 @@ namespace IntegradorSofttekImanol.Helpers
             StringBuilder sb = new StringBuilder();
 
             //Formatea el arreglo de bytes
-            stream = sha256.ComputeHash(encoding.GetBytes(password));
+            stream = sha256.ComputeHash(encoding.GetBytes(saltAndPwd));
 
             for(int i = 0; i < stream.Length; i++)
             {
@@ -29,6 +33,28 @@ namespace IntegradorSofttekImanol.Helpers
 
             return sb.ToString();
 
+        }
+
+        private static string CreateSalt(string dni)
+        {
+            var salt = dni;
+            byte[] saltBytes;
+            string saltStr;
+            saltBytes = ASCIIEncoding.ASCII.GetBytes(salt);
+            long XORED = 0x00;
+
+            foreach(var b in saltBytes)
+            {
+                XORED = XORED ^ b;
+            }
+
+            Random rng = new Random(Convert.ToInt32(XORED));
+            saltStr = rng.Next().ToString();
+            saltStr += rng.Next().ToString();
+            saltStr += rng.Next().ToString();
+            saltStr += rng.Next().ToString();
+
+            return saltStr;
         }
 
     }
