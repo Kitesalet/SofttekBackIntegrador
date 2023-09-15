@@ -1,6 +1,7 @@
 using AutoMapper;
 using IntegradorSofttekImanol.DAL;
 using IntegradorSofttekImanol.Helpers;
+using IntegradorSofttekImanol.Models.HelperClasses;
 using IntegradorSofttekImanol.Models.Interfaces;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using IntegradorSofttekImanol.Services;
@@ -53,18 +54,29 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
+
+//Se obtienen los parametros de Jwt en el appsettings.json,
+//luego el ultimo .Get mappea las propiedades del json al objeto.
+
+var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
+
 //Se agrega la autorizacion con el JWT como service definiendo al bearer como scheme de auth
 //Luego, los parametros para validar el token Jwt
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters()
                     {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
                     });
 
+
+//Se agrega la config para que Jwt se encuentre disponible
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
 //Se agrega la autorizacion en base a roles de la aplicacion como service
 builder.Services.AddAuthorization(option =>
