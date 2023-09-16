@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IntegradorSofttekImanol.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class LoginController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace IntegradorSofttekImanol.Controllers
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public LoginController(IUnitOfWork unitOfWork, IConfiguration configuration, IMapper mapper)
+        public LoginController(IUnitOfWork unitOfWork, IOption configuration, IMapper mapper)
         {
             
             _unitOfWork = unitOfWork;
@@ -27,6 +27,7 @@ namespace IntegradorSofttekImanol.Controllers
 
 
         [HttpPost]
+        [Route("login")]
         public async Task<IActionResult> Login([FromBody] UsuarioAuthenticateDTO authenticate)
         {
 
