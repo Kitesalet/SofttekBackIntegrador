@@ -6,6 +6,10 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
 {
     public class TrabajoSeeder : IEntitySeeder
     {
+        /// <summary>
+        /// Performs seeding of Trabajo objects into the database during migration.
+        /// </summary>
+        /// <param name="modelBuilder">Takes a modelBuilder object to use Fluent API.</param>
         public void SeedDatabase(ModelBuilder modelbuilder)
         {
             modelbuilder.Entity<Trabajo>().HasData(
