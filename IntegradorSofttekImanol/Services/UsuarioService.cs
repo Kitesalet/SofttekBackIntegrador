@@ -69,7 +69,7 @@ namespace IntegradorSofttekImanol.Services
 
             var usuarios = await _unitOfWork.UsuarioRepository.GetAll();      
             
-            return _mapper.Map<List<UsuarioGetDto>>(usuarios.Where(e => e.FechaBaja != null));
+            return _mapper.Map<List<UsuarioGetDto>>(usuarios.Where(e => e.FechaBaja == null));
                    
         }
 
