@@ -1,4 +1,3 @@
-using AutoMapper;
 using IntegradorSofttekImanol.DAL;
 using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Models.HelperClasses;
@@ -20,12 +19,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-//Configuramos el swagger para poder agregar un campo de authorize token
+// Configure Swagger to add an authorize token field
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "Autorizacion JWT",
+        Description = "JWT Authorization",
         Type = SecuritySchemeType.Http,
         Scheme = "bearer"
     });
@@ -43,47 +42,37 @@ builder.Services.AddSwaggerGen(c =>
             }, new string[]{}
         }
     });
-
-
 });
 
 builder.Services.AddAutoMapper(typeof(MapperHelper));
 builder.Services.AddDbContext<AppDbContext>(e => e.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
-
-//Se obtienen los parametros de Jwt en el appsettings.json,
-//luego el ultimo .Get mappea las propiedades del json al objeto.
-
+// Gets JWT parameters from appsettings.json, mapping the properties from JSON to the object.
 var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
 
-//Se agrega la autorizacion con el JWT como service definiendo al bearer como scheme de auth
-//Luego, los parametros para validar el token Jwt
-
+// Adds JWT authorization as a service, defining Bearer as the authentication scheme, and setting parameters for JWT token validation.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = jwtSettings.Issuer,
-                        ValidAudience = jwtSettings.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
-                    });
+    .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings.Issuer,
+        ValidAudience = jwtSettings.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+    });
 
-
-//Se agrega la config para que Jwt se encuentre disponible
-
+// Adds JWT configuration to make it available.
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
-//Se agrega la autorizacion en base a roles de la aplicacion como service
+// Adds authorization based on application roles as service.
 builder.Services.AddAuthorization(option =>
 {
-    //Cuando utilizemos un authorice de tipo admin, tiene que tener id 1
+    // When using an "Admin" authorize, it should have the ID "1".
     option.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "1"));
 });
 
