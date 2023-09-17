@@ -1,4 +1,5 @@
-﻿using IntegradorSofttekImanol.Migrations;
+﻿using IntegradorSofttekImanol.Helpers;
+using IntegradorSofttekImanol.Migrations;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
@@ -28,8 +29,10 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         /// </returns>
         public async Task<Usuario?> AuthenticateCredentials(UsuarioAuthenticateDTO dto)
         {
+           
+
             return await _context.Usuarios.Include(e => e.Rol)
-                                          .SingleOrDefaultAsync(e => e.Dni.ToString() == dto.Dni && e.Contrasena == dto.contrasena);
+                                          .SingleOrDefaultAsync(e => e.Dni.ToString() == dto.Dni && e.Contrasena == EncrypterHelper.Encrypter(dto.contrasena,"d"));
 
         }
 
