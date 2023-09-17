@@ -5,7 +5,7 @@ namespace IntegradorSofttekImanol.Infrastructure
 {
     public static class ResponseFactory
     {
-        
+        /*
         public static IActionResult CreateSuccessResponse(int statusCode, object? data)
         {
 
@@ -15,10 +15,10 @@ namespace IntegradorSofttekImanol.Infrastructure
                 Data = data
             };
 
-            
-            
-          
-        }
 
+            
+         
+        }
+        */
     }
 }

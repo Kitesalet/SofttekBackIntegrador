@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
+using IntegradorSofttekImanol.Models.HelperClasses;
 using IntegradorSofttekImanol.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace IntegradorSofttekImanol.Controllers
 {
@@ -16,7 +18,7 @@ namespace IntegradorSofttekImanol.Controllers
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public LoginController(IUnitOfWork unitOfWork, IOption configuration, IMapper mapper)
+        public LoginController(IUnitOfWork unitOfWork, IOptions<JwtSettings> configuration, IMapper mapper)
         {
             
             _unitOfWork = unitOfWork;
