@@ -34,7 +34,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         /// * Un objeto usuario si la autenticacion es exitosa
         /// * Un valor nulo si la autenticacion falla
         /// </returns>
-        public async Task<Usuario> AuthenticateCredentials(UsuarioAuthenticateDTO dto)
+        public async Task<Usuario?> AuthenticateCredentials(UsuarioAuthenticateDTO dto)
         {
            
 
