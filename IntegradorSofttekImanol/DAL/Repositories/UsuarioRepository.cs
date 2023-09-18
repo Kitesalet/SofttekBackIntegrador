@@ -31,15 +31,16 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         /// </summary>
         /// <param name="dto">AuthenticateDTO</param>
         /// <returns> 
-        /// * Un objeto usuario si la autenticacion es exitosa
-        /// * Un valor nulo si la autenticacion falla
+        /// A user object if the authentication is a success
+        /// |
+        /// A null value if it fails
         /// </returns>
-        public async Task<Usuario> AuthenticateCredentials(UsuarioAuthenticateDTO dto)
+        public async Task<Usuario?> AuthenticateCredentials(UsuarioAuthenticateDTO dto)
         {
            
 
             return await _context.Usuarios.Include(e => e.Rol)
-                                          .SingleOrDefaultAsync(e => e.Dni.ToString() == dto.Dni && e.Contrasena == EncrypterHelper.Encrypter(dto.contrasena,"d"));
+                                          .SingleOrDefaultAsync(e => e.CodUsuario.ToString() == dto.CodUsuario && e.Contrasena == EncrypterHelper.Encrypter(dto.Contrasena,"d"));
 
         }
 

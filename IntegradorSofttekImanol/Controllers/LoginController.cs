@@ -69,7 +69,7 @@ namespace IntegradorSofttekImanol.Controllers
             var user = new UsuarioLoginDto()
             {
                 Token = token,
-                Dni = userCredentials.Dni,
+                CodUsuario = userCredentials.CodUsuario,
                 Nombre = userCredentials.Nombre,
                 Tipo = userCredentials.Tipo
             };

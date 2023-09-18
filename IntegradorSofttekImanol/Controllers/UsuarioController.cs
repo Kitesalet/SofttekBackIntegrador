@@ -1,4 +1,5 @@
-﻿using IntegradorSofttekImanol.Models.DTOs.Usuario;
+﻿using IntegradorSofttekImanol.Helpers;
+using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,9 +33,24 @@ namespace IntegradorSofttekImanol.Controllers
         
         [HttpGet]
         [Route("usuarios")]
-        public async Task<ActionResult<IEnumerable<UsuarioGetDto>>> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
+        public async Task<ActionResult<IEnumerable<TrabajoDto>>> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
             var users = await _service.GetAllUsuariosAsync(page, units);
+
+            #region pagination with the helper class
+            /*
+            var pageToShow = 1;
+
+            if (Request.Query.ContainsKey("page"))
+            {
+                int.TryParse(Request.Query["page"], out pageToShow);
+            }
+
+            var url = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}").ToString();
+
+            var paginateUsers = PaginateHelper.Paginate(users,pageToShow, url);
+            */
+            #endregion
 
             return Ok(users);
         }

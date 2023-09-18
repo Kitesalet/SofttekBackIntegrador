@@ -11,6 +11,10 @@ namespace IntegradorSofttekImanol.Services
     {
         private readonly AppDbContext _context;
         public UsuarioRepository UsuarioRepository { get; }
+        public ProyectoRepository ProyectoRepository { get; }
+        public TrabajoRepository TrabajoRepository { get; }
+        public RolRepository RolRepository { get; }
+        public ServicioRepository ServicioRepository { get; }
 
         /// <summary>
         /// Initializes an instance of UnitOfWork using dependency injection with its parameters
@@ -20,7 +24,12 @@ namespace IntegradorSofttekImanol.Services
         {
             _context = context;
             UsuarioRepository = new UsuarioRepository(context);
-        }
+            ProyectoRepository = new ProyectoRepository(context);
+            TrabajoRepository = new TrabajoRepository(context);
+            RolRepository = new RolRepository(context);
+            ServicioRepository = new ServicioRepository(context);
+       
+    }
 
         /// <inheritdoc/>
         public async Task<int> Complete()

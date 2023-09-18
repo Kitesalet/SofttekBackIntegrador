@@ -63,17 +63,17 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(int page, int units)
+        public async Task<IEnumerable<TrabajoDto>> GetAllUsuariosAsync(int page, int units)
         {
 
             var usuarios = await _unitOfWork.UsuarioRepository.GetAllAsync(page, units);      
             
-            return _mapper.Map<List<UsuarioGetDto>>(usuarios);
+            return _mapper.Map<List<TrabajoDto>>(usuarios);
                    
         }
 
         /// <inheritdoc/>
-        public async Task<UsuarioGetDto> GetUsuarioByIdAsync(int id)
+        public async Task<TrabajoDto> GetUsuarioByIdAsync(int id)
         {
             
             var usuario = await _unitOfWork.UsuarioRepository.GetByIdAsync(id);
@@ -83,7 +83,7 @@ namespace IntegradorSofttekImanol.Services
                 return null;
             }
 
-            return _mapper.Map<UsuarioGetDto>(usuario);
+            return _mapper.Map<TrabajoDto>(usuario);
             
         }
 
