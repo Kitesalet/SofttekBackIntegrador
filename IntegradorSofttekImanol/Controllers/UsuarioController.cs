@@ -120,23 +120,19 @@ namespace IntegradorSofttekImanol.Controllers
         /// <param name="id">ID of the user to delete.</param>
         /// <returns>
         /// 204 No Content response if user deletion is successful.
-        /// 400 Bad Request response if user deletion fails.
+        /// 404 Not Found response if user deletion fails.
         /// </returns>
         
         [HttpDelete]
         [Route("usuario/{id}")]
         public async Task<ActionResult> DeleteUser([FromRoute] int id)
         {
-            if (await _service.GetUsuarioByIdAsync(id) == null)
-            {
-                return NotFound("User not found.");
-            }
 
             var result = await _service.DeleteUsuarioAsync(id);
 
             if (!result)
             {
-                return BadRequest(result);
+                return NotFound(result);
             }
 
             return NoContent();

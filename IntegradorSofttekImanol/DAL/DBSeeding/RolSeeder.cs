@@ -19,7 +19,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
             modelbuilder.Entity<Rol>().HasData(
                 new Rol
                 {
-                    codRol = 1,
+                    CodRol = 1,
                     Nombre = "Administrador",
                     Descripcion = "Usuario con derechos maximos",
                     FechaAlta = DateTime.Now
@@ -27,7 +27,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 },
                 new Rol
                 {
-                    codRol = 2,
+                    CodRol = 2,
                     Nombre = "Consultor",
                     Descripcion = "Usuario con derechos basicos"
                 }

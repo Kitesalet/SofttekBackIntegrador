@@ -15,7 +15,7 @@ namespace IntegradorSofttekImanol.Models.Entities
         [Column("codTrabajo", TypeName = "int")]
         public int CodTrabajo { get; set; }
 
-        [Column("fecha", TypeName = "datetime")]
+        [Column("fecha", TypeName = "datetime2")]
         [Required]
         public DateTime Fecha { get; set; }
 

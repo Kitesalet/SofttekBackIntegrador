@@ -13,7 +13,7 @@ namespace IntegradorSofttekImanol.Models.Entities
         [Column("codUsuario")]
         public int CodUsuario { get; set; }
 
-        [Column("nombre", TypeName = "varchar(45)")]
+        [Column("nombre", TypeName = "varchar(60)")]
         [Required]
         public string Nombre { get; set; }
 
@@ -28,7 +28,7 @@ namespace IntegradorSofttekImanol.Models.Entities
         [ForeignKey("Rol")]
         public int Tipo { get; set; }
 
-        [Column("contrasena",TypeName = "varchar(40)")]
+        [Column("contrasena",TypeName = "varchar(200)")]
         [Required]
         public string Contrasena { get; set; }
 
