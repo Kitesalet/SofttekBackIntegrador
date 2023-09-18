@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
+    /// <summary>
+    /// The implemmentation that defines common operations for a repository handling entities of type T.
+    /// </summary>
     public class Repository<T> : IRepository<T> where T : class
     {
 
@@ -36,12 +39,12 @@ namespace IntegradorSofttekImanol.DAL.Repositories
 
         }
 
-        public virtual async Task<IEnumerable<T>> GetAll()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _set.ToListAsync();
         }
 
-        public virtual async Task<T> GetById(int id)
+        public virtual async Task<T> GetByIdAsync(int id)
         {
             return await _set.FindAsync(id);
         }

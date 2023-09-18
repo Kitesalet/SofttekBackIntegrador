@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
+    /// <summary>
+    /// The implemmentation that defines extra repository operations related to the Usuario entity
+    /// </summary>
     public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
     {
         private readonly AppDbContext _context;
@@ -20,7 +23,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
 
 
         /// <summary>
-        /// Evalua si un usuario existe en la base de datos autenticandolo y filtrandolo en base a sus credentials.
+        /// Evaluates if a user exists and check its credentials
         /// </summary>
         /// <param name="dto">AuthenticateDTO</param>
         /// <returns> 

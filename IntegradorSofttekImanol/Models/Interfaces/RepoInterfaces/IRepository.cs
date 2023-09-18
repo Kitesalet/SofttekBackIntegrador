@@ -34,8 +34,9 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
         /// </summary>
         /// <param name="id">An int</param>
         /// <returns>
-        /// *True if it was deleted
-        /// *False if it wasnt deleted
+        /// True if it was deleted
+        /// |
+        /// False if it wasnt deleted
         /// </returns>
         bool Delete(int id);
 
