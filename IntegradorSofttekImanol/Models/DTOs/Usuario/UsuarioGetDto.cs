@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IntegradorSofttekImanol.Models.DTOs.Usuario
 {
+    /// <summary>
+    /// Data transfer object for user retrieval.
+    /// </summary>
     public class UsuarioGetDto
     {
         public int CodUsuario { get; set; }

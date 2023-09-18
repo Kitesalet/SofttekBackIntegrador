@@ -10,12 +10,13 @@ using System.Security.Claims;
 
 namespace IntegradorSofttekImanol.Controllers
 {
-    [Route("api")]
-    [ApiController]
 
     /// <summary>
-    /// Responsible for user authentication and login.
+    /// Generates a Controller responsible for user authentication and login.
     /// </summary>
+    
+    [Route("api")]
+    [ApiController]
     public class LoginController : ControllerBase
     {
 

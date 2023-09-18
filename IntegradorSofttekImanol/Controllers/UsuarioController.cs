@@ -5,14 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IntegradorSofttekImanol.Controllers
 {
+
+
+    /// <summary>
+    /// Generates a Controller responsible for managing user data.
+    /// </summary>
+    
     [Route("api")]
     [ApiController]
     [Authorize]
-    public class UserController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _service;
 
-        public UserController(IUsuarioService service)
+        public UsuarioController(IUsuarioService service)
         {
             _service = service;
         }
@@ -23,6 +29,7 @@ namespace IntegradorSofttekImanol.Controllers
         /// <returns>
         /// 200 OK response with the list of users if successful.
         /// </returns>
+        
         [HttpGet]
         [Route("usuarios")]
         public async Task<ActionResult<IEnumerable<UsuarioGetDto>>> GetAllUsers()
@@ -40,6 +47,7 @@ namespace IntegradorSofttekImanol.Controllers
         /// 200 OK response with the user if found.
         /// 404 Not Found response if no user is found.
         /// </returns>
+        
         [HttpGet]
         [Route("usuario/{id}")]
         public async Task<ActionResult<UsuarioLoginDto>> GetUsuario([FromRoute] int id)
@@ -62,6 +70,7 @@ namespace IntegradorSofttekImanol.Controllers
         /// 201 Created response if user creation is successful.
         /// 400 Bad Request response if user creation fails.
         /// </returns>
+        
         [HttpPost]
         [Route("usuarios/register")]
         public async Task<ActionResult> CreateUsuario(UsuarioCreateDto dto)
@@ -85,6 +94,7 @@ namespace IntegradorSofttekImanol.Controllers
         /// 204 No Content response if user update is successful.
         /// 400 Bad Request response if user update fails.
         /// </returns>
+        
         [HttpPut]
         [Route("usuario/{id}")]
         public async Task<ActionResult> UpdateUsuario(int id, UsuarioUpdateDto dto)
@@ -112,6 +122,7 @@ namespace IntegradorSofttekImanol.Controllers
         /// 204 No Content response if user deletion is successful.
         /// 400 Bad Request response if user deletion fails.
         /// </returns>
+        
         [HttpDelete]
         [Route("usuario/{id}")]
         public async Task<ActionResult> DeleteUser([FromRoute] int id)
