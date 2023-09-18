@@ -35,6 +35,7 @@ namespace IntegradorSofttekImanol.Controllers
         
         [HttpGet]
         [Authorize(Policy = "AdministradorOrConsultor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("usuarios")]
         public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
@@ -70,6 +71,8 @@ namespace IntegradorSofttekImanol.Controllers
         
         [HttpGet]
         [Authorize(Policy = "AdministradorOrConsultor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("usuario/{id}")]
         public async Task<IActionResult> GetUsuario([FromRoute] int id)
         {
@@ -97,6 +100,9 @@ namespace IntegradorSofttekImanol.Controllers
         
         [HttpPost]
         [Authorize(Policy = "Administrador")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [Route("usuarios/register")]
         public async Task<IActionResult> CreateUsuario(UsuarioCreateDto dto)
         {
@@ -132,6 +138,8 @@ namespace IntegradorSofttekImanol.Controllers
         
         [HttpPut]
         [Authorize(Policy = "Administrador")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("usuario/{id}")]
         public async Task<IActionResult> UpdateUsuario(int id, UsuarioUpdateDto dto)
         {
@@ -162,6 +170,8 @@ namespace IntegradorSofttekImanol.Controllers
         
         [HttpDelete]
         [Authorize(Policy = "Administrador")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("usuario/{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
