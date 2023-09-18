@@ -38,7 +38,7 @@ namespace IntegradorSofttekImanol.Models.Entities
         public decimal valorHora { get; set; }
 
         /// <summary>
-        /// Esta propiedad devuelve el producto de las propiedades ValorHora y CantHoras
+        /// This property returns the product of ValorHora and CantHoras properties.
         /// </summary>
         [Column("costo")]
         [Required]
@@ -54,9 +54,17 @@ namespace IntegradorSofttekImanol.Models.Entities
             }
         }
 
-        //Navigation Properties
+        //Navigation Properties & Keys
+
         public Servicio Servicio { get; set; }
         public Proyecto Proyecto { get; set; }
+
+        [ForeignKey("Servicio")]
+        public int codServicio { get; set; }
+
+        [ForeignKey("Proyecto")]
+        public int codProyecto { get; set; }
+
 
     }
 }
