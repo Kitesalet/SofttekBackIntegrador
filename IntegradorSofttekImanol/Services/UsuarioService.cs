@@ -52,40 +52,29 @@ namespace IntegradorSofttekImanol.Services
         public async Task<bool> DeleteUsuarioAsync(int id)
         {
 
-            var flag = _unitOfWork.UsuarioRepository.Delete(id);
+            var flag = await _unitOfWork.UsuarioRepository.Delete(id);
 
             await _unitOfWork.Complete();
 
             return flag;
-
-            /*
-            if(usuario.FechaBaja != null || usuario != null)
-            {
-                usuario.FechaBaja = DateTime.Now;
-
-                await _unitOfWork.Complete();
-
-                return true;
-            }
-            */
 
         }
 
         public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync()
         {
 
-            var usuarios = await _unitOfWork.UsuarioRepository.GetAll();      
+            var usuarios = await _unitOfWork.UsuarioRepository.GetAllAsync();      
             
-            return _mapper.Map<List<UsuarioGetDto>>(usuarios.Where(e => e.FechaBaja == null));
+            return _mapper.Map<List<UsuarioGetDto>>(usuarios);
                    
         }
 
         public async Task<UsuarioGetDto> GetUsuarioByIdAsync(int id)
         {
             
-            var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
+            var usuario = await _unitOfWork.UsuarioRepository.GetByIdAsync(id);
 
-            if(usuario == null)
+            if(usuario == null || usuario.FechaBaja != null)
             {
                 return null;
             }
@@ -96,7 +85,7 @@ namespace IntegradorSofttekImanol.Services
 
         public async Task<bool> UpdateUsuario(UsuarioUpdateDto usuarioDto)
         {
-            var usuario = await _unitOfWork.UsuarioRepository.GetById(usuarioDto.CodUsuario);
+            var usuario = await _unitOfWork.UsuarioRepository.GetByIdAsync(usuarioDto.CodUsuario);
 
             if (usuario == null)
             {

@@ -38,7 +38,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
         /// |
         /// False if it wasnt deleted
         /// </returns>
-        bool Delete(int id);
+        Task<bool> Delete(int id);
 
         /// <summary>
         /// Updates an entity of type T.
