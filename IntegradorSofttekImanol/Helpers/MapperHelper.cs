@@ -15,13 +15,14 @@ namespace IntegradorSofttekImanol.Helpers
         /// </summary>
         public MapperHelper() 
         {
-            
+
+            CreateMap<Rol, RolDto>().ReverseMap();
+
             CreateMap<Proyecto, ProyectoDTO>().ReverseMap();
+            
             CreateMap<Servicio,ServicioDTO>().ReverseMap();
+            
             CreateMap<Trabajo, TrabajoDTO>().ReverseMap();
-
-
-
 
             #region Usuario mapping to their Dto class
             CreateMap<Usuario, UsuarioUpdateDto>().ReverseMap();
