@@ -20,6 +20,9 @@ namespace IntegradorSofttekImanol.Controllers
         /// <summary>
         /// Gets all users.
         /// </summary>
+        /// <returns>
+        /// 200 OK response with the list of users if successful.
+        /// </returns>
         [HttpGet]
         [Route("usuarios")]
         public async Task<ActionResult<IEnumerable<UsuarioGetDto>>> GetAllUsers()
@@ -30,9 +33,13 @@ namespace IntegradorSofttekImanol.Controllers
         }
 
         /// <summary>
-        /// Gets a user by their id.
+        /// Gets a user by their ID.
         /// </summary>
-        /// <param name="id">id of the user to get.</param>
+        /// <param name="id">ID of the user to get.</param>
+        /// <returns>
+        /// 200 OK response with the user if found.
+        /// 404 Not Found response if no user is found.
+        /// </returns>
         [HttpGet]
         [Route("usuario/{id}")]
         public async Task<ActionResult<UsuarioLoginDto>> GetUsuario([FromRoute] int id)
@@ -51,6 +58,10 @@ namespace IntegradorSofttekImanol.Controllers
         /// Creates a new user.
         /// </summary>
         /// <param name="dto">User data in a DTO.</param>
+        /// <returns>
+        /// 201 Created response if user creation is successful.
+        /// 400 Bad Request response if user creation fails.
+        /// </returns>
         [HttpPost]
         [Route("usuarios/register")]
         public async Task<ActionResult> CreateUsuario(UsuarioCreateDto dto)
@@ -66,10 +77,14 @@ namespace IntegradorSofttekImanol.Controllers
         }
 
         /// <summary>
-        /// Updates an existing user by their id.
+        /// Updates an existing user by their ID.
         /// </summary>
-        /// <param name="id">id of the user to update.</param>
+        /// <param name="id">ID of the user to update.</param>
         /// <param name="dto">Updated user data in a DTO.</param>
+        /// <returns>
+        /// 204 No Content response if user update is successful.
+        /// 400 Bad Request response if user update fails.
+        /// </returns>
         [HttpPut]
         [Route("usuario/{id}")]
         public async Task<ActionResult> UpdateUsuario(int id, UsuarioUpdateDto dto)
@@ -90,9 +105,13 @@ namespace IntegradorSofttekImanol.Controllers
         }
 
         /// <summary>
-        /// Deletes a user by their id.
+        /// Deletes a user by their ID.
         /// </summary>
-        /// <param name="id">id of the user to delete.</param>
+        /// <param name="id">ID of the user to delete.</param>
+        /// <returns>
+        /// 204 No Content response if user deletion is successful.
+        /// 400 Bad Request response if user deletion fails.
+        /// </returns>
         [HttpDelete]
         [Route("usuario/{id}")]
         public async Task<ActionResult> DeleteUser([FromRoute] int id)

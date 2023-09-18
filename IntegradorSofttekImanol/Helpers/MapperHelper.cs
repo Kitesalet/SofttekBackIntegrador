@@ -5,6 +5,9 @@ using IntegradorSofttekImanol.Models.Entities;
 
 namespace IntegradorSofttekImanol.Helpers
 {
+    /// <summary>
+    /// This class provides a mean to configure mappings between classes
+    /// </summary>
     public class MapperHelper : Profile
     {
         /// <summary>
