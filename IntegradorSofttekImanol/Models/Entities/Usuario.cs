@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IntegradorSofttekImanol.Models.Entities
 {
     [Table("usuarios")]
-    public class Usuario : EntidadBase
+    public class Usuario : BaseEntity
     {
 
         [Key]

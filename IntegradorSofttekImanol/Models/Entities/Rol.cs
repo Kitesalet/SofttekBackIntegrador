@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IntegradorSofttekImanol.Models.Entities
 {
     [Table("roles")]
-    public class Rol : EntidadBase
+    public class Rol : BaseEntity
     {
         [Key]
         [Column("codRol")]

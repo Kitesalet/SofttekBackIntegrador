@@ -2,7 +2,7 @@
 
 namespace IntegradorSofttekImanol.Models.Entities
 {
-    public class EntidadBase
+    public class BaseEntity
     {
         [Column("fechaBaja")]
         public DateTime? FechaBaja { get; set; }
