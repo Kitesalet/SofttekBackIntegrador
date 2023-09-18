@@ -19,7 +19,7 @@ namespace IntegradorSofttekImanol.Infrastructure
             };
         }
 
-        public static IActionResult CreateErrorResponse(HttpStatusCode statusCode, string[] errors)
+        public static IActionResult CreateErrorResponse(HttpStatusCode statusCode, params string[] errors)
         {
             var response = new ApiErrorResponse()
             {
