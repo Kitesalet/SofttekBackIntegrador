@@ -32,8 +32,7 @@ namespace IntegradorSofttekImanol.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
-             //Entity seeding
-             
+            //Entity seeding          
 
             var seeder = new List<IEntitySeeder>()
             {
