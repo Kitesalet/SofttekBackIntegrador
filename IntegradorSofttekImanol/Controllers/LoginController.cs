@@ -12,6 +12,10 @@ namespace IntegradorSofttekImanol.Controllers
 {
     [Route("api")]
     [ApiController]
+
+    /// <summary>
+    /// Responsible for user authentication and login.
+    /// </summary>
     public class LoginController : ControllerBase
     {
 
@@ -19,6 +23,13 @@ namespace IntegradorSofttekImanol.Controllers
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
+
+        /// <summary>
+        /// Initializes an instance of LoginController using dependency injection with its parameters
+        /// </summary>
+        /// <param name="unitOfWork">UnitOfWork</param>
+        /// <param name="configuration">IOptions<JwtSettings></param>
+        /// <param name="mapper">IMapper</param>
         public LoginController(IUnitOfWork unitOfWork, IOptions<JwtSettings> configuration, IMapper mapper)
         {
             
@@ -29,6 +40,16 @@ namespace IntegradorSofttekImanol.Controllers
         }
 
 
+        /// <summary>
+        /// Authenticates a user and generates a JWT token for successful login.
+        /// </summary>
+        /// <param name="authenticate">UsuarioAuthenticateDTO</param>
+        /// <returns>
+        /// If authentication is successful, returns an OK response with the JWT token.
+        /// |
+        /// If authentication fails, returns an Unauthorized response with an error message.
+        /// </returns>
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UsuarioAuthenticateDTO authenticate)
@@ -38,7 +59,7 @@ namespace IntegradorSofttekImanol.Controllers
 
             if (userCredentials == null)
             {
-                return Unauthorized("Las credenciales ingresadas son incorrectas!");
+                return Unauthorized("The entered credentials are invalid");
             }
 
             var token = _tokenJWTHelper.GenerateToken(userCredentials);
@@ -53,7 +74,7 @@ namespace IntegradorSofttekImanol.Controllers
                 Tipo = userCredentials.Tipo
             };
 
-            //Nunca devolver Id ni password, si no que se puede devolver nombre, apellido y rol
+            //Never return a password
 
 
             return Ok(user);
