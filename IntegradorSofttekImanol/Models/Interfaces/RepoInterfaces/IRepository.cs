@@ -12,14 +12,14 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
         /// <summary>
         /// Gets all entities of type T.
         /// </summary>
-        /// <returns>An asynchronous operation that returns a collection of entities.</returns>
+        /// <returns>All of the T entities</returns>
         Task<IEnumerable<T>> GetAllAsync();
 
         /// <summary>
         /// Gets an entity of type T by its id.
         /// </summary>
         /// <param name="id">An int</param>
-        /// <returns>All of the entities</returns>
+        /// <returns>One of the T entities</returns>
         Task<T> GetByIdAsync(int id);
 
         /// <summary>
