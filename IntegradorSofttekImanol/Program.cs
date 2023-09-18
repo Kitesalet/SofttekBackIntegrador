@@ -85,12 +85,15 @@ builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"))
 
 #region JWT Authorization
 
-// Adds authorization based on application roles as service.
+// Adds authorization based on policies and roles in our JWT.
 builder.Services.AddAuthorization(option =>
 {
-
+    //Creates policies for both the Administrador and Consultor roles,based on their PKs
     option.AddPolicy("Administrador", policy => policy.RequireClaim(ClaimTypes.Role, "1"));
     option.AddPolicy("Consultor", policy => policy.RequireClaim(ClaimTypes.Role, "2"));
+
+    //Creates a policy that authorizes a token if their Role claim is either 1 or 2 ( Administrador or Consultor )
+    option.AddPolicy("AdministradorOrConsultor", policy => policy.RequireClaim(ClaimTypes.Role,"1","2"));
 
 });
 
