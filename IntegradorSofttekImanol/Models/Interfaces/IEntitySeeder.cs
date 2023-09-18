@@ -2,10 +2,15 @@
 
 namespace IntegradorSofttekImanol.Models.Interfaces
 {
+    /// <summary>
+    /// This interface defines a method in charge of seeding the db with various objects.
+    /// </summary>
     public interface IEntitySeeder
     {
-
-        void SeedDatabase(ModelBuilder modelbuilder);
-
+        /// <summary>
+        /// Seeds the database with objects.
+        /// </summary>
+        /// <param name="modelBuilder">A ModelBuilder</param>
+        void SeedDatabase(ModelBuilder modelBuilder);
     }
 }

@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.DBSeeding
 {
+    /// <summary>
+    /// Is the implementation of the interface IEntitySeeder, that seeds Trabajo objects into the database
+    /// </summary>
     public class TrabajoSeeder : IEntitySeeder
     {
         /// <summary>

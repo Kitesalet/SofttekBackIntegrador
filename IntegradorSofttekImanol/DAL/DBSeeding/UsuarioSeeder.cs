@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.DBSeeding
 {
+    /// <summary>
+    /// Is the implementation of the interface IEntitySeeder, that seeds Usuario objects into the database
+    /// </summary>
     public class UsuarioSeeder : IEntitySeeder
     {
 

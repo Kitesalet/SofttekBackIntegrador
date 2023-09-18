@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.DBSeeding
 {
+    /// <summary>
+    /// Is the implementation of the interface IEntitySeeder, that seeds Proyecto objects into the database
+    /// </summary>
     public class ProyectoSeeder : IEntitySeeder
     {
         /// <summary>
