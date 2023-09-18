@@ -9,10 +9,10 @@ namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
     public interface IUsuarioService
     {
         /// <summary>
-        /// Gets a collection of user data that hasnt been soft deleted.
+        /// Gets a collection of user data that hasnt been soft deleted with pagination.
         /// </summary>
         /// <returns>All of the UsuarioGetDto entities</returns>
-        Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync();
+        Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(int page, int units);
 
         /// <summary>
         /// Gets user data by its id.

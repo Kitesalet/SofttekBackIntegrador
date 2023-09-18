@@ -24,7 +24,7 @@ namespace IntegradorSofttekImanol.Controllers
         }
 
         /// <summary>
-        /// Gets all users.
+        /// Gets all users adding pagination.
         /// </summary>
         /// <returns>
         /// 200 OK response with the list of users if successful.
@@ -32,7 +32,7 @@ namespace IntegradorSofttekImanol.Controllers
         
         [HttpGet]
         [Route("usuarios")]
-        public async Task<ActionResult<IEnumerable<UsuarioGetDto>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<UsuarioGetDto>>> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 5)
         {
             var users = await _service.GetAllUsuariosAsync();
 

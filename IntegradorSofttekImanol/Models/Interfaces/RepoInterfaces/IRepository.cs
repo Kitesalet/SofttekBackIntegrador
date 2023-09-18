@@ -10,10 +10,10 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
     public interface IRepository<T> where T : class
     {
         /// <summary>
-        /// Gets all entities of type T.
+        /// Gets all entities of type T with pagination.
         /// </summary>
         /// <returns>All of the T entities</returns>
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync(int page, int units);
 
         /// <summary>
         /// Gets an entity of type T by its id.

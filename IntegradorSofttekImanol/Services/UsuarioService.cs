@@ -63,10 +63,10 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync()
+        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(int page, int units)
         {
 
-            var usuarios = await _unitOfWork.UsuarioRepository.GetAllAsync();      
+            var usuarios = await _unitOfWork.UsuarioRepository.GetAllAsync(page, units);      
             
             return _mapper.Map<List<UsuarioGetDto>>(usuarios);
                    

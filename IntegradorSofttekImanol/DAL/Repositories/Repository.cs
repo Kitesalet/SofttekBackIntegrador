@@ -56,11 +56,15 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync(int page, int units)
         {
             IQueryable<T> query = _set;
 
-            return await query.Where(t => t.FechaBaja == null).ToListAsync();
+            return await query
+                            .Where(t => t.FechaBaja == null)
+                            .Skip((page - 1) * units)
+                            .Take(units)
+                            .ToListAsync();
         }
 
         /// <inheritdoc/>
