@@ -26,6 +26,7 @@ namespace IntegradorSofttekImanol.Services
             _mapper = mapper;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> CreateUsuarioAsync(UsuarioCreateDto usuarioDto)
         {
             try
@@ -49,6 +50,7 @@ namespace IntegradorSofttekImanol.Services
 
         }
 
+        /// <inheritdoc/>
         public async Task<bool> DeleteUsuarioAsync(int id)
         {
 
@@ -60,6 +62,7 @@ namespace IntegradorSofttekImanol.Services
 
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync()
         {
 
@@ -69,6 +72,7 @@ namespace IntegradorSofttekImanol.Services
                    
         }
 
+        /// <inheritdoc/>
         public async Task<UsuarioGetDto> GetUsuarioByIdAsync(int id)
         {
             
@@ -83,6 +87,7 @@ namespace IntegradorSofttekImanol.Services
             
         }
 
+        /// <inheritdoc/>
         public async Task<bool> UpdateUsuario(UsuarioUpdateDto usuarioDto)
         {
             var usuario = await _unitOfWork.UsuarioRepository.GetByIdAsync(usuarioDto.CodUsuario);
@@ -95,6 +100,7 @@ namespace IntegradorSofttekImanol.Services
             usuario.Nombre = usuarioDto.Nombre;
             usuario.Tipo = usuarioDto.Tipo;
             usuario.Contrasena = usuarioDto.Contrasena;
+            usuario.FechaUpdate = DateTime.Now;
 
             _unitOfWork.UsuarioRepository.Update(usuario);
 

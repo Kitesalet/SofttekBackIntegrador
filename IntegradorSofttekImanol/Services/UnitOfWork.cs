@@ -22,6 +22,7 @@ namespace IntegradorSofttekImanol.Services
             UsuarioRepository = new UsuarioRepository(context);
         }
 
+        /// <inheritdoc/>
         public async Task<int> Complete()
         {
             return await _context.SaveChangesAsync();

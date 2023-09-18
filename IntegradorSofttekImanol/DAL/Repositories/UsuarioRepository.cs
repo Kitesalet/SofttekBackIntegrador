@@ -13,12 +13,16 @@ namespace IntegradorSofttekImanol.DAL.Repositories
     public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
     {
         private readonly AppDbContext _context;
+
+        /// <summary>
+        /// Initializes an instance of UsuarioRepository using dependency injection with its parameters
+        /// </summary>
+        /// <param name="context">AppDbContext with DI</param>
         public UsuarioRepository(AppDbContext context) : base(context)
         {
 
             _context = context;
            
-
         }
 
 

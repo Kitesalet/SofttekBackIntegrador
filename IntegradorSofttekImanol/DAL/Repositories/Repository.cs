@@ -14,17 +14,23 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         private readonly AppDbContext _context;
         private readonly DbSet<T> _set;
 
+        /// <summary>
+        /// Initializes an instance of Repository using dependency injection with its parameters
+        /// </summary>
+        /// <param name="context">AppDbContext with DI</param>
         public Repository(AppDbContext context)
         {
             _context = context;
             _set = context.Set<T>();
         }
 
+        /// <inheritdoc/>
         public virtual async Task AddAsync(T entity)
         {
             await _set.AddAsync(entity);
         }
 
+        /// <inheritdoc/>
         public virtual async Task<bool> Delete(int id)
         {
             var entity = await _set.FindAsync(id);
@@ -49,6 +55,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
 
         }
 
+        /// <inheritdoc/>
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             IQueryable<T> query = _set;
@@ -56,11 +63,13 @@ namespace IntegradorSofttekImanol.DAL.Repositories
             return await query.Where(t => t.FechaBaja == null).ToListAsync();
         }
 
+        /// <inheritdoc/>
         public virtual async Task<T> GetByIdAsync(int id)
         {
             return await _set.FindAsync(id);
         }
 
+        /// <inheritdoc/>
         public virtual void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
