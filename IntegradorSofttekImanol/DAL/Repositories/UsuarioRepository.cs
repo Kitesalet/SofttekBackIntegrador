@@ -13,12 +13,16 @@ namespace IntegradorSofttekImanol.DAL.Repositories
     public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
     {
         private readonly AppDbContext _context;
+
+        /// <summary>
+        /// Initializes an instance of UsuarioRepository using dependency injection with its parameters
+        /// </summary>
+        /// <param name="context">AppDbContext with DI</param>
         public UsuarioRepository(AppDbContext context) : base(context)
         {
 
             _context = context;
            
-
         }
 
 
@@ -30,7 +34,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         /// * Un objeto usuario si la autenticacion es exitosa
         /// * Un valor nulo si la autenticacion falla
         /// </returns>
-        public async Task<Usuario?> AuthenticateCredentials(UsuarioAuthenticateDTO dto)
+        public async Task<Usuario> AuthenticateCredentials(UsuarioAuthenticateDTO dto)
         {
            
 

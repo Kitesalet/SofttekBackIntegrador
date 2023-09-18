@@ -26,6 +26,7 @@ namespace IntegradorSofttekImanol.Services
             _mapper = mapper;
         }
 
+        /// <inheritdoc/>
         public async Task<bool> CreateUsuarioAsync(UsuarioCreateDto usuarioDto)
         {
             try
@@ -49,43 +50,35 @@ namespace IntegradorSofttekImanol.Services
 
         }
 
+        /// <inheritdoc/>
         public async Task<bool> DeleteUsuarioAsync(int id)
         {
 
-            var flag = _unitOfWork.UsuarioRepository.Delete(id);
+            var flag = await _unitOfWork.UsuarioRepository.Delete(id);
 
             await _unitOfWork.Complete();
 
             return flag;
 
-            /*
-            if(usuario.FechaBaja != null || usuario != null)
-            {
-                usuario.FechaBaja = DateTime.Now;
-
-                await _unitOfWork.Complete();
-
-                return true;
-            }
-            */
-
         }
 
-        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync()
+        /// <inheritdoc/>
+        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(int page, int units)
         {
 
-            var usuarios = await _unitOfWork.UsuarioRepository.GetAll();      
+            var usuarios = await _unitOfWork.UsuarioRepository.GetAllAsync(page, units);      
             
-            return _mapper.Map<List<UsuarioGetDto>>(usuarios.Where(e => e.FechaBaja == null));
+            return _mapper.Map<List<UsuarioGetDto>>(usuarios);
                    
         }
 
+        /// <inheritdoc/>
         public async Task<UsuarioGetDto> GetUsuarioByIdAsync(int id)
         {
             
-            var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
+            var usuario = await _unitOfWork.UsuarioRepository.GetByIdAsync(id);
 
-            if(usuario == null)
+            if(usuario == null || usuario.FechaBaja != null)
             {
                 return null;
             }
@@ -94,9 +87,10 @@ namespace IntegradorSofttekImanol.Services
             
         }
 
+        /// <inheritdoc/>
         public async Task<bool> UpdateUsuario(UsuarioUpdateDto usuarioDto)
         {
-            var usuario = await _unitOfWork.UsuarioRepository.GetById(usuarioDto.CodUsuario);
+            var usuario = await _unitOfWork.UsuarioRepository.GetByIdAsync(usuarioDto.CodUsuario);
 
             if (usuario == null)
             {
@@ -106,6 +100,7 @@ namespace IntegradorSofttekImanol.Services
             usuario.Nombre = usuarioDto.Nombre;
             usuario.Tipo = usuarioDto.Tipo;
             usuario.Contrasena = usuarioDto.Contrasena;
+            usuario.FechaUpdate = DateTime.Now;
 
             _unitOfWork.UsuarioRepository.Update(usuario);
 
