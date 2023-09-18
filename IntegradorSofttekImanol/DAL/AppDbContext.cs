@@ -28,6 +28,8 @@ namespace IntegradorSofttekImanol.DAL
         public DbSet<Trabajo> Trabajos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
+        public DbSet<Rol> Roles { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
