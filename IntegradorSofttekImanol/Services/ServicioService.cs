@@ -1,6 +1,8 @@
-﻿namespace IntegradorSofttekImanol.Services
+﻿using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
+
+namespace IntegradorSofttekImanol.Services
 {
-    public class ServicioService
+    public class ServicioService : IServicioService
     {
     }
 }

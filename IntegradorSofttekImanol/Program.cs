@@ -2,6 +2,7 @@ using IntegradorSofttekImanol.DAL;
 using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Models.HelperClasses;
 using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces.projectInterfaces;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using IntegradorSofttekImanol.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -52,7 +53,12 @@ builder.Services.AddDbContext<AppDbContext>(e => e.UseSqlServer(builder.Configur
 #region Scoped Services
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IProyectoService, ProyectoService>();
+builder.Services.AddScoped<ITrabajoService, TrabajoService>();
+builder.Services.AddScoped<IServicioService, ServicioService>();
+
 
 #endregion
 
