@@ -26,7 +26,7 @@ namespace IntegradorSofttekImanol.Helpers
             #region Usuario mapping to their Dto class
             CreateMap<Usuario, UsuarioUpdateDto>().ReverseMap();
             CreateMap<Usuario, UsuarioCreateDto>().ReverseMap();
-            CreateMap<Usuario, UsuarioGetDto>().ReverseMap();
+            CreateMap<Usuario, TrabajoDto>().ReverseMap();
             CreateMap<Usuario, UsuarioLoginDto>().ReverseMap();
             #endregion
 

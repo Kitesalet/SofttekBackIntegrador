@@ -6,7 +6,7 @@ namespace IntegradorSofttekImanol.Models.DTOs.Usuario
     /// <summary>
     /// Data transfer object for user retrieval.
     /// </summary>
-    public class UsuarioGetDto
+    public class TrabajoDto
     {
         public int CodUsuario { get; set; }
         public string Nombre { get; set; }

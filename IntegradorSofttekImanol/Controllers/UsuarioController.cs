@@ -32,7 +32,7 @@ namespace IntegradorSofttekImanol.Controllers
         
         [HttpGet]
         [Route("usuarios")]
-        public async Task<ActionResult<IEnumerable<UsuarioGetDto>>> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
+        public async Task<ActionResult<IEnumerable<TrabajoDto>>> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
             var users = await _service.GetAllUsuariosAsync(page, units);
 
