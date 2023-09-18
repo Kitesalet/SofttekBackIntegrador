@@ -31,7 +31,8 @@ namespace IntegradorSofttekImanol.Helpers
             {
                 new Claim(JwtRegisteredClaimNames.Sub, _jwtSettings.Subject),
                 new Claim(ClaimTypes.NameIdentifier, user.CodUsuario.ToString()),
-                new Claim(ClaimTypes.Name, user.Nombre)
+                new Claim(ClaimTypes.Name, user.Nombre),
+                new Claim(ClaimTypes.Role, user.Rol.CodRol.ToString())
             };
 
 
