@@ -4,13 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.DBSeeding
 {
+    /// <summary>
+    /// Is the implementation of the interface IEntitySeeder, that seeds Proyecto objects into the database
+    /// </summary>
     public class ProyectoSeeder : IEntitySeeder
     {
         /// <summary>
-        /// Realiza el seedeo de objetos Proyecto en la base de datos al
-        /// realizar la migracion
+        /// Performs seeding of Proyecto objects into the database during migration.
         /// </summary>
-        /// <param name="modelbuilder">Toma un objeto modelbuilder para utilizar fluent api</param>
+        /// <param name="modelBuilder">Takes a modelBuilder object to use Fluent API.</param>
         public void SeedDatabase(ModelBuilder modelbuilder)
         {
             modelbuilder.Entity<Proyecto>().HasData(

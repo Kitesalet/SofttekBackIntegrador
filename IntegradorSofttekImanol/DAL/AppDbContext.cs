@@ -5,9 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL
 {
+    /// <summary>
+    /// Represents the application's database context that manages database tables.
+    /// </summary>
     public class AppDbContext : DbContext
     {
-
+        /// <summary>
+        /// Initializes an instance of AppDbContext
+        /// </summary>
+        /// <param name="options">DbContextOptions<AppDbContext></param>
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -16,7 +22,7 @@ namespace IntegradorSofttekImanol.DAL
         }
 
 
-        //Tablas en la base de datos
+        //Database tables
         public DbSet<Proyecto> Proyectos { get; set; }
         public DbSet<Servicio> Servicios { get; set; }
         public DbSet<Trabajo> Trabajos { get; set; }
@@ -25,9 +31,8 @@ namespace IntegradorSofttekImanol.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*
-             * Seedeo de las entidades a la DB
-             */
+            
+            //Entity seeding          
 
             var seeder = new List<IEntitySeeder>()
             {
@@ -43,18 +48,14 @@ namespace IntegradorSofttekImanol.DAL
                 seed.SeedDatabase(modelBuilder);
             }
 
+            #region Unused relationship settings
+            /*        
 
-            /*
-            //Setteo de las relaciones entre entidades
-           
-
-            //Se settea la relacion one to many entre las entidades Trabajo - Proyecto
             modelBuilder.Entity<Trabajo>()
                 .HasOne(e => e.Proyecto)
                 .WithMany(e => e.Trabajo)
                 .HasForeignKey("CodTrabajo");
 
-            //Se settea la relacion one to many entre las entidades Trabajo - Proyecto
             modelBuilder.Entity<Trabajo>()
                 .HasOne(e => e.Servicio)
                 .WithMany(e => e.Trabajo)
@@ -63,21 +64,15 @@ namespace IntegradorSofttekImanol.DAL
              */
 
             /*
-             * Setteo de las propiedades de las entidades
-             */
-
-            /*
-             
-            //Se settean las PKs de las entidades
-            
+                         
             modelBuilder.Entity<Usuario>().HasKey(e => e.CodUsuario);
             modelBuilder.Entity<Proyecto>().HasKey(e => e.CodProyecto);
             modelBuilder.Entity<Trabajo>().HasKey(e => e.CodTrabajo);
             modelBuilder.Entity<Servicio>().HasKey(e => e.CodServicio);
 
             */
+            #endregion
 
-            //Se settea y se arregla el problema del decimal
 
             modelBuilder.Entity<Servicio>()
                  .Property(e => e.ValorHora)

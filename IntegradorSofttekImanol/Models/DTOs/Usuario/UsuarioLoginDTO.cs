@@ -1,5 +1,8 @@
 ﻿namespace IntegradorSofttekImanol.Models.DTOs.Usuario
 {
+    /// <summary>
+    /// Data transfer object for user login.
+    /// </summary>
     public class UsuarioLoginDto
     {
         public string Nombre { get; set; }

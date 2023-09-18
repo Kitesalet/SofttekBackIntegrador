@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces;
@@ -7,12 +6,20 @@ using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 
 namespace IntegradorSofttekImanol.Services
 {
+    /// <summary>
+    /// The implementation of the service for defining and using UsuarioDtos and its logic.
+    /// </summary>
     public class UsuarioService : IUsuarioService
     {
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Initializes an instance of UsuarioService using dependency injection with its parameters
+        /// </summary>
+        /// <param name="unitOfWork">IUnitOfWork with DI</param>
+        /// <param name="mapper">IMapper with DI</param>
         public UsuarioService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;

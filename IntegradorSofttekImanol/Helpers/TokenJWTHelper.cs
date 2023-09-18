@@ -20,13 +20,13 @@ namespace IntegradorSofttekImanol.Helpers
         }
 
         /// <summary>
-        /// Genera un JWT Security Token como respuesta al login correcto de un usuario a la aplicacion
+        /// Generates a JWT Security Token as a response to the correct login of an user
         /// </summary>
-        /// <param name="user">UsuarioDto</param>
-        /// <returns>JWT Token serializado en una cadena de caracteres.</returns>
+        /// <param name="user">Usuario</param>
+        /// <returns>a JWT Token serialized in a string</returns>
         public string GenerateToken(Usuario user)
         {
-            //Se crea el array de claims, informacion que necesitamos en nuestro JWT
+            //An array of claims is created, with the information we need in our JWT
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, _jwtSettings.Subject),
@@ -34,12 +34,11 @@ namespace IntegradorSofttekImanol.Helpers
                 new Claim(ClaimTypes.Name, user.Nombre)
             };
 
-            //Se hace un retrieve de la key en appsettings.json, logrando la generacion de las credenciales junto con
-            //La key y el algoritmo
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            //Se crea el JwtSecurityToken, mediante la utilizacion de las claims ( data contenida ), tiempo de expiracion y las credentials
+            //An instance of JwtSecurityToken is created, using claims, expiration time, credentials, audience and issuer
             var securityToken = new JwtSecurityToken(
                 claims: claims,
                 audience:_jwtSettings.Audience,
@@ -48,7 +47,7 @@ namespace IntegradorSofttekImanol.Helpers
                 signingCredentials: credentials
                 );
 
-            //Serializado del Token a string
+            //Serialize the token to a string
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
         }
 

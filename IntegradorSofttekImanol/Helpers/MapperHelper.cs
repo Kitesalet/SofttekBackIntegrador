@@ -5,10 +5,13 @@ using IntegradorSofttekImanol.Models.Entities;
 
 namespace IntegradorSofttekImanol.Helpers
 {
+    /// <summary>
+    /// This class provides a mean to configure mappings between classes
+    /// </summary>
     public class MapperHelper : Profile
     {
         /// <summary>
-        /// Este constructor va a contener la logica de los mapeos Entidad-DTO utilizando la libreria AutoMapper y sus metodos
+        /// This constructor contains the logic for Entity-DTO mappings using the AutoMapper library and its methods.
         /// </summary>
         public MapperHelper() 
         {
@@ -20,7 +23,7 @@ namespace IntegradorSofttekImanol.Helpers
 
 
 
-            #region mappeo de usuarios a sus respectivos Dtos
+            #region Usuario mapping to their Dto class
             CreateMap<Usuario, UsuarioUpdateDto>().ReverseMap();
             CreateMap<Usuario, UsuarioCreateDto>().ReverseMap();
             CreateMap<Usuario, UsuarioGetDto>().ReverseMap();

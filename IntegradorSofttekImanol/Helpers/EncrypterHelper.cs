@@ -3,13 +3,17 @@ using System.Text;
 
 namespace IntegradorSofttekImanol.Helpers
 {
+    /// <summary>
+    /// This class has methods that encrypt strings
+    /// </summary>
     public static class EncrypterHelper
     {
         /// <summary>
-        /// Crea un string encriptado en base al algoritmo SHA256
+        /// This method is used to encrypt a string.
         /// </summary>
-        /// <param name="password">string</param>
-        /// <returns>Un string encriptado con una cantidad especifica de caracteres</returns>
+        /// <param name="password">A string</param>
+        /// <param name="mail">A string</param>
+        /// <returns>An encrypted string based on SHA256</returns>
         public static string Encrypter(string password, string mail)
         {
 
@@ -35,6 +39,12 @@ namespace IntegradorSofttekImanol.Helpers
 
         }
 
+
+        /// <summary>
+        /// This metod generates a SALT based on a string parameter
+        /// </summary>
+        /// <param name="dni">A string</param>
+        /// <returns>A randomly generated Salt string</returns>
         private static string CreateSalt(string dni)
         {
             var salt = dni;

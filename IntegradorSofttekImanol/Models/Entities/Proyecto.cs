@@ -4,29 +4,32 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IntegradorSofttekImanol.Models.Entities
 {
     [Table("proyectos")]
-    public class Proyecto : EntidadBase
-    {
 
+    /// <summary>
+    /// Represents a project entity.
+    /// </summary>
+    public class Proyecto : BaseEntity
+    {
         [Key]
-        [Column("codProyecto")]
+        [Column("codProyecto", TypeName = "int")]
         public int CodProyecto { get; set; }
 
-        [Column("nombre")]
+        [Column("nombre", TypeName = "varchar(50)")]
+        [Required]
         public string Nombre { get; set; }
 
-        [Column("direccion")]
+        [Column("direccion", TypeName = "varchar(100)")]
+        [Required]
         public string Direccion { get; set; }
 
         /// <summary>
-        /// Esta propiedad devuelve el estado del proyecto en formato numerico, comprendido los numeros 1 y 3
+        /// This property returns the class status in numeric format, which only should contain the numbers 1, 2, and 3.
         /// </summary>
-        [Column("estado")]
-        [Range(1, 3, ErrorMessage = "El valor del estado debe estar comprendido entre 1 y 3")]
+        [Column("estado", TypeName = "int")]
+        [Range(1, 3, ErrorMessage = "The value of this property should be between 1 and 3")]
         public Estado Estado { get; set; }
 
-
-        //Navigation properties
+        // Navigation properties
         public List<Trabajo> Trabajo { get; set; }
-
     }
 }

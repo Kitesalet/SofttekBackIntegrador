@@ -4,34 +4,44 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IntegradorSofttekImanol.Models.Entities
 {
     [Table("trabajos")]
-    public class Trabajo : EntidadBase
+
+    /// <summary>
+    /// Represents a work entity.
+    /// </summary>
+    public class Trabajo : BaseEntity
     {
 
         [Key]
-        [Column("codTrabajo")]
+        [Column("codTrabajo", TypeName = "int")]
         public int CodTrabajo { get; set; }
 
-        [Column("fecha")]
+        [Column("fecha", TypeName = "datetime")]
+        [Required]
         public DateTime Fecha { get; set; }
 
-        [Column("codProyecto")]
+        [Column("codProyecto", TypeName = "int")]
         [ForeignKey("Proyecto")]
+        [Required]
         public int CodProyecto { get; set; }
 
-        [Column("codServicio")]
+        [Column("codServicio", TypeName = "int")]
         [ForeignKey("Servicio")]
+        [Required]
         public int CodServicio { get; set; }
 
-        [Column("cantHoras")]
+        [Column("cantHoras", TypeName = "int")]
+        [Required]
         public int CantHoras { get; set; }
 
         [Column("valorHora")]
+        [Required]
         public decimal valorHora { get; set; }
 
         /// <summary>
         /// Esta propiedad devuelve el producto de las propiedades ValorHora y CantHoras
         /// </summary>
         [Column("costo")]
+        [Required]
         public decimal Costo
         {
             private set
