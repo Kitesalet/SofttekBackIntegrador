@@ -44,11 +44,19 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
+
 builder.Services.AddAutoMapper(typeof(MapperHelper));
 builder.Services.AddDbContext<AppDbContext>(e => e.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+#region Scoped Services
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+
+#endregion
+
+#region JWT Configuration
 
 // Gets JWT parameters from appsettings.json, mapping the properties from JSON to the object.
 var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
@@ -69,12 +77,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Adds JWT configuration to make it available.
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
+#endregion
+
+#region authorizations regarding the token
+
 // Adds authorization based on application roles as service.
 builder.Services.AddAuthorization(option =>
 {
     // When using an "Admin" authorize, it should have the ID "1".
     option.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "1"));
 });
+
+#endregion
+
 
 var app = builder.Build();
 

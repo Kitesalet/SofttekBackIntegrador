@@ -5,7 +5,7 @@
     /// </summary>
     public class UsuarioAuthenticateDTO
     {
-        public string Dni { get; set; }
-        public string contrasena { get; set; }
+        public string CodUsuario { get; set; }
+        public string Contrasena { get; set; }
     }
 }
