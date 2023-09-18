@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Helpers;
+using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.HelperClasses;
 using IntegradorSofttekImanol.Models.Interfaces;
@@ -71,7 +72,8 @@ namespace IntegradorSofttekImanol.Controllers
                 Token = token,
                 CodUsuario = userCredentials.CodUsuario,
                 Nombre = userCredentials.Nombre,
-                Tipo = userCredentials.Tipo
+                Tipo = userCredentials.Tipo,
+                Rol = _mapper.Map<RolDto>(userCredentials.Rol)
             };
 
             //Never return a password
