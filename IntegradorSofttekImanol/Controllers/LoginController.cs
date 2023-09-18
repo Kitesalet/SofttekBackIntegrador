@@ -65,8 +65,6 @@ namespace IntegradorSofttekImanol.Controllers
 
             var token = _tokenJWTHelper.GenerateToken(userCredentials);
 
-
-            //var user = _mapper.Map<UsuarioLoginDto>(userCredentials);
             var user = new UsuarioLoginDto()
             {
                 Token = token,
@@ -77,7 +75,6 @@ namespace IntegradorSofttekImanol.Controllers
             };
 
             //Never return a password
-
 
             return Ok(user);
 
