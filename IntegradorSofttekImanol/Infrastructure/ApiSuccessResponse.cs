@@ -1,10 +1,12 @@
-﻿namespace IntegradorSofttekImanol.Infrastructure
+﻿using System.Net;
+
+namespace IntegradorSofttekImanol.Infrastructure
 {
     public class ApiSuccessResponse
     {
 
-        public int StatusCode { get; set; }
+        public HttpStatusCode StatusCode { get; set; }
 
-        public object Data { get; set; }
+        public object? Data { get; set; }
     }
 }
