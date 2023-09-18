@@ -45,8 +45,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
-
 builder.Services.AddAutoMapper(typeof(MapperHelper));
 builder.Services.AddDbContext<AppDbContext>(e => e.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -85,13 +83,18 @@ builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"))
 
 #endregion
 
-#region authorizations regarding the token
+#region JWT Authorization
 
-// Adds authorization based on application roles as service.
+// Adds authorization based on policies and roles in our JWT.
 builder.Services.AddAuthorization(option =>
 {
-    // When using an "Admin" authorize, it should have the ID "1".
-    option.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "1"));
+    //Creates policies for both the Administrador and Consultor roles,based on their PKs
+    option.AddPolicy("Administrador", policy => policy.RequireClaim(ClaimTypes.Role, "1"));
+    option.AddPolicy("Consultor", policy => policy.RequireClaim(ClaimTypes.Role, "2"));
+
+    //Creates a policy that authorizes a token if their Role claim is either 1 or 2 ( Administrador or Consultor )
+    option.AddPolicy("AdministradorOrConsultor", policy => policy.RequireClaim(ClaimTypes.Role,"1","2"));
+
 });
 
 #endregion

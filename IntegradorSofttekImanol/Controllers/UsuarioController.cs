@@ -1,4 +1,5 @@
 ﻿using IntegradorSofttekImanol.Helpers;
+using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -32,8 +33,9 @@ namespace IntegradorSofttekImanol.Controllers
         /// </returns>
         
         [HttpGet]
+        [Authorize(Policy = "AdministradorOrConsultor")]
         [Route("usuarios")]
-        public async Task<ActionResult<IEnumerable<TrabajoDto>>> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
+        public async Task<ActionResult<IEnumerable<TrabajoDTO>>> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
             var users = await _service.GetAllUsuariosAsync(page, units);
 
@@ -65,6 +67,7 @@ namespace IntegradorSofttekImanol.Controllers
         /// </returns>
         
         [HttpGet]
+        [Authorize(Policy = "AdministradorOrConsultor")]
         [Route("usuario/{id}")]
         public async Task<ActionResult<UsuarioLoginDto>> GetUsuario([FromRoute] int id)
         {
@@ -88,6 +91,7 @@ namespace IntegradorSofttekImanol.Controllers
         /// </returns>
         
         [HttpPost]
+        [Authorize(Policy = "Administrador")]
         [Route("usuarios/register")]
         public async Task<ActionResult> CreateUsuario(UsuarioCreateDto dto)
         {
@@ -112,6 +116,7 @@ namespace IntegradorSofttekImanol.Controllers
         /// </returns>
         
         [HttpPut]
+        [Authorize(Policy = "Administrador")]
         [Route("usuario/{id}")]
         public async Task<ActionResult> UpdateUsuario(int id, UsuarioUpdateDto dto)
         {
@@ -140,6 +145,7 @@ namespace IntegradorSofttekImanol.Controllers
         /// </returns>
         
         [HttpDelete]
+        [Authorize(Policy = "Administrador")]
         [Route("usuario/{id}")]
         public async Task<ActionResult> DeleteUser([FromRoute] int id)
         {
