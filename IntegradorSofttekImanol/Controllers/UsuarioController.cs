@@ -36,6 +36,7 @@ namespace IntegradorSofttekImanol.Controllers
         [HttpGet]
         [Authorize(Policy = "AdministradorOrConsultor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Route("usuarios")]
         public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
@@ -73,6 +74,7 @@ namespace IntegradorSofttekImanol.Controllers
         [Authorize(Policy = "AdministradorOrConsultor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Route("usuario/{id}")]
         public async Task<IActionResult> GetUsuario([FromRoute] int id)
         {
@@ -103,12 +105,13 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Route("usuarios/register")]
         public async Task<IActionResult> CreateUsuario(UsuarioCreateDto dto)
         {
             var usuarioExiste = await _service.GetUsuarioByIdAsync(dto.Dni);
 
-            if(usuarioExiste == true)
+            if(usuarioExiste != null)
             {
 
                return ResponseFactory.CreateErrorResponse(HttpStatusCode.Conflict, "The user already exists!");
@@ -138,8 +141,10 @@ namespace IntegradorSofttekImanol.Controllers
         
         [HttpPut]
         [Authorize(Policy = "Administrador")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Route("usuario/{id}")]
         public async Task<IActionResult> UpdateUsuario(int id, UsuarioUpdateDto dto)
         {
@@ -152,10 +157,10 @@ namespace IntegradorSofttekImanol.Controllers
 
             if (!result)
             {
-                return BadRequest("Error updating the user.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest,"Error updating the user.");
             }
 
-            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.NoContent, "User was properly Updated!");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "User was properly Updated!");
         }
 
         /// <summary>
@@ -170,8 +175,9 @@ namespace IntegradorSofttekImanol.Controllers
         
         [HttpDelete]
         [Authorize(Policy = "Administrador")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Route("usuario/{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
@@ -183,7 +189,7 @@ namespace IntegradorSofttekImanol.Controllers
                 return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound,"The user was not found!");
             }
 
-            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.NoContent, "The user was deleted!");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The user was deleted!");
         }
     }
 }

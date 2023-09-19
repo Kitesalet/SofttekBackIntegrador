@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Helpers;
+using IntegradorSofttekImanol.Infrastructure;
 using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.HelperClasses;
 using IntegradorSofttekImanol.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-
+using System.Net;
 
 namespace IntegradorSofttekImanol.Controllers
 {
@@ -29,7 +30,7 @@ namespace IntegradorSofttekImanol.Controllers
         /// Initializes an instance of LoginController using dependency injection with its parameters
         /// </summary>
         /// <param name="unitOfWork">UnitOfWork</param>
-        /// <param name="configuration">IOptions<JwtSettings></param>
+        /// <param name="configuration">IOptions with JwtSettings</param>
         /// <param name="mapper">IMapper</param>
         public LoginController(IUnitOfWork unitOfWork, IOptions<JwtSettings> configuration, IMapper mapper)
         {
@@ -60,7 +61,7 @@ namespace IntegradorSofttekImanol.Controllers
 
             if (userCredentials == null)
             {
-                return Unauthorized("The entered credentials are invalid");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.Unauthorized,"The entered credentials are invalid");
             }
 
             var token = _tokenJWTHelper.GenerateToken(userCredentials);

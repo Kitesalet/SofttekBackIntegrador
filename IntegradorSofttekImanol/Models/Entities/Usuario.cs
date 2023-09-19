@@ -29,7 +29,7 @@ namespace IntegradorSofttekImanol.Models.Entities
         public int Tipo { get; set; }
 
         [Column("contrasena",TypeName = "varchar(200)")]
-        [StringLength(40, MinimumLength = 6, ErrorMessage = "Please, introduce a valid password")]
+        [StringLength(200, MinimumLength = 6, ErrorMessage = "Please, introduce a valid password")]
         [Required]
         public string Contrasena { get; set; }
 

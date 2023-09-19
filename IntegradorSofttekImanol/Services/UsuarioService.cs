@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using IntegradorSofttekImanol.Helpers;
+using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces;
@@ -32,6 +34,9 @@ namespace IntegradorSofttekImanol.Services
             try
             {
                 var usuario = _mapper.Map<Usuario>(usuarioDto);
+
+                usuario.Contrasena = EncrypterHelper.Encrypter(usuario.Contrasena, $"{usuario.CodUsuario}");
+
                 //Cargar su rol luego
                 await _unitOfWork.UsuarioRepository.AddAsync(usuario);
 
@@ -63,17 +68,17 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<TrabajoDto>> GetAllUsuariosAsync(int page, int units)
+        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(int page, int units)
         {
 
             var usuarios = await _unitOfWork.UsuarioRepository.GetAllAsync(page, units);      
             
-            return _mapper.Map<List<TrabajoDto>>(usuarios);
+            return _mapper.Map<List<UsuarioGetDto>>(usuarios);
                    
         }
 
         /// <inheritdoc/>
-        public async Task<TrabajoDto> GetUsuarioByIdAsync(int id)
+        public async Task<UsuarioGetDto> GetUsuarioByIdAsync(int id)
         {
             
             var usuario = await _unitOfWork.UsuarioRepository.GetByIdAsync(id);
@@ -83,7 +88,7 @@ namespace IntegradorSofttekImanol.Services
                 return null;
             }
 
-            return _mapper.Map<TrabajoDto>(usuario);
+            return _mapper.Map<UsuarioGetDto>(usuario);
             
         }
 

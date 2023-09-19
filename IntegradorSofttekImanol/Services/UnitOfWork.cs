@@ -1,4 +1,5 @@
-﻿using IntegradorSofttekImanol.DAL;
+﻿using AutoMapper;
+using IntegradorSofttekImanol.DAL;
 using IntegradorSofttekImanol.DAL.Repositories;
 using IntegradorSofttekImanol.Models.Interfaces;
 
@@ -20,13 +21,14 @@ namespace IntegradorSofttekImanol.Services
         /// Initializes an instance of UnitOfWork using dependency injection with its parameters
         /// </summary>
         /// <param name="context">AppDbContext with DI</param>
-        public UnitOfWork(AppDbContext context)
+        /// <param name="mapper"></param>
+        public UnitOfWork(AppDbContext context, IMapper mapper)
         {
             _context = context;
             UsuarioRepository = new UsuarioRepository(context);
             ProyectoRepository = new ProyectoRepository(context);
             TrabajoRepository = new TrabajoRepository(context);
-            RolRepository = new RolRepository(context);
+            RolRepository = new RolRepository(context, mapper);
             ServicioRepository = new ServicioRepository(context);
        
     }

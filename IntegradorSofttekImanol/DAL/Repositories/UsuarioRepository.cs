@@ -30,7 +30,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
            
 
             return await _context.Usuarios.Include(e => e.Rol)
-                                          .SingleOrDefaultAsync(e => e.CodUsuario.ToString() == dto.CodUsuario && e.Contrasena == EncrypterHelper.Encrypter(dto.Contrasena,"d"));
+                                          .SingleOrDefaultAsync(e => e.CodUsuario.ToString() == dto.CodUsuario && e.Contrasena == EncrypterHelper.Encrypter(dto.Contrasena,dto.CodUsuario));
 
         }
 

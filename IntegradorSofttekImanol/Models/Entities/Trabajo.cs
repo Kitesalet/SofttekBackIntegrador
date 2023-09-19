@@ -59,12 +59,5 @@ namespace IntegradorSofttekImanol.Models.Entities
         public Servicio Servicio { get; set; }
         public Proyecto Proyecto { get; set; }
 
-        [ForeignKey("Servicio")]
-        public int codServicio { get; set; }
-
-        [ForeignKey("Proyecto")]
-        public int codProyecto { get; set; }
-
-
     }
 }

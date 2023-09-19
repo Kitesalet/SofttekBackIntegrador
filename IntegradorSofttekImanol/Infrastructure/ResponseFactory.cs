@@ -10,12 +10,15 @@ namespace IntegradorSofttekImanol.Infrastructure
         {
             var response = new ApiSuccessResponse()
             {
-                StatusCode = statusCode
+                StatusCode = statusCode,
+                Data = data
             };
 
             return new ObjectResult(response)
             {
                 StatusCode = (int?)statusCode,
+                
+
             };
         }
 

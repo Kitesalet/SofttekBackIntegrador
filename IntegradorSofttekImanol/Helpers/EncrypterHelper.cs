@@ -12,12 +12,12 @@ namespace IntegradorSofttekImanol.Helpers
         /// This method is used to encrypt a string.
         /// </summary>
         /// <param name="password">A string</param>
-        /// <param name="mail">A string</param>
+        /// <param name="secondParam">A string</param>
         /// <returns>An encrypted string based on SHA256</returns>
-        public static string Encrypter(string password, string mail)
+        public static string Encrypter(string password, string secondParam)
         {
 
-            var salt = CreateSalt(mail);
+            var salt = CreateSalt(secondParam);
             string saltAndPwd = String.Concat(password, salt);
 
             //Algoritmo de encriptacion
