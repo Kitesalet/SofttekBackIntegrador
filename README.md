@@ -48,7 +48,7 @@ Tabla de Usuarios
 * Para el uso correcto del programa, se deberá cambiar el connection string en appsettings.json para que
   indique el de su servidor local / algun servidor en la nube el cual usted pueda administrar, de la forma que se
   indica a continuación:
-  ![image](https://github.com/Kitesalet/ProyectoIntegradorSofttekImanol/assets/104630744/358b0235-14c5-482e-aa75-69eb596794af)
+
 
 
 ### Executing program
