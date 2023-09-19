@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Helpers;
+using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.HelperClasses;
 using IntegradorSofttekImanol.Models.Interfaces;
@@ -64,18 +65,16 @@ namespace IntegradorSofttekImanol.Controllers
 
             var token = _tokenJWTHelper.GenerateToken(userCredentials);
 
-
-            //var user = _mapper.Map<UsuarioLoginDto>(userCredentials);
             var user = new UsuarioLoginDto()
             {
                 Token = token,
                 CodUsuario = userCredentials.CodUsuario,
                 Nombre = userCredentials.Nombre,
-                Tipo = userCredentials.Tipo
+                Tipo = userCredentials.Tipo,
+                Rol = _mapper.Map<RolDto>(userCredentials.Rol)
             };
 
             //Never return a password
-
 
             return Ok(user);
 

@@ -1,5 +1,6 @@
 ﻿using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
 {
@@ -18,6 +19,18 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
         ///  A null value if the authentication is not successful
         /// </returns>
         public Task<Usuario?> AuthenticateCredentials(UsuarioAuthenticateDTO dto);
+
+        /// <summary>
+        /// Evaluates the existence of a user
+        /// </summary>
+        /// <param name="dto">AuthenticateDTO</param>
+        /// <returns> 
+        /// A true value if the query is a success
+        /// |
+        /// A false value if it fails
+        /// </returns>
+        Task<bool> UserExists(UsuarioAuthenticateDTO dto);
+
 
     }
 }

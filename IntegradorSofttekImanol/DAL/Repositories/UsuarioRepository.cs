@@ -25,22 +25,20 @@ namespace IntegradorSofttekImanol.DAL.Repositories
            
         }
 
-
-        /// <summary>
-        /// Evaluates if a user exists and check its credentials
-        /// </summary>
-        /// <param name="dto">AuthenticateDTO</param>
-        /// <returns> 
-        /// A user object if the authentication is a success
-        /// |
-        /// A null value if it fails
-        /// </returns>
         public async Task<Usuario?> AuthenticateCredentials(UsuarioAuthenticateDTO dto)
         {
            
 
             return await _context.Usuarios.Include(e => e.Rol)
                                           .SingleOrDefaultAsync(e => e.CodUsuario.ToString() == dto.CodUsuario && e.Contrasena == EncrypterHelper.Encrypter(dto.Contrasena,"d"));
+
+        }
+
+        public async Task<bool> UserExists(UsuarioAuthenticateDTO dto)
+        {
+
+
+            return await _context.Usuarios.AnyAsync(e => e.CodUsuario.ToString() == dto.CodUsuario.ToString());
 
         }
 
