@@ -27,10 +27,9 @@ namespace IntegradorSofttekImanol.DAL.Repositories
 
         public async Task<Usuario?> AuthenticateCredentials(UsuarioAuthenticateDTO dto)
         {
-           
 
             return await _context.Usuarios.Include(e => e.Rol)
-                                          .SingleOrDefaultAsync(e => e.CodUsuario.ToString() == dto.CodUsuario && e.Contrasena == EncrypterHelper.Encrypter(dto.Contrasena,dto.CodUsuario));
+                                          .SingleOrDefaultAsync(e => e.CodUsuario.ToString() == dto.CodUsuario && e.Contrasena == EncrypterHelper.Encrypter(dto.Contrasena, "RaNdOmCoDe"));
 
         }
 

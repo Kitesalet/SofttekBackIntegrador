@@ -35,7 +35,7 @@ namespace IntegradorSofttekImanol.Services
             {
                 var usuario = _mapper.Map<Usuario>(usuarioDto);
 
-                usuario.Contrasena = EncrypterHelper.Encrypter(usuario.Contrasena, $"{usuario.CodUsuario}");
+                usuario.Contrasena = EncrypterHelper.Encrypter(usuario.Contrasena, $"RaNdOmCoDe");
 
                 //Cargar su rol luego
                 await _unitOfWork.UsuarioRepository.AddAsync(usuario);

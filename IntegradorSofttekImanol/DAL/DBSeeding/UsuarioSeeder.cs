@@ -21,7 +21,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 new Usuario
                 {
                     CodUsuario = 1,
-                    Contrasena = EncrypterHelper.Encrypter("random","1"),
+                    Contrasena = EncrypterHelper.Encrypter("random", "RaNdOmCoDe"),
                     Dni = 39321874,
                     Nombre = "random",
                     Tipo = 1,
@@ -29,7 +29,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 }, new Usuario
                 {
                     CodUsuario = 2,
-                    Contrasena = EncrypterHelper.Encrypter("xxxdsaddsds","2"),
+                    Contrasena = EncrypterHelper.Encrypter("random", "RaNdOmCoDe"),
                     Dni = 39382743,
                     Nombre = "randoms",
                     Tipo = 2,
@@ -37,7 +37,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 }, new Usuario
                 {
                     CodUsuario = 3,
-                    Contrasena = EncrypterHelper.Encrypter("xxxdsaddsds", "3"),
+                    Contrasena = EncrypterHelper.Encrypter("xxxdsaddsds", "RaNdOmCoDe"),
                     Dni = 39382743,
                     Nombre = "randomdd",
                     Tipo = 2,
