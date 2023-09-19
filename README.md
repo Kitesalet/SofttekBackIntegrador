@@ -46,8 +46,8 @@ Tabla de Usuarios
 ### Installing
 
 * Para el uso correcto del programa, se deberá cambiar el connection string en appsettings.json para que
-  indique el de su servidor local / algun servidor en la nube el cual usted pueda administrar, de la forma que se
-  indica a continuación:
+  indique el de su servidor local / algun servidor en la nube el cual usted pueda administrar, asi como la configuracion del Jwt, en donde se indica a continuacion:
+![image](https://github.com/Kitesalet/ProyectoIntegradorSofttekImanol/assets/104630744/8fff4723-d3cb-4fec-af6a-5338ea9daedc)
 
 
 
