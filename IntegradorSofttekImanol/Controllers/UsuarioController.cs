@@ -88,7 +88,7 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Route("usuario/{int:id}")]
+        [Route("usuario/{id:int}")]
         public async Task<IActionResult> GetUsuario([FromRoute] int id)
         {
 
@@ -189,7 +189,7 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [Route("usuario/{int:id}")]
+        [Route("usuario/{id:int}")]
         public async Task<IActionResult> UpdateUsuario(int id, UsuarioUpdateDto dto)
         {
 
@@ -243,7 +243,7 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Route("usuario/{int:id}")]
+        [Route("usuario/{id:int}")]
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
 
