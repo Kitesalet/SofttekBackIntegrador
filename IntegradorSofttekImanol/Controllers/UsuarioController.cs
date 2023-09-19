@@ -39,12 +39,19 @@ namespace IntegradorSofttekImanol.Controllers
         [Authorize(Policy = "AdministradorOrConsultor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("usuarios")]
         public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
 
             try
             {
+                if(page < 1 || units < 0)
+                {
+                    _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}");
+                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest,"Pages or units input was invalid");
+                }
+
                 var users = await _service.GetAllUsuariosAsync(page, units);
 
                 #region pagination with the helper class

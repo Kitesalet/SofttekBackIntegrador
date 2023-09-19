@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace IntegradorSofttekImanol.Models.DTOs
+namespace IntegradorSofttekImanol.Models.DTOs.ServicioDto
 {
     public class ServicioDTO
     {

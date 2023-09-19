@@ -42,6 +42,8 @@ namespace IntegradorSofttekImanol.Services
 
                 usuario.FechaAlta = DateTime.Now;
 
+                usuario.Tipo = 1;
+
                 await _unitOfWork.Complete();
 
                 return true;
@@ -71,7 +73,7 @@ namespace IntegradorSofttekImanol.Services
         public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(int page, int units)
         {
 
-            var usuarios = await _unitOfWork.UsuarioRepository.GetAllAsync(page, units);      
+            var usuarios = await _unitOfWork.UsuarioRepository.GetAllAsync(page, units, e => e.Rol);      
             
             return _mapper.Map<List<UsuarioGetDto>>(usuarios);
                    

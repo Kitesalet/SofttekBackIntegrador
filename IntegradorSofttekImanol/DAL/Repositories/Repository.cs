@@ -1,7 +1,8 @@
 ﻿using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
 using Microsoft.EntityFrameworkCore;
-
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
@@ -56,15 +57,27 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public virtual async Task<IEnumerable<T>> GetAllAsync(int page, int units)
+        public virtual async Task<IEnumerable<T>> GetAllAsync(int? page, int? units, params Expression<Func<T,object>>[] includes)
         {
-            IQueryable<T> query = _set;
+            
+            IQueryable<T> query = _set.Where(t => t.FechaBaja == null);
 
-            return await query
-                            .Where(t => t.FechaBaja == null)
-                            .Skip((page - 1) * units)
-                            .Take(units)
-                            .ToListAsync();
+            if(page != null)
+            {
+                query = query.Skip((int)((page - 1) * units));
+            }
+
+            if(units != null)
+            {
+                query = query.Take((int)units);
+            }
+
+            foreach(var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.ToListAsync();
         }
 
         /// <inheritdoc/>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Models.DTOs;
+using IntegradorSofttekImanol.Models.DTOs.ServicioDto;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
 
