@@ -1,4 +1,4 @@
-﻿using IntegradorSofttekImanol.Models.DTOs;
+﻿using IntegradorSofttekImanol.Models.DTOs.Proyecto;
 
 namespace IntegradorSofttekImanol.Models.Interfaces.projectInterfaces
 {

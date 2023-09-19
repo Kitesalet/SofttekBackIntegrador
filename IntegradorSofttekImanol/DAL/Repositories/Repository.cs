@@ -43,9 +43,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
 
             if(entity.FechaBaja == null) 
             {
-            
                 entity.FechaBaja = DateTime.Now;
-
             }
             else
             {

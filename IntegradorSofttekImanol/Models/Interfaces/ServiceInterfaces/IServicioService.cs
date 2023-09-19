@@ -1,5 +1,4 @@
 ﻿using IntegradorSofttekImanol.Models.DTOs.Servicio;
-using IntegradorSofttekImanol.Models.DTOs.ServicioDto;
 
 namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
 {
