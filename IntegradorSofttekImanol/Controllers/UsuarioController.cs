@@ -20,10 +20,12 @@ namespace IntegradorSofttekImanol.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _service;
+        private readonly ILogger<UsuarioController> _logger;
 
-        public UsuarioController(IUsuarioService service)
+        public UsuarioController(IUsuarioService service, ILogger<UsuarioController> logger)
         {
             _service = service;
+            _logger = logger;
         }
 
         /// <summary>
@@ -40,24 +42,34 @@ namespace IntegradorSofttekImanol.Controllers
         [Route("usuarios")]
         public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
-            var users = await _service.GetAllUsuariosAsync(page, units);
 
-            #region pagination with the helper class
-            /*
-            var pageToShow = 1;
-
-            if (Request.Query.ContainsKey("page"))
+            try
             {
-                int.TryParse(Request.Query["page"], out pageToShow);
+                var users = await _service.GetAllUsuariosAsync(page, units);
+
+                #region pagination with the helper class
+                /*
+                var pageToShow = 1;
+
+                if (Request.Query.ContainsKey("page"))
+                {
+                    int.TryParse(Request.Query["page"], out pageToShow);
+                }
+
+                var url = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}").ToString();
+
+                var paginateUsers = PaginateHelper.Paginate(users,pageToShow, url);
+                */
+                #endregion
+
+                _logger.LogInformation("All users were retrieved!");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, users);
             }
-
-            var url = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}").ToString();
-
-            var paginateUsers = PaginateHelper.Paginate(users,pageToShow, url);
-            */
-            #endregion
-
-            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, users);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            }
         }
 
         /// <summary>
@@ -79,19 +91,31 @@ namespace IntegradorSofttekImanol.Controllers
         [Route("usuario/{int:id}")]
         public async Task<IActionResult> GetUsuario([FromRoute] int id)
         {
-            if(id == 0)
+
+            try
             {
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
+                if (id == 0)
+                {
+                    _logger.LogInformation($"Id field was invalid, id = {id}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
+                }
+
+                var user = await _service.GetUsuarioByIdAsync(id);
+
+                if (user == null)
+                {
+                    _logger.LogInformation($"User was not found, id = {id}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "User not found.");
+                }
+
+                _logger.LogInformation($"User was retrieved, id = {id}");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, user);
             }
-
-            var user = await _service.GetUsuarioByIdAsync(id);
-
-            if (user == null)
+            catch (Exception ex)
             {
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound,"User not found.");
+                _logger.LogError(ex, "An unexpected error occurred.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
             }
-
-            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, user);
         }
 
         /// <summary>
@@ -116,23 +140,35 @@ namespace IntegradorSofttekImanol.Controllers
         [Route("usuarios/register")]
         public async Task<IActionResult> CreateUsuario(UsuarioCreateDto dto)
         {
-            var usuarioExiste = await _service.GetUsuarioByIdAsync(dto.Dni);
 
-            if(usuarioExiste != null)
+            try
             {
+                var usuarioExiste = await _service.GetUsuarioByIdAsync(dto.Dni);
 
-               return ResponseFactory.CreateErrorResponse(HttpStatusCode.Conflict, "The user already exists!");
+                if (usuarioExiste != null)
+                {
+                    _logger.LogInformation($"User already existed, Dni = {dto.Dni}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.Conflict, "The user already exists!");
 
+                }
+
+                var flag = await _service.CreateUsuarioAsync(dto);
+
+                if (!flag)
+                {
+                    _logger.LogInformation($"User was not created, Dni = {dto.Dni}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The user was not created");
+                }
+
+                _logger.LogInformation($"User was created, Dni = {dto.Dni}");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The user was created!");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
             }
 
-            var flag = await _service.CreateUsuarioAsync(dto);
-
-            if (!flag)
-            {
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The user wans't created");
-            }
-
-            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The user was created!");
         }
 
         /// <summary>
@@ -156,24 +192,38 @@ namespace IntegradorSofttekImanol.Controllers
         [Route("usuario/{int:id}")]
         public async Task<IActionResult> UpdateUsuario(int id, UsuarioUpdateDto dto)
         {
-            if (id == 0)
+
+            try
             {
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
+                if (id == 0)
+                {
+                    _logger.LogInformation($"Id field was invalid, it was 0");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
+                }
+
+                if (await _service.GetUsuarioByIdAsync(id) == null)
+                {
+                    _logger.LogInformation($"User was not found in the database, id = {id}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "User was not found!");
+                }
+
+                var result = await _service.UpdateUsuario(dto);
+
+                if (!result)
+                {
+                    _logger.LogInformation($"Error updating the user, id = {id}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the user.");
+                }
+
+                _logger.LogInformation($"User was properly updated, id = {id}");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "User was properly updated!");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
             }
 
-            if (await _service.GetUsuarioByIdAsync(id) == null)
-            {
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "User was not found!");
-            }
-
-            var result = await _service.UpdateUsuario(dto);
-
-            if (!result)
-            {
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest,"Error updating the user.");
-            }
-
-            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "User was properly Updated!");
         }
 
         /// <summary>
@@ -192,18 +242,35 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("usuario/{int:id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
 
-            var result = await _service.DeleteUsuarioAsync(id);
-
-            if (!result)
+            try
             {
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound,"The user was not found!");
-            }
+                if (id == 0)
+                {
+                    _logger.LogInformation($"Id field was invalid, it was 0");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
+                }
 
-            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The user was deleted!");
+                var result = await _service.DeleteUsuarioAsync(id);
+
+                if (!result)
+                {
+                    _logger.LogInformation($"User was not found, id = {id}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The user was not found!");
+                }
+
+                _logger.LogInformation($"User was deleted ( soft deleted or hard deleted ), id = {id}");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The user was deleted!");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            }
         }
     }
 }

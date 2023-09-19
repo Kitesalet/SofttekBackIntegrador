@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
@@ -54,6 +55,13 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddAutoMapper(typeof(MapperHelper));
 builder.Services.AddDbContext<AppDbContext>(e => e.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Serilog configuration and file path
+
+Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.File("log/TechOilLogs.txt", rollingInterval: RollingInterval.Day).CreateLogger();
+
+//Setting serilog as the logger, ILogger uses serilog settings
+builder.Host.UseSerilog();
 
 #region Scoped Services
 
