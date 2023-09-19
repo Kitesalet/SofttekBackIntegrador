@@ -32,8 +32,8 @@ namespace IntegradorSofttekImanol.DAL
         /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-            //Entity seeding          
+      
+            #region Seeding config
 
             var seeder = new List<IEntitySeeder>()
             {
@@ -49,7 +49,9 @@ namespace IntegradorSofttekImanol.DAL
                 seed.SeedDatabase(modelBuilder);
             }
 
-            #region Unused relationship settings
+            #endregion
+
+            #region Unused Fluent Api relationship settings
             /*        
 
             modelBuilder.Entity<Trabajo>()
@@ -74,6 +76,7 @@ namespace IntegradorSofttekImanol.DAL
             */
             #endregion
 
+            #region Fluent Api Property Config
 
             modelBuilder.Entity<Servicio>()
                  .Property(e => e.ValorHora)
@@ -86,6 +89,8 @@ namespace IntegradorSofttekImanol.DAL
             modelBuilder.Entity<Trabajo>()
                 .Property(e => e.Costo)
                 .HasColumnType("decimal(18, 2)");
+
+            #endregion
 
             base.OnModelCreating(modelBuilder);
 

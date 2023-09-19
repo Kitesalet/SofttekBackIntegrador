@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
 {
@@ -13,7 +14,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
         /// Gets all entities of type T with pagination.
         /// </summary>
         /// <returns>All of the T entities</returns>
-        Task<IEnumerable<T>> GetAllAsync(int page, int units);
+        Task<IEnumerable<T>> GetAllAsync(int? page, int? units, params Expression<Func<T, object>>[] includes);
 
         /// <summary>
         /// Gets an entity of type T by its id.
