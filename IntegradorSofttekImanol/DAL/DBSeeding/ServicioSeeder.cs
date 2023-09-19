@@ -23,6 +23,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                     Descr = "xxxxxxxx",
                     Estado = true,
                     FechaAlta = DateTime.Now,
+                    ValorHora = 100
                 }
                 );
         }

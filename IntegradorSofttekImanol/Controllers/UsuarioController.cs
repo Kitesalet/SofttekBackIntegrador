@@ -101,7 +101,7 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
-                if (id == 0)
+                if (id < 0)
                 {
                     _logger.LogInformation($"Id field was invalid, id = {id}");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
@@ -202,7 +202,7 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
-                if (id == 0)
+                if (id < 0)
                 {
                     _logger.LogInformation($"Id field was invalid, it was 0");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
@@ -256,7 +256,7 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
-                if (id == 0)
+                if (id < 0)
                 {
                     _logger.LogInformation($"Id field was invalid, it was 0");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");

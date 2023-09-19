@@ -1,14 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace IntegradorSofttekImanol.Models.DTOs.ServicioDto
+﻿namespace IntegradorSofttekImanol.Models.DTOs.Servicio
 {
-    public class ServicioDTO
+    public class ServicioGetDto
     {
         public int CodServicio { get; set; }
         public string Descr { get; set; }
         public bool Estado { get; set; }
         public decimal ValorHora { get; set; }
-
+        public List<TrabajoDto> Trabajos { get;set;}
     }
 }
