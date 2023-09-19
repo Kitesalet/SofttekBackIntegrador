@@ -4,6 +4,7 @@ using IntegradorSofttekImanol.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntegradorSofttekImanol.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230919165529_new_mig")]
+    partial class new_mig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,7 +69,7 @@ namespace IntegradorSofttekImanol.Migrations
                             CodProyecto = 1,
                             Direccion = "xxxxxxxx",
                             Estado = 2,
-                            FechaAlta = new DateTime(2023, 9, 19, 14, 13, 14, 108, DateTimeKind.Local).AddTicks(9673),
+                            FechaAlta = new DateTime(2023, 9, 19, 13, 55, 28, 596, DateTimeKind.Local).AddTicks(166),
                             Nombre = "random"
                         },
                         new
@@ -75,7 +77,7 @@ namespace IntegradorSofttekImanol.Migrations
                             CodProyecto = 2,
                             Direccion = "xxxxxxxx",
                             Estado = 1,
-                            FechaAlta = new DateTime(2023, 9, 19, 14, 13, 14, 108, DateTimeKind.Local).AddTicks(9683),
+                            FechaAlta = new DateTime(2023, 9, 19, 13, 55, 28, 596, DateTimeKind.Local).AddTicks(174),
                             Nombre = "random"
                         });
                 });
@@ -120,7 +122,7 @@ namespace IntegradorSofttekImanol.Migrations
                         {
                             CodRol = 1,
                             Descripcion = "Usuario con derechos maximos",
-                            FechaAlta = new DateTime(2023, 9, 19, 14, 13, 14, 109, DateTimeKind.Local).AddTicks(623),
+                            FechaAlta = new DateTime(2023, 9, 19, 13, 55, 28, 596, DateTimeKind.Local).AddTicks(895),
                             Nombre = "Administrador"
                         },
                         new
@@ -176,7 +178,7 @@ namespace IntegradorSofttekImanol.Migrations
                             CodServicio = 1,
                             Descr = "xxxxxxxx",
                             Estado = true,
-                            FechaAlta = new DateTime(2023, 9, 19, 14, 13, 14, 108, DateTimeKind.Local).AddTicks(9889),
+                            FechaAlta = new DateTime(2023, 9, 19, 13, 55, 28, 596, DateTimeKind.Local).AddTicks(343),
                             ValorHora = 0m
                         });
                 });
@@ -242,8 +244,8 @@ namespace IntegradorSofttekImanol.Migrations
                             CodProyecto = 1,
                             CodServicio = 1,
                             Costo = 8m,
-                            Fecha = new DateTime(2023, 9, 19, 14, 13, 14, 108, DateTimeKind.Local).AddTicks(9982),
-                            FechaAlta = new DateTime(2023, 9, 19, 14, 13, 14, 108, DateTimeKind.Local).AddTicks(9985),
+                            Fecha = new DateTime(2023, 9, 19, 13, 55, 28, 596, DateTimeKind.Local).AddTicks(403),
+                            FechaAlta = new DateTime(2023, 9, 19, 13, 55, 28, 596, DateTimeKind.Local).AddTicks(406),
                             valorHora = 4m
                         });
                 });
@@ -298,27 +300,27 @@ namespace IntegradorSofttekImanol.Migrations
                         new
                         {
                             CodUsuario = 1,
-                            Contrasena = "2a80d4f36544c4bd8352ce27aa61c79a7dd4f7edde6cccebe94b38decbc5af5e",
+                            Contrasena = "5027b777d9a671fcde693a6269cb3e9594602138fb2305bd54d99763373700bf",
                             Dni = 39321874,
-                            FechaAlta = new DateTime(2023, 9, 19, 14, 13, 14, 109, DateTimeKind.Local).AddTicks(342),
+                            FechaAlta = new DateTime(2023, 9, 19, 13, 55, 28, 596, DateTimeKind.Local).AddTicks(680),
                             Nombre = "random",
                             Tipo = 1
                         },
                         new
                         {
                             CodUsuario = 2,
-                            Contrasena = "2a80d4f36544c4bd8352ce27aa61c79a7dd4f7edde6cccebe94b38decbc5af5e",
+                            Contrasena = "c2f48c5bdf5da0dab948e28cf1a9605256a62b0d0138c3ce2bca4467f14884ef",
                             Dni = 39382743,
-                            FechaAlta = new DateTime(2023, 9, 19, 14, 13, 14, 109, DateTimeKind.Local).AddTicks(412),
+                            FechaAlta = new DateTime(2023, 9, 19, 13, 55, 28, 596, DateTimeKind.Local).AddTicks(739),
                             Nombre = "randoms",
                             Tipo = 2
                         },
                         new
                         {
                             CodUsuario = 3,
-                            Contrasena = "67a90cb7fd5662ad510e6861727eb97f218b440e43e7820183fabf19d7f537dc",
+                            Contrasena = "c2f48c5bdf5da0dab948e28cf1a9605256a62b0d0138c3ce2bca4467f14884ef",
                             Dni = 39382743,
-                            FechaAlta = new DateTime(2023, 9, 19, 14, 13, 14, 109, DateTimeKind.Local).AddTicks(531),
+                            FechaAlta = new DateTime(2023, 9, 19, 13, 55, 28, 596, DateTimeKind.Local).AddTicks(823),
                             Nombre = "randomdd",
                             Tipo = 2
                         });

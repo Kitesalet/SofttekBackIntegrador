@@ -12,14 +12,14 @@ namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
         /// Gets a collection of user data that hasnt been soft deleted with pagination.
         /// </summary>
         /// <returns>All of the UsuarioGetDto entities</returns>
-        Task<IEnumerable<TrabajoDto>> GetAllUsuariosAsync(int page, int units);
+        Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(int page, int units);
 
         /// <summary>
         /// Gets user data by its id.
         /// </summary>
         /// <param name="id">An int</param>
         /// <returns>One of the user entities as a UsuarioGetDto</returns>
-        Task<TrabajoDto> GetUsuarioByIdAsync(int id);
+        Task<UsuarioGetDto> GetUsuarioByIdAsync(int id);
 
         /// <summary>
         /// Creates an user

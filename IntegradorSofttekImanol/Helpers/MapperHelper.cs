@@ -22,12 +22,12 @@ namespace IntegradorSofttekImanol.Helpers
             
             CreateMap<Servicio,ServicioDTO>().ReverseMap();
             
-            CreateMap<Trabajo, TrabajoDTO>().ReverseMap();
+            CreateMap<Trabajo, TrabajoDto>().ReverseMap();
 
             #region Usuario mapping to their Dto class
             CreateMap<Usuario, UsuarioUpdateDto>().ReverseMap();
             CreateMap<Usuario, UsuarioCreateDto>().ReverseMap();
-            CreateMap<Usuario, TrabajoDto>().ReverseMap();
+            CreateMap<Usuario, UsuarioGetDto>().ReverseMap();
             CreateMap<Usuario, UsuarioLoginDto>().ReverseMap();
             #endregion
 

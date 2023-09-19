@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
@@ -22,10 +23,11 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         {
 
             _context = context;
-            _mapper = mapper;
+            _mapper =  mapper;
         }
 
-        public RolDto? GetRolDto(int id)
+        /// <inheritdoc />
+        public RolDto GetRolDto(int id)
         {
 
             return _mapper.Map<RolDto>(_context.Roles.FirstOrDefault(e => e.CodRol == id));

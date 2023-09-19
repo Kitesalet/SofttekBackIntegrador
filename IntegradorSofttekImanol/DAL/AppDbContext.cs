@@ -13,7 +13,7 @@ namespace IntegradorSofttekImanol.DAL
         /// <summary>
         /// Initializes an instance of AppDbContext
         /// </summary>
-        /// <param name="options">DbContextOptions<AppDbContext></param>
+        /// <param name="options">DbContextOptions</param>
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -27,10 +27,9 @@ namespace IntegradorSofttekImanol.DAL
         public DbSet<Servicio> Servicios { get; set; }
         public DbSet<Trabajo> Trabajos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-
         public DbSet<Rol> Roles { get; set; }
 
-
+        /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             

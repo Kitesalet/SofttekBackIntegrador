@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IntegradorSofttekImanol.Models.DTOs
 {
-    public class TrabajoDTO
+    public class TrabajoDto
     {
 
         public int codTrabajo { get; set; }
