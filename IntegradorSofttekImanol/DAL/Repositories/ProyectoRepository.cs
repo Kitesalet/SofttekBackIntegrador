@@ -1,6 +1,7 @@
 ﻿using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
@@ -22,6 +23,14 @@ namespace IntegradorSofttekImanol.DAL.Repositories
 
         }
 
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Proyecto>> GetProyectoByEstado(int state)
+        {
+            var proyectos = await _context.Proyectos.Include(e => e.Trabajos)
+                                                    .Where(p => p.Estado == (Estado)state)
+                                                    .ToListAsync();
 
+            return proyectos;
+        }
     }
 }

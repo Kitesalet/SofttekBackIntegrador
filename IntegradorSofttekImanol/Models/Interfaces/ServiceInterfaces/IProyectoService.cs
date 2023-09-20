@@ -1,4 +1,5 @@
 ﻿using IntegradorSofttekImanol.Models.DTOs.Proyecto;
+using IntegradorSofttekImanol.Models.DTOs.Servicio;
 using System.Linq.Expressions;
 
 namespace IntegradorSofttekImanol.Models.Interfaces.projectInterfaces
@@ -33,14 +34,21 @@ namespace IntegradorSofttekImanol.Models.Interfaces.projectInterfaces
         /// Updates the project record data that hasnt been soft deleted
         /// </summary>
         /// <param name="proyectoDto">A ProyectoUpdateDto</param>
-        /// <returns>A boolean value based on the update of the project</returns>
+        /// <returns>A boolean value based on the update of the project.</returns>
         Task<bool> UpdateProyecto(ProyectoUpdateDto proyectoDto);
 
         /// <summary>
         /// Deletes a project record based on its id, first it soft deletes it, then it hard deletes it.
         /// </summary>
         /// <param name="id">An int</param>
-        /// <returns>A boolean value based on the Deletion of the project, true if it was soft or hard deleted</returns>
+        /// <returns>A boolean value based on the Deletion of the project, true if it was soft or hard deleted.</returns>
         Task<bool> DeleteProyectoAsync(int id);
+
+        /// <summary>
+        /// Gets a list of proyects filtered by its state.
+        /// </summary>
+        /// <param name="state">An int</param>
+        /// <returns>A list of proyects filtered by its state</returns>
+        Task<IEnumerable<ProyectoGetDto>> GetProyectoByEstadoAsync(int state);
     }
 }
