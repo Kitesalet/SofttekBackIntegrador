@@ -6,17 +6,17 @@ using Microsoft.EntityFrameworkCore;
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
     /// <summary>
-    /// The implemmentation that defines extra repository operations related to the Proyecto entity
+    /// The implemmentation that defines extra repository operations related to the Project entity.
     /// </summary>
-    public class ProyectoRepository : Repository<Proyect>, IProjectRepository
+    public class ProjectRepository : Repository<Project>, IProjectRepository
     {
         private readonly AppDbContext _context;
 
         /// <summary>
-        /// Initializes an instance of ProyectoRepository using dependency injection with its parameters
+        /// Initializes an instance of ProjectRepository using dependency injection with its parameters.
         /// </summary>
-        /// <param name="context">AppDbContext with DI</param>
-        public ProyectoRepository(AppDbContext context) : base(context)
+        /// <param name="context">AppDbContext with DI.</param>
+        public ProjectRepository(AppDbContext context) : base(context)
         {
 
             _context = context;
@@ -24,13 +24,13 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Proyect>> GetProyectoByEstado(int state)
+        public async Task<IEnumerable<Project>> GetProjectByState(int state)
         {
-            var proyectos = await _context.Proyectos.Include(e => e.Trabajos)
-                                                    .Where(p => p.Estado == (ProyectState)state)
+            var Projects = await _context.Projects.Include(e => e.Works)
+                                                    .Where(p => p.State == (ProjectState)state)
                                                     .ToListAsync();
 
-            return proyectos;
+            return Projects;
         }
     }
 }

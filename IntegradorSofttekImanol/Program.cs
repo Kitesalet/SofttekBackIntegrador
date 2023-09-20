@@ -67,10 +67,10 @@ builder.Host.UseSerilog();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-builder.Services.AddScoped<IUserService, UsuarioService>();
-builder.Services.AddScoped<IProyectService, ProyectoService>();
-builder.Services.AddScoped<IWorkService, TrabajoService>();
-builder.Services.AddScoped<IServiceService, ServicioService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IWorkService, WorkService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
 
 
 #endregion

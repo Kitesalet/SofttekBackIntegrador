@@ -3,7 +3,7 @@
     /// <summary>
     /// Enumerates the states of a proyect.
     /// </summary>
-    public enum ProyectState
+    public enum ProjectState
     {
         /// <summary>
         /// The proyect state is pending.

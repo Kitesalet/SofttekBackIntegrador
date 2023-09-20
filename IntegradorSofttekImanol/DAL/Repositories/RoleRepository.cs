@@ -8,18 +8,19 @@ using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
     /// <summary>
-    /// The implemmentation that defines extra repository operations related to the Rol entity
+    /// The implemmentation that defines extra repository operations related to the Role entity.
     /// </summary>
-    public class RolRepository : Repository<Role>, IRoleRepository
+    public class RoleRepository : Repository<Role>, IRoleRepository
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
 
         /// <summary>
-        /// Initializes an instance of UsuarioRepository using dependency injection with its parameters
+        /// Initializes an instance of RoleRepository using dependency injection with its parameters.
         /// </summary>
-        /// <param name="context">AppDbContext with DI</param>
-        public RolRepository(AppDbContext context, IMapper mapper) : base(context)
+        /// <param name="context">A AppDbContext with DI.</param>
+        /// <param name="mapper">A IMapper.</param>
+        public RoleRepository(AppDbContext context, IMapper mapper) : base(context)
         {
 
             _context = context;
@@ -27,12 +28,13 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         }
 
         /// <inheritdoc />
-        public RoleDto GetRolDto(int id)
+        public RoleDto GetRoleDto(int id)
         {
 
-            return _mapper.Map<RoleDto>(_context.Roles.FirstOrDefault(e => e.CodRol == id));
+            return _mapper.Map<RoleDto>(_context.Roles.FirstOrDefault(e => e.CodRole == id));
 
         }
+
     }
 
 

@@ -4,17 +4,17 @@ using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
     /// <summary>
-    /// The implemmentation that defines extra repository operations related to the Trabajo entity
+    /// The implemmentation that defines extra repository operations related to the Work entity.
     /// </summary>
-    public class TrabajoRepository : Repository<Work>, IWorkRepository
+    public class WorkRepository : Repository<Work>, IWorkRepository
     {
         private readonly AppDbContext _context;
 
         /// <summary>
-        /// Initializes an instance of TrabajoRepository using dependency injection with its parameters
+        /// Initializes an instance of WorkRepository using dependency injection with its parameters.
         /// </summary>
-        /// <param name="context">AppDbContext with DI</param>
-        public TrabajoRepository(AppDbContext context) : base(context)
+        /// <param name="context">AppDbContext with DI.</param>
+        public WorkRepository(AppDbContext context) : base(context)
         {
 
             _context = context;

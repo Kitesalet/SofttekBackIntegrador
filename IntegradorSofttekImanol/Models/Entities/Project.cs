@@ -27,7 +27,7 @@ namespace IntegradorSofttekImanol.Models.Entities
         /// </summary>
         [Column("estado", TypeName = "int")]
         [Range(1, 3, ErrorMessage = "The value of this property should be between 1 and 3")]
-        public ProyectState State { get; set; }
+        public ProjectState State { get; set; }
 
         // Navigation properties
         public List<Work> Works { get; set; }

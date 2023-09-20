@@ -5,17 +5,17 @@ using Microsoft.EntityFrameworkCore;
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
     /// <summary>
-    /// The implemmentation that defines extra repository operations related to the Servicio entity
+    /// The implemmentation that defines extra repository operations related to the Service entity.
     /// </summary>
-    public class ServicioRepository : Repository<Service>, IServiceRepository
+    public class ServiceRepository : Repository<Service>, IServiceRepository
     {
         private readonly AppDbContext _context;
 
         /// <summary>
-        /// Initializes an instance of ServicioRepository using dependency injection with its parameters
+        /// Initializes an instance of ServiceRepository using dependency injection with its parameters.
         /// </summary>
-        /// <param name="context">AppDbContext with DI</param>
-        public ServicioRepository(AppDbContext context) : base(context)
+        /// <param name="context">An AppDbContext with DI</param>
+        public ServiceRepository(AppDbContext context) : base(context)
         {
 
             _context = context;
@@ -23,10 +23,10 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Service>> GetActiveServiciosAsync()
+        public async Task<IEnumerable<Service>> GetActiveServicesAsync()
         {
-            return await _context.Servicios.Include(e => e.Trabajos)
-                                            .Where(s => s.Estado == true)
+            return await _context.Services.Include(e => e.Works)
+                                            .Where(s => s.State == true)
                                             .ToListAsync();
         }
     }

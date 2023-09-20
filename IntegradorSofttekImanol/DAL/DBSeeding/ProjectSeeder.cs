@@ -20,7 +20,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 {
                     CodProject = 1,
                     Address = "xxxxxxxx",
-                    State = (ProyectState)2,
+                    State = (ProjectState)2,
                     Name = "random",
                     CreatedDate = DateTime.Now
                 },
@@ -28,7 +28,7 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 {
                     CodProject = 2,
                     Address = "xxxxxxxx",
-                    State = ProyectState.Pendiente,
+                    State = ProjectState.Pendiente,
                     Name = "random",
                     CreatedDate = DateTime.Now
                 }

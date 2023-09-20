@@ -6,7 +6,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces.projectInterfaces
     /// <summary>
     /// This interface defines the project for defining and using ProjectDtos and its logic.
     /// </summary>
-    public interface IProyectService
+    public interface IProjectService
     {
         /// <summary>
         /// Gets a collection of project data that hasnt been soft deleted with pagination.

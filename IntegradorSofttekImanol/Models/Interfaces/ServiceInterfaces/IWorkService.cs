@@ -23,17 +23,17 @@ namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
         /// <summary>
         /// Creates a work record.
         /// </summary>
-        /// <param name="WorkDto">An WorkDto.</param>
+        /// <param name="workDto">An workDto.</param>
         /// <returns>A boolean value based on the creation of the work.
         /// </returns>
-        Task<bool> CreateWorkAsync(WorkCreateDto WorkDto);
+        Task<bool> CreateWorkAsync(WorkCreateDto workDto);
 
         /// <summary>
         /// Updates the work record data that hasnt been soft deleted.
         /// </summary>
-        /// <param name="WorkDto">A WorkDto.</param>
+        /// <param name="workDto">A workDto.</param>
         /// <returns>A boolean value based on the update of the work.</returns>
-        Task<bool> UpdateWork(WorkUpdateDto WorkDto);
+        Task<bool> UpdateWork(WorkUpdateDto workDto);
 
         /// <summary>
         /// Deletes a work record based on its id, first it soft deletes it, then it hard deletes it.

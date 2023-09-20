@@ -8,7 +8,7 @@ namespace IntegradorSofttekImanol.Models.DTOs.Proyecto
         public int CodProyect { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public ProyectState State { get; set; }
+        public ProjectState State { get; set; }
         public List<WorkGetMinDto> Works { get; set; }
 
     }

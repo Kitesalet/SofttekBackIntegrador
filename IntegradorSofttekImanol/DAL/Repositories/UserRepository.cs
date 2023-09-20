@@ -8,38 +8,40 @@ using Microsoft.EntityFrameworkCore;
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
     /// <summary>
-    /// The implemmentation that defines extra repository operations related to the Usuario entity
+    /// The implemmentation that defines extra repository operations related to the User entity.
     /// </summary>
-    public class UsuarioRepository : Repository<User>, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly AppDbContext _context;
 
         /// <summary>
-        /// Initializes an instance of UsuarioRepository using dependency injection with its parameters
+        /// Initializes an instance of UsuarioRepository using dependency injection with its parameters.
         /// </summary>
-        /// <param name="context">AppDbContext with DI</param>
-        public UsuarioRepository(AppDbContext context) : base(context)
+        /// <param name="context">An AppDbContext with DI.</param>
+        public UserRepository(AppDbContext context) : base(context)
         {
 
             _context = context;
            
         }
 
+        /// <inheritdoc/>
         public async Task<User?> AuthenticateCredentials(UserAuthenticateDTO dto)
         {
 
-            return await _context.Usuarios.Include(e => e.Rol)
-                                          .SingleOrDefaultAsync(e => e.FechaBaja != null 
-                                                                && e.CodUsuario.ToString() == dto.CodUsuario 
-                                                                && e.Contrasena == EncrypterHelper.Encrypter(dto.Contrasena, "RaNdOmCoDe"));;
+            return await _context.Users.Include(e => e.Role)
+                                          .SingleOrDefaultAsync(e => e.DeletedDate != null 
+                                                                && e.CodUser.ToString() == dto.CodUser 
+                                                                && e.Password == EncrypterHelper.Encrypter(dto.Password, "RaNdOmCoDe"));;
 
         }
-
+        
+        /// <inheritdoc/>
         public async Task<bool> UserExists(UserAuthenticateDTO dto)
         {
 
 
-            return await _context.Usuarios.AnyAsync(e => e.CodUsuario.ToString() == dto.CodUsuario.ToString());
+            return await _context.Users.AnyAsync(e => e.CodUser.ToString() == dto.CodUser.ToString());
 
         }
 

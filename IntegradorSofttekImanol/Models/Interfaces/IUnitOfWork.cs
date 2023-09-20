@@ -10,27 +10,27 @@ namespace IntegradorSofttekImanol.Models.Interfaces
         /// <summary>
         /// Gets the repository for Usuario data.
         /// </summary>
-        UsuarioRepository UserRepository { get; }
+        UserRepository UserRepository { get; }
 
         /// <summary>
         /// Gets the repository for Proyecto data.
         /// </summary>
-        ProyectoRepository ProjectRepository { get; }
+        ProjectRepository ProjectRepository { get; }
 
         /// <summary>
         /// Gets the repository for Trabajo data.
         /// </summary>
-        TrabajoRepository WorkRepository { get; }
+        WorkRepository WorkRepository { get; }
 
         /// <summary>
         /// Gets the repository for Rol data.
         /// </summary>
-        RolRepository RoleRepository { get; }
+        RoleRepository RoleRepository { get; }
 
         /// <summary>
         /// Gets the repository for Servicio data.
         /// </summary>
-        ServicioRepository ServiceRepository { get; }
+        ServiceRepository ServiceRepository { get; }
 
         /// <summary>
         /// Completes and saves the context related to the database.

@@ -25,17 +25,17 @@ namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
         /// <summary>
         /// Creates an user.
         /// </summary>
-        /// <param name="UserDto">An UserCreateDto.</param>
+        /// <param name="userDto">An userCreateDto.</param>
         /// <returns>A boolean value based on the creation of the user.
         /// </returns>
-        Task<bool> CreateUserAsync(UserCreateDto UserDto);
+        Task<bool> CreateUserAsync(UserCreateDto userDto);
 
         /// <summary>
         /// Updates the user data that hasnt been soft deleted.
         /// </summary>
-        /// <param name="UserDto">A UserUpdateDto.</param>
+        /// <param name="userDto">A userUpdateDto.</param>
         /// <returns>A boolean value based on the update of the user.</returns>
-        Task<bool> UpdateUser(UserUpdateDto UserDto);
+        Task<bool> UpdateUser(UserUpdateDto userDto);
 
         /// <summary>
         /// Deletes a user based on its id, first it soft deletes it, then it hard deletes it.

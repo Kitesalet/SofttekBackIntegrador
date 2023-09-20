@@ -22,12 +22,14 @@ namespace IntegradorSofttekImanol.DAL
         }
 
 
-        //Database tables
+        #region Database tables
         public DbSet<Project> Projects { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Work> Works { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+
+        #endregion
 
         /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder modelBuilder)

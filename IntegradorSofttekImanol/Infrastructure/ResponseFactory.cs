@@ -1,11 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Net;
-using System.Reflection.Metadata.Ecma335;
 
 namespace IntegradorSofttekImanol.Infrastructure
 {
+    /// <summary>
+    /// A factory class for creating API response objects.
+    /// </summary>
     public static class ResponseFactory
     {
+        /// <summary>
+        /// Creates a success response with the status code and data.
+        /// </summary>
+        /// <param name="statusCode">A HttpStatusCode </param>
+        /// <param name="data">An object</param>
+        /// <returns>An IActionResult representing the success response.</returns>
         public static IActionResult CreateSuccessResponse(HttpStatusCode statusCode, object? data)
         {
             var response = new ApiSuccessResponse()
@@ -16,28 +25,32 @@ namespace IntegradorSofttekImanol.Infrastructure
 
             return new ObjectResult(response)
             {
-                StatusCode = (int?)statusCode,
-                
-
+                StatusCode = (int?)statusCode
             };
         }
 
+        /// <summary>
+        /// Creates an error response with the status code and error messages.
+        /// </summary>
+        /// <param name="statusCode">A HttpStatusCode. /param>
+        /// <param name="errors">A String Array</param>
+        /// <returns>An IActionResult representing the error response.</returns>
         public static IActionResult CreateErrorResponse(HttpStatusCode statusCode, params string[] errors)
         {
             var response = new ApiErrorResponse()
             {
                 StatusCode = statusCode,
-                Error = new List<ApiErrorResponse.ResponseError>()
+                Errors = new List<ApiErrorResponse.ResponseError>()
             };
 
-            foreach(var error in errors)
+            foreach (var error in errors)
             {
-                response.Error.Add(new ApiErrorResponse.ResponseError() { Error = error });
+                response.Errors.Add(new ApiErrorResponse.ResponseError() { Error = error });
             }
 
             return new ObjectResult(response)
             {
-                StatusCode = (int?)statusCode,
+                StatusCode = (int?)statusCode
             };
         }
     }
