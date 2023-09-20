@@ -77,6 +77,18 @@ namespace IntegradorSofttekImanol.Services
             return proyectosDto;
         }
 
+        /// <inheritdoc/>
+        public async Task<IEnumerable<ProyectoGetDto>> GetProyectoByEstadoAsync(int state)
+        {
+            
+            var proyectos = await _unitOfWork.ProyectoRepository.GetProyectoByEstado(state);
+
+            var proyectosDto = _mapper.Map<List<ProyectoGetDto>>(proyectos);
+
+            return proyectosDto;
+
+        }
+
         /// <inheritdoc />
         public async Task<ProyectoGetDto> GetProyectoByIdAsync(int id)
         {

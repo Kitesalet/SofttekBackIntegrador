@@ -79,6 +79,47 @@ namespace IntegradorSofttekImanol.Controllers
         }
 
         /// <summary>
+        /// Gets all proyects filtered by state.
+        /// </summary>
+        /// <returns>
+        /// 200 OK response with the list of services if successful.
+        /// |
+        /// 400 Bad Request response if state is invalid
+        /// |
+        /// 500 Internal Server Error if theres an exception
+        /// </returns>
+
+        [HttpGet]
+        [Authorize(Policy = "AdministradorOrConsultor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("proyectos/state/{state}")]
+        public async Task<IActionResult> GetAllProyectos(int state)
+        {
+
+            try
+            {
+                if (state < 1 || state > 3)
+                {
+                    _logger.LogInformation($"State introduced was invalid, state = {state}");
+                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "The state introduced was invalid!");
+                }
+
+                var proyectos = await _service.GetProyectoByEstadoAsync(state);        
+
+                _logger.LogInformation("All filtered proyectos were retrieved!");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, proyectos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            }
+        }
+
+        /// <summary>
         /// Gets a proyect by their ID.
         /// </summary>
         /// <param name="id">ID of the service to get.</param>
