@@ -1,4 +1,4 @@
-﻿namespace IntegradorSofttekImanol.Models.DTOs
+﻿namespace IntegradorSofttekImanol.Models.DTOs.OtherDtos
 {
     public class PaginateDto<T>
     {

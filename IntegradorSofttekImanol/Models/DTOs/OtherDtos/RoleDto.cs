@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IntegradorSofttekImanol.Models.DTOs
+namespace IntegradorSofttekImanol.Models.DTOs.OtherDtos
 {
     public class RoleDto
     {

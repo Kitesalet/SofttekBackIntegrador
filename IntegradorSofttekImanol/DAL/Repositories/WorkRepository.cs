@@ -1,4 +1,5 @@
-﻿using IntegradorSofttekImanol.Models.Entities;
+﻿using IntegradorSofttekImanol.DAL.Context;
+using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
 
 namespace IntegradorSofttekImanol.DAL.Repositories

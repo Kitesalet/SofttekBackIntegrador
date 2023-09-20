@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace IntegradorSofttekImanol.Models.Interfaces
+namespace IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces
 {
     /// <summary>
     /// This interface defines a method in charge of seeding the db with various objects.

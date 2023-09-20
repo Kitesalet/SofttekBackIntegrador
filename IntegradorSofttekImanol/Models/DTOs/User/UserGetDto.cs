@@ -11,7 +11,7 @@ namespace IntegradorSofttekImanol.Models.DTOs.Usuario
         public int CodUser { get; set; }
         public string Name { get; set; }
         public int Dni { get; set; }
-        public int Type { get; set; }
+        public string Type { get; set; }
 
     }
 }

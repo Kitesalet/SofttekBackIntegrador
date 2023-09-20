@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Helpers;
+using IntegradorSofttekImanol.Models.Dictionaries;
 using IntegradorSofttekImanol.Models.DTOs;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
-using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Enums;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 
 namespace IntegradorSofttekImanol.Services
@@ -29,19 +31,19 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<bool> CreateUserAsync(UserCreateDto UserDto)
+        public async Task<bool> CreateUserAsync(UserCreateDto userDto)
         {
             try
             {
-                var User = _mapper.Map<User>(UserDto);
+                var user = _mapper.Map<User>(userDto);
 
-                User.Password = EncrypterHelper.Encrypter(User.Password, $"RaNdOmCoDe");
+                user.Password = EncrypterHelper.Encrypter(user.Password, $"RaNdOmCoDe");
 
-                await _unitOfWork.UserRepository.AddAsync(User);
+                await _unitOfWork.UserRepository.AddAsync(user);
 
-                User.CreatedDate = DateTime.Now;
+                user.CreatedDate = DateTime.Now;
 
-                User.Type = 1;
+                user.Type = UserRole.Consultor;
 
                 await _unitOfWork.Complete();
 
@@ -72,9 +74,11 @@ namespace IntegradorSofttekImanol.Services
         public async Task<IEnumerable<UserGetDto>> GetAllUsersAsync(int page, int units)
         {
 
-            var Users = await _unitOfWork.UserRepository.GetAllAsync(page, units, e => e.Role);      
+            var users = await _unitOfWork.UserRepository.GetAllAsync(page, units); 
             
-            return _mapper.Map<List<UserGetDto>>(Users);
+            var usersDto = new List<UserGetDto>();
+            
+            return usersDto;
                    
         }
 
@@ -82,14 +86,14 @@ namespace IntegradorSofttekImanol.Services
         public async Task<UserGetDto> GetUserByIdAsync(int id)
         {
             
-            var User = await _unitOfWork.UserRepository.GetByIdAsync(id);
+            var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
 
-            if(User == null || User.DeletedDate != null)
+            if(user == null || user.DeletedDate != null)
             {
                 return null;
             }
 
-            return _mapper.Map<UserGetDto>(User);
+            return _mapper.Map<UserGetDto>(user);
             
         }
 
@@ -104,7 +108,7 @@ namespace IntegradorSofttekImanol.Services
             }
 
             user.Name = userDto.Name;
-            user.Type = userDto.Type;
+            user.Type = (UserRole)userDto.Type;
             user.Password = userDto.Password;
             user.UpdatedDate = DateTime.Now;
 

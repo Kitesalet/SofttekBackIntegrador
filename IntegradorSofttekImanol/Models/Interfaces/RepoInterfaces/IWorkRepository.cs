@@ -7,5 +7,8 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
     /// </summary>
     public interface IWorkRepository : IRepository<Work>
     {
+
+        
+
     }
 }

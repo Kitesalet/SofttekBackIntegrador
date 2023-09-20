@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.DAL.Context;
 using IntegradorSofttekImanol.DAL.Repositories;
-using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 
 namespace IntegradorSofttekImanol.Services
 {
@@ -14,7 +14,6 @@ namespace IntegradorSofttekImanol.Services
         public UserRepository UserRepository { get; }
         public ProjectRepository ProjectRepository { get; }
         public WorkRepository WorkRepository { get; }
-        public RoleRepository RoleRepository { get; }
         public ServiceRepository ServiceRepository { get; }
 
         /// <summary>
@@ -28,7 +27,6 @@ namespace IntegradorSofttekImanol.Services
             UserRepository = new UserRepository(context);
             ProjectRepository = new ProjectRepository(context);
             WorkRepository = new WorkRepository(context);
-            RoleRepository = new RoleRepository(context, mapper);
             ServiceRepository = new ServiceRepository(context);
        
     }

@@ -1,9 +1,9 @@
 ﻿using IntegradorSofttekImanol.DAL.DBSeeding;
 using IntegradorSofttekImanol.Models.Entities;
-using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace IntegradorSofttekImanol.DAL
+namespace IntegradorSofttekImanol.DAL.Context
 {
     /// <summary>
     /// Represents the application's database context that manages database tables.
@@ -27,14 +27,13 @@ namespace IntegradorSofttekImanol.DAL
         public DbSet<Service> Services { get; set; }
         public DbSet<Work> Works { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
 
         #endregion
 
         /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-      
+
             #region Seeding config
 
             var seeder = new List<IEntitySeeder>()
@@ -46,7 +45,7 @@ namespace IntegradorSofttekImanol.DAL
                 new RoleSeeder()
             };
 
-            foreach(var seed in seeder)
+            foreach (var seed in seeder)
             {
                 seed.SeedDatabase(modelBuilder);
             }

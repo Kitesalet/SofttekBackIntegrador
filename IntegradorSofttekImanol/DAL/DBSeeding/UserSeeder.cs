@@ -1,7 +1,9 @@
 ﻿using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Models.Entities;
-using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Enums;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace IntegradorSofttekImanol.DAL.DBSeeding
 {
@@ -24,23 +26,23 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                     Password = EncrypterHelper.Encrypter("random", "RaNdOmCoDe"),
                     Dni = 39321874,
                     Name = "random",
-                    Type = 1,
+                    Type = UserRole.Administrador,
                     CreatedDate = DateTime.Now
                 }, new User
                 {
                     CodUser = 2,
                     Password = EncrypterHelper.Encrypter("random", "RaNdOmCoDe"),
                     Dni = 39382743,
-                    Name = "randoms",
-                    Type = 2,
+                    Name = "random",
+                    Type = UserRole.Consultor,
                     CreatedDate = DateTime.Now
                 }, new User
                 {
                     CodUser = 3,
                     Password = EncrypterHelper.Encrypter("xxxdsaddsds", "RaNdOmCoDe"),
                     Dni = 39382743,
-                    Name = "randomdd",
-                    Type = 2,
+                    Name = "random",
+                    Type = UserRole.Consultor,
                     CreatedDate = DateTime.Now
                 }
                 );

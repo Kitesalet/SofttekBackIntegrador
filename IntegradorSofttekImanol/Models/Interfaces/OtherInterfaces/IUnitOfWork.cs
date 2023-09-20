@@ -1,6 +1,6 @@
 ﻿using IntegradorSofttekImanol.DAL.Repositories;
 
-namespace IntegradorSofttekImanol.Models.Interfaces
+namespace IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces
 {
     /// <summary>
     /// This interface defines a unit that manages repositories and databases.
@@ -8,27 +8,22 @@ namespace IntegradorSofttekImanol.Models.Interfaces
     public interface IUnitOfWork
     {
         /// <summary>
-        /// Gets the repository for Usuario data.
+        /// Gets the repository for User data.
         /// </summary>
         UserRepository UserRepository { get; }
 
         /// <summary>
-        /// Gets the repository for Proyecto data.
+        /// Gets the repository for Project data.
         /// </summary>
         ProjectRepository ProjectRepository { get; }
 
         /// <summary>
-        /// Gets the repository for Trabajo data.
+        /// Gets the repository for Work data.
         /// </summary>
         WorkRepository WorkRepository { get; }
 
         /// <summary>
-        /// Gets the repository for Rol data.
-        /// </summary>
-        RoleRepository RoleRepository { get; }
-
-        /// <summary>
-        /// Gets the repository for Servicio data.
+        /// Gets the repository for Service data.
         /// </summary>
         ServiceRepository ServiceRepository { get; }
 

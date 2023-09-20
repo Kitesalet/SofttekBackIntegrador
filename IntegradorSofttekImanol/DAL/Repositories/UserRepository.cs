@@ -1,4 +1,5 @@
-﻿using IntegradorSofttekImanol.Helpers;
+﻿using IntegradorSofttekImanol.DAL.Context;
+using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Migrations;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
@@ -29,10 +30,10 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         public async Task<User?> AuthenticateCredentials(UserAuthenticateDTO dto)
         {
 
-            return await _context.Users.Include(e => e.Role)
-                                          .SingleOrDefaultAsync(e => e.DeletedDate != null 
-                                                                && e.CodUser.ToString() == dto.CodUser 
-                                                                && e.Password == EncrypterHelper.Encrypter(dto.Password, "RaNdOmCoDe"));;
+            return await _context.Users
+                                      .SingleOrDefaultAsync(e => e.DeletedDate == null 
+                                                             && e.CodUser.ToString() == dto.CodUser 
+                                                             && e.Password == EncrypterHelper.Encrypter(dto.Password, "RaNdOmCoDe"));;
 
         }
         

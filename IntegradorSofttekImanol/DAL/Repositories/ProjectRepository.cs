@@ -1,5 +1,7 @@
-﻿using IntegradorSofttekImanol.Models.DTOs.Usuario;
+﻿using IntegradorSofttekImanol.DAL.Context;
+using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
+using IntegradorSofttekImanol.Models.Enums;
 using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
 using Microsoft.EntityFrameworkCore;
 

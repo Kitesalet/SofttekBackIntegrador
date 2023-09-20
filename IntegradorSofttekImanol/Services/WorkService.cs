@@ -4,7 +4,7 @@ using IntegradorSofttekImanol.Models.DTOs.Servicio;
 using IntegradorSofttekImanol.Models.DTOs.Trabajo;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Entities;
-using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 
 namespace IntegradorSofttekImanol.Services

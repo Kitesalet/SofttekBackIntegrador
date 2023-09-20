@@ -1,4 +1,4 @@
-﻿namespace IntegradorSofttekImanol.Models.Entities
+﻿namespace IntegradorSofttekImanol.Models.Enums
 {
     /// <summary>
     /// Enumerates the states of a proyect.
@@ -6,17 +6,17 @@
     public enum ProjectState
     {
         /// <summary>
-        /// The proyect state is pending.
+        /// The project state is pending.
         /// </summary>
         Pendiente = 1,
 
         /// <summary>
-        /// The proyect state is confirmed.
+        /// The project state is confirmed.
         /// </summary>
         Confirmado = 2,
 
         /// <summary>
-        /// The proyect state is completed.
+        /// The project state is completed.
         /// </summary>
         Terminado = 3
     }

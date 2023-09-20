@@ -1,4 +1,4 @@
-﻿using IntegradorSofttekImanol.Models.DTOs;
+﻿using IntegradorSofttekImanol.Models.DTOs.OtherDtos;
 
 namespace IntegradorSofttekImanol.Helpers
 {

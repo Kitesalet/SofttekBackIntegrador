@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using IntegradorSofttekImanol.Models.Dictionaries;
 using IntegradorSofttekImanol.Models.DTOs.Proyecto;
 using IntegradorSofttekImanol.Models.DTOs.Servicio;
 using IntegradorSofttekImanol.Models.Entities;
-using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Enums;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 using IntegradorSofttekImanol.Models.Interfaces.projectInterfaces;
 
 namespace IntegradorSofttekImanol.Services

@@ -1,5 +1,5 @@
 ﻿using IntegradorSofttekImanol.Models.DTOs.Trabajo;
-using IntegradorSofttekImanol.Models.Entities;
+using IntegradorSofttekImanol.Models.Enums;
 
 namespace IntegradorSofttekImanol.Models.DTOs.Proyecto
 {

@@ -84,7 +84,7 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("projects/state/{state}")]
-        public async Task<IActionResult> GetAllProjects(int state)
+        public async Task<IActionResult> GetAllProjectsByState(int state)
         {
 
             try

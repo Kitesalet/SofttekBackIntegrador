@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Infrastructure;
-using IntegradorSofttekImanol.Models.DTOs;
+using IntegradorSofttekImanol.Models.Dictionaries;
+using IntegradorSofttekImanol.Models.DTOs.OtherDtos;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.HelperClasses;
-using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net;
@@ -15,7 +16,7 @@ namespace IntegradorSofttekImanol.Controllers
     /// <summary>
     /// Generates a Controller responsible for user authentication and login.
     /// </summary>
-    
+
     [Route("api")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -71,8 +72,7 @@ namespace IntegradorSofttekImanol.Controllers
                 Token = token,
                 CodUser = userCredentials.CodUser,
                 Name = userCredentials.Name,
-                Type = userCredentials.Type,
-                Role = _mapper.Map<RoleDto>(userCredentials.Role)
+                Type = UserRoleDic.TranslateUserRole((int)userCredentials.Type)
             };
 
             //Never return a password

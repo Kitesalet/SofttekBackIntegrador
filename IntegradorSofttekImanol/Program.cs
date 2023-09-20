@@ -1,7 +1,7 @@
-using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.DAL.Context;
 using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Models.HelperClasses;
-using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 using IntegradorSofttekImanol.Models.Interfaces.projectInterfaces;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using IntegradorSofttekImanol.Services;
@@ -104,11 +104,11 @@ builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"))
 builder.Services.AddAuthorization(option =>
 {
     //Creates policies for both the Administrador and Consultor roles,based on their PKs
-    option.AddPolicy("Administrador", policy => policy.RequireClaim(ClaimTypes.Role, "1"));
-    option.AddPolicy("Consultor", policy => policy.RequireClaim(ClaimTypes.Role, "2"));
+    option.AddPolicy("Administrador", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador"));
+    option.AddPolicy("Consultor", policy => policy.RequireClaim(ClaimTypes.Role, "Consultor"));
 
     //Creates a policy that authorizes a token if their Role claim is either 1 or 2 ( Administrador or Consultor )
-    option.AddPolicy("AdministradorOrConsultor", policy => policy.RequireClaim(ClaimTypes.Role,"1","2"));
+    option.AddPolicy("AdministradorOrConsultor", policy => policy.RequireClaim(ClaimTypes.Role,"Administrador","Consultor"));
 
 });
 

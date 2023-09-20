@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using IntegradorSofttekImanol.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IntegradorSofttekImanol.Models.Entities
@@ -25,15 +26,12 @@ namespace IntegradorSofttekImanol.Models.Entities
         [Column("tipo",TypeName = "int")]
         [Required]
         [Range(1, 2, ErrorMessage = "The input number is invalid")]
-        [ForeignKey("Role")]
-        public int Type { get; set; }
+        public UserRole Type { get; set; }
 
         [Column("contrasena",TypeName = "varchar(200)")]
         [StringLength(200, MinimumLength = 6, ErrorMessage = "Please, introduce a valid password")]
         [Required]
         public string Password { get; set; }
 
-        // Navigation Properties
-        public Role Role { get; set; }
     }
 }
