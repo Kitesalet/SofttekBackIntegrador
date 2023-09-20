@@ -1,4 +1,6 @@
-﻿namespace IntegradorSofttekImanol.Models.DTOs.Servicio
+﻿using IntegradorSofttekImanol.Models.DTOs.Trabajo;
+
+namespace IntegradorSofttekImanol.Models.DTOs.Servicio
 {
     public class ServicioGetDto
     {
@@ -6,6 +8,6 @@
         public string Descr { get; set; }
         public bool Estado { get; set; }
         public decimal ValorHora { get; set; }
-        public List<TrabajoDto> Trabajos { get;set;}
+        public List<TrabajoGetMinDto> Trabajos { get;set;}
     }
 }

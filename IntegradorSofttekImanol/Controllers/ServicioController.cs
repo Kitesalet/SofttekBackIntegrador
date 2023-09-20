@@ -95,7 +95,7 @@ namespace IntegradorSofttekImanol.Controllers
             [ProducesResponseType(StatusCodes.Status401Unauthorized)]
             [ProducesResponseType(StatusCodes.Status400BadRequest)]
             [Route("service/{id:int}")]
-            public async Task<IActionResult> GetService([FromRoute] int id)
+            public async Task<IActionResult> GetServicio([FromRoute] int id)
             {
 
                 try
@@ -241,7 +241,7 @@ namespace IntegradorSofttekImanol.Controllers
             [ProducesResponseType(StatusCodes.Status403Forbidden)]
             [ProducesResponseType(StatusCodes.Status400BadRequest)]
             [Route("service/{id:int}")]
-            public async Task<IActionResult> DeleteService([FromRoute] int id)
+            public async Task<IActionResult> DeleteServicio([FromRoute] int id)
             {
 
                 try

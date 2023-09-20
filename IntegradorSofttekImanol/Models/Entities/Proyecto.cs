@@ -30,6 +30,6 @@ namespace IntegradorSofttekImanol.Models.Entities
         public Estado Estado { get; set; }
 
         // Navigation properties
-        public List<Trabajo> Trabajo { get; set; }
+        public List<Trabajo> Trabajos { get; set; }
     }
 }
