@@ -45,9 +45,10 @@ namespace IntegradorSofttekImanol.Services
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message + " - Error");
+                return false;
             }
 
-            return false;
+            
         }
 
         /// <inheritdoc />
@@ -63,7 +64,7 @@ namespace IntegradorSofttekImanol.Services
         /// <inheritdoc />
         public async Task<IEnumerable<ServicioGetDto>> GetAllServiciosAsync(int page, int units)
         {
-            var servicios = await _unitOfWork.ServicioRepository.GetAllAsync(page, units, e => e.Trabajo);
+            var servicios = await _unitOfWork.ServicioRepository.GetAllAsync(page, units, e => e.Trabajos);
 
             foreach(var x in servicios)
             {
