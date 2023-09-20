@@ -67,6 +67,8 @@ namespace IntegradorSofttekImanol.Services
 
             var services = await _unitOfWork.ServiceRepository.GetActiveServicesAsync();
 
+
+
             var servicesDto = _mapper.Map<List<ServiceGetDto>>(services);
 
             return servicesDto;
@@ -92,6 +94,10 @@ namespace IntegradorSofttekImanol.Services
             {
                 return null;
             }
+
+            var works = await _unitOfWork.WorkRepository.GetWorksByService(id);
+
+            service.Works = works;
 
             return _mapper.Map<ServiceGetDto>(service);
         }

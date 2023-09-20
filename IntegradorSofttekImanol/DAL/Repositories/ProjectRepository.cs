@@ -28,11 +28,11 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         /// <inheritdoc/>
         public async Task<IEnumerable<Project>> GetProjectByState(int state)
         {
-            var Projects = await _context.Projects.Include(e => e.Works)
+            var projects = await _context.Projects.Include(e => e.Works)
                                                     .Where(p => p.State == (ProjectState)state)
                                                     .ToListAsync();
 
-            return Projects;
+            return projects;
         }
     }
 }
