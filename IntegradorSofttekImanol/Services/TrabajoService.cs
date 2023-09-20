@@ -13,7 +13,7 @@ namespace IntegradorSofttekImanol.Services
     /// <summary>
     /// The implementation of the service for defining and using UsuarioDtos and its logic.
     /// </summary>
-    public class TrabajoService : ITrabajoService
+    public class TrabajoService : IWorkService
     {
 
         private readonly IUnitOfWork _unitOfWork;
@@ -31,11 +31,11 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<bool> CreateTrabajoAsync(TrabajoCreateDto trabajoDto)
+        public async Task<bool> CreateTrabajoAsync(WorkCreateDto trabajoDto)
         {
             try
             {
-                var trabajo = _mapper.Map<Trabajo>(trabajoDto);
+                var trabajo = _mapper.Map<Work>(trabajoDto);
 
                 await _unitOfWork.TrabajoRepository.AddAsync(trabajo);
 
@@ -68,17 +68,17 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<TrabajoGetDto>> GetAllTrabajosAsync(int page, int units)
+        public async Task<IEnumerable<WorkGetDto>> GetAllTrabajosAsync(int page, int units)
         {
             var trabajos = await _unitOfWork.TrabajoRepository.GetAllAsync(page, units, e => e.Proyecto, e => e.Servicio);
 
-            var trabajosDto = _mapper.Map<List<TrabajoGetDto>>(trabajos);
+            var trabajosDto = _mapper.Map<List<WorkGetDto>>(trabajos);
 
             return trabajosDto;
         }
 
         /// <inheritdoc/>
-        public async Task<TrabajoGetDto> GetTrabajoByIdAsync(int id)
+        public async Task<WorkGetDto> GetTrabajoByIdAsync(int id)
         {
             var trabajo = await _unitOfWork.TrabajoRepository.GetByIdAsync(id);
 
@@ -87,11 +87,11 @@ namespace IntegradorSofttekImanol.Services
                 return null;
             }
 
-            return _mapper.Map<TrabajoGetDto>(trabajo);
+            return _mapper.Map<WorkGetDto>(trabajo);
         }
 
         /// <inheritdoc/>
-        public async Task<bool> UpdateTrabajo(TrabajoUpdateDto trabajoDto)
+        public async Task<bool> UpdateTrabajo(WorkUpdateDto trabajoDto)
         {
             var trabajo = await _unitOfWork.TrabajoRepository.GetByIdAsync(trabajoDto.codTrabajo);
 

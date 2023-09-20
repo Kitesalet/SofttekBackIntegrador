@@ -16,9 +16,9 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         private readonly DbSet<T> _set;
 
         /// <summary>
-        /// Initializes an instance of Repository using dependency injection with its parameters
+        /// Initializes an instance of Repository using dependency injection with its parameters.
         /// </summary>
-        /// <param name="context">AppDbContext with DI</param>
+        /// <param name="context">AppDbContext with DI.</param>
         public Repository(AppDbContext context)
         {
             _context = context;
@@ -41,9 +41,9 @@ namespace IntegradorSofttekImanol.DAL.Repositories
                 return false;
             }
 
-            if(entity.FechaBaja == null) 
+            if(entity.DeletedDate == null) 
             {
-                entity.FechaBaja = DateTime.Now;
+                entity.DeletedDate = DateTime.Now;
             }
             else
             {
@@ -58,7 +58,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         public virtual async Task<IEnumerable<T>> GetAllAsync(int? page, int? units, params Expression<Func<T,object>>[] includes)
         {
             
-            IQueryable<T> query = _set.Where(t => t.FechaBaja == null);
+            IQueryable<T> query = _set.Where(t => t.DeletedDate == null);
 
             if(page != null)
             {

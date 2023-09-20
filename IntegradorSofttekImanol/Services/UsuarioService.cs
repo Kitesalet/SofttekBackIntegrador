@@ -11,7 +11,7 @@ namespace IntegradorSofttekImanol.Services
     /// <summary>
     /// The implementation of the service for defining and using UsuarioDtos and its logic.
     /// </summary>
-    public class UsuarioService : IUsuarioService
+    public class UsuarioService : IUserService
     {
 
         private readonly IUnitOfWork _unitOfWork;
@@ -29,11 +29,11 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<bool> CreateUsuarioAsync(UsuarioCreateDto usuarioDto)
+        public async Task<bool> CreateUsuarioAsync(UserCreateDto usuarioDto)
         {
             try
             {
-                var usuario = _mapper.Map<Usuario>(usuarioDto);
+                var usuario = _mapper.Map<User>(usuarioDto);
 
                 usuario.Contrasena = EncrypterHelper.Encrypter(usuario.Contrasena, $"RaNdOmCoDe");
 
@@ -70,17 +70,17 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<UsuarioGetDto>> GetAllUsuariosAsync(int page, int units)
+        public async Task<IEnumerable<UserGetDto>> GetAllUsuariosAsync(int page, int units)
         {
 
             var usuarios = await _unitOfWork.UsuarioRepository.GetAllAsync(page, units, e => e.Rol);      
             
-            return _mapper.Map<List<UsuarioGetDto>>(usuarios);
+            return _mapper.Map<List<UserGetDto>>(usuarios);
                    
         }
 
         /// <inheritdoc/>
-        public async Task<UsuarioGetDto> GetUsuarioByIdAsync(int id)
+        public async Task<UserGetDto> GetUsuarioByIdAsync(int id)
         {
             
             var usuario = await _unitOfWork.UsuarioRepository.GetByIdAsync(id);
@@ -90,12 +90,12 @@ namespace IntegradorSofttekImanol.Services
                 return null;
             }
 
-            return _mapper.Map<UsuarioGetDto>(usuario);
+            return _mapper.Map<UserGetDto>(usuario);
             
         }
 
         /// <inheritdoc/>
-        public async Task<bool> UpdateUsuario(UsuarioUpdateDto usuarioDto)
+        public async Task<bool> UpdateUsuario(UserUpdateDto usuarioDto)
         {
             var usuario = await _unitOfWork.UsuarioRepository.GetByIdAsync(usuarioDto.CodUsuario);
 

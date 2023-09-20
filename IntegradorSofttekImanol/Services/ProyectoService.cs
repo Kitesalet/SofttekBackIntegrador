@@ -10,7 +10,7 @@ namespace IntegradorSofttekImanol.Services
     /// <summary>
     /// The implementation of the proyect for defining and using ProyectDtos and its logic.
     /// </summary>
-    public class ProyectoService : IProyectoService
+    public class ProyectoService : IProyectService
     {
 
         private readonly IUnitOfWork _unitOfWork;
@@ -32,11 +32,11 @@ namespace IntegradorSofttekImanol.Services
         {
             try
             {
-                var proyecto = _mapper.Map<Proyecto>(proyectoDto);
+                var proyecto = _mapper.Map<Proyect>(proyectoDto);
 
                 await _unitOfWork.ProyectoRepository.AddAsync(proyecto);
 
-                proyecto.Estado = Estado.Pendiente;
+                proyecto.Estado = ProyectState.Pendiente;
                 proyecto.FechaAlta = DateTime.Now;
 
                 await _unitOfWork.Complete();

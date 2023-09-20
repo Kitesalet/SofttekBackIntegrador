@@ -10,13 +10,13 @@ namespace IntegradorSofttekImanol.Models.Entities
     {
 
         [Column("fechaBaja", TypeName = "datetime2")]
-        public DateTime? FechaBaja { get; set; }
+        public DateTime? DeletedDate { get; set; }
 
         [Column("fechaAlta", TypeName = "datetime2")]
         [Required]
-        public DateTime FechaAlta { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         [Column("fechaUpdate", TypeName = "datetime2")]
-        public DateTime? FechaUpdate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
     }
 }

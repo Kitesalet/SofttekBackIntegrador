@@ -18,10 +18,10 @@ namespace IntegradorSofttekImanol.Controllers
     [ApiController]
     public class ProyectoController : ControllerBase
     {
-        private readonly IProyectoService _service;
+        private readonly IProyectService _service;
         private readonly ILogger<ProyectoController> _logger;
 
-        public ProyectoController(IProyectoService service, ILogger<ProyectoController> logger)
+        public ProyectoController(IProyectService service, ILogger<ProyectoController> logger)
         {
             _service = service;
             _logger = logger;

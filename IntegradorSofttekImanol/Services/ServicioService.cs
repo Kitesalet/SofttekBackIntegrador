@@ -11,7 +11,7 @@ namespace IntegradorSofttekImanol.Services
     /// <summary>
     /// The implementation of the service for defining and using UsuarioDtos and its logic.
     /// </summary>
-    public class ServicioService : IServicioService
+    public class ServicioService : IServiceService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -32,7 +32,7 @@ namespace IntegradorSofttekImanol.Services
         {
             try
             {
-                var servicio = _mapper.Map<Servicio>(servicioDto);
+                var servicio = _mapper.Map<Service>(servicioDto);
 
                 await _unitOfWork.ServicioRepository.AddAsync(servicio);
 
@@ -62,19 +62,19 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<ServicioGetDto>> GetActiveServicios()
+        public async Task<IEnumerable<ServiceGetDto>> GetActiveServicios()
         {
 
             var servicios = await _unitOfWork.ServicioRepository.GetActiveServiciosAsync();
 
-            var serviciosDto = _mapper.Map<List<ServicioGetDto>>(servicios);
+            var serviciosDto = _mapper.Map<List<ServiceGetDto>>(servicios);
 
             return serviciosDto;
 
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<ServicioGetDto>> GetAllServiciosAsync(int page, int units)
+        public async Task<IEnumerable<ServiceGetDto>> GetAllServiciosAsync(int page, int units)
         {
             var servicios = await _unitOfWork.ServicioRepository.GetAllAsync(page, units, e => e.Trabajos);
 
@@ -83,13 +83,13 @@ namespace IntegradorSofttekImanol.Services
                 //Hacer un GetTrabajosByServicio
             }
 
-            var serviciosDto = _mapper.Map<List<ServicioGetDto>>(servicios);
+            var serviciosDto = _mapper.Map<List<ServiceGetDto>>(servicios);
 
             return serviciosDto;
         }
 
         /// <inheritdoc />
-        public async Task<ServicioGetDto> GetServicioByIdAsync(int id)
+        public async Task<ServiceGetDto> GetServicioByIdAsync(int id)
         {
             var servicio = await _unitOfWork.ServicioRepository.GetByIdAsync(id);
 
@@ -98,11 +98,11 @@ namespace IntegradorSofttekImanol.Services
                 return null;
             }
 
-            return _mapper.Map<ServicioGetDto>(servicio);
+            return _mapper.Map<ServiceGetDto>(servicio);
         }
 
         /// <inheritdoc />
-        public async Task<bool> UpdateServicio(ServicioUpdateDto servicioDto)
+        public async Task<bool> UpdateServicio(ServiceUpdateDto servicioDto)
         {
             var servicio = await _unitOfWork.ServicioRepository.GetByIdAsync(servicioDto.CodServicio);
 

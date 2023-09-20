@@ -17,10 +17,10 @@ namespace IntegradorSofttekImanol.Controllers
     public class TrabajoController : ControllerBase
     {
 
-        private readonly ITrabajoService _service;
+        private readonly IWorkService _service;
         private readonly ILogger<TrabajoController> _logger;
 
-        public TrabajoController(ITrabajoService work, ILogger<TrabajoController> logger)
+        public TrabajoController(IWorkService work, ILogger<TrabajoController> logger)
         {
             _service = work;
             _logger = logger;
@@ -143,7 +143,7 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Route("work/register")]
-        public async Task<IActionResult> CreateTabajo(TrabajoCreateDto dto)
+        public async Task<IActionResult> CreateTabajo(WorkCreateDto dto)
         {
 
             try
@@ -186,7 +186,7 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Route("work/{id:int}")]
-        public async Task<IActionResult> UpdateTrabajo(int id, TrabajoUpdateDto dto)
+        public async Task<IActionResult> UpdateTrabajo(int id, WorkUpdateDto dto)
         {
 
             try

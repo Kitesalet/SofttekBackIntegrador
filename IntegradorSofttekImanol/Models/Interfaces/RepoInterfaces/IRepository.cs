@@ -13,21 +13,21 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
         /// <summary>
         /// Gets all entities of type T with pagination.
         /// </summary>
-        /// <returns>All of the T entities</returns>
+        /// <returns>All of the T entities.</returns>
         Task<IEnumerable<T>> GetAllAsync(int? page, int? units, params Expression<Func<T, object>>[] includes);
 
         /// <summary>
         /// Gets an entity of type T by its id.
         /// </summary>
-        /// <param name="id">An int</param>
-        /// <returns>One of the T entities</returns>
+        /// <param name="id">An int.</param>
+        /// <returns>One of the T entities.</returns>
         Task<T> GetByIdAsync(int id);
 
         /// <summary>
         /// Adds an entity of type T.
         /// </summary>
         /// <param name="entity">The entity to add.</param>
-        /// <returns>An entity by its ID</returns>
+        /// <returns>An entity by its ID.</returns>
         Task AddAsync(T entity);
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
         /// <summary>
         /// Updates an entity of type T.
         /// </summary>
-        /// <param name="entity">The entity to update</param>
+        /// <param name="entity">The entity to update.</param>
         void Update(T entity);
     }
 }

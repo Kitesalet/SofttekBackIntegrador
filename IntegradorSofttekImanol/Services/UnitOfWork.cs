@@ -11,11 +11,11 @@ namespace IntegradorSofttekImanol.Services
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
-        public UsuarioRepository UsuarioRepository { get; }
+        public UserRepository UsuarioRepository { get; }
         public ProyectoRepository ProyectoRepository { get; }
-        public TrabajoRepository TrabajoRepository { get; }
-        public RolRepository RolRepository { get; }
-        public ServicioRepository ServicioRepository { get; }
+        public WorkRepository TrabajoRepository { get; }
+        public RoleRepository RolRepository { get; }
+        public ServiceRepository ServicioRepository { get; }
 
         /// <summary>
         /// Initializes an instance of UnitOfWork using dependency injection with its parameters
@@ -25,11 +25,11 @@ namespace IntegradorSofttekImanol.Services
         public UnitOfWork(AppDbContext context, IMapper mapper)
         {
             _context = context;
-            UsuarioRepository = new UsuarioRepository(context);
+            UsuarioRepository = new UserRepository(context);
             ProyectoRepository = new ProyectoRepository(context);
-            TrabajoRepository = new TrabajoRepository(context);
-            RolRepository = new RolRepository(context, mapper);
-            ServicioRepository = new ServicioRepository(context);
+            TrabajoRepository = new WorkRepository(context);
+            RolRepository = new RoleRepository(context, mapper);
+            ServicioRepository = new ServiceRepository(context);
        
     }
 

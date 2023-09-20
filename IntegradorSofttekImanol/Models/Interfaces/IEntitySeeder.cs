@@ -10,7 +10,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces
         /// <summary>
         /// Seeds the database with objects.
         /// </summary>
-        /// <param name="modelBuilder">A ModelBuilder</param>
+        /// <param name="modelBuilder">A ModelBuilder.</param>
         void SeedDatabase(ModelBuilder modelBuilder);
     }
 }

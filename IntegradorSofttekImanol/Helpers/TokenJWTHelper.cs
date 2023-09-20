@@ -24,7 +24,7 @@ namespace IntegradorSofttekImanol.Helpers
         /// </summary>
         /// <param name="user">Usuario</param>
         /// <returns>a JWT Token serialized in a string</returns>
-        public string GenerateToken(Usuario user)
+        public string GenerateToken(User user)
         {
             //An array of claims is created, with the information we need in our JWT
             var claims = new[]

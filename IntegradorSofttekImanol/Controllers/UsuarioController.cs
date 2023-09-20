@@ -19,10 +19,10 @@ namespace IntegradorSofttekImanol.Controllers
     [Authorize]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioService _service;
+        private readonly IUserService _service;
         private readonly ILogger<UsuarioController> _logger;
 
-        public UsuarioController(IUsuarioService service, ILogger<UsuarioController> logger)
+        public UsuarioController(IUserService service, ILogger<UsuarioController> logger)
         {
             _service = service;
             _logger = logger;
@@ -145,7 +145,7 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Route("usuarios/register")]
-        public async Task<IActionResult> CreateUsuario(UsuarioCreateDto dto)
+        public async Task<IActionResult> CreateUsuario(UserCreateDto dto)
         {
 
             try
@@ -197,7 +197,7 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Route("usuario/{id:int}")]
-        public async Task<IActionResult> UpdateUsuario(int id, UsuarioUpdateDto dto)
+        public async Task<IActionResult> UpdateUsuario(int id, UserUpdateDto dto)
         {
 
             try

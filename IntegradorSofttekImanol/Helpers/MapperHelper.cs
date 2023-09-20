@@ -19,33 +19,33 @@ namespace IntegradorSofttekImanol.Helpers
         public MapperHelper() 
         {
             #region Rol mapping to their Dto class
-            CreateMap<Rol, RolDto>().ReverseMap();
+            CreateMap<Role, RoleDto>().ReverseMap();
             #endregion
 
             #region Proyecto mapping to their Dto class
-            CreateMap<Proyecto, ProyectoGetDto>().ReverseMap();
-            CreateMap<Proyecto, ProyectoUpdateDto>().ReverseMap();
-            CreateMap<Proyecto, ProyectoCreateDto>().ReverseMap();
+            CreateMap<Proyect, ProyectoGetDto>().ReverseMap();
+            CreateMap<Proyect, ProyectoUpdateDto>().ReverseMap();
+            CreateMap<Proyect, ProyectoCreateDto>().ReverseMap();
             #endregion
 
             #region Servicio mapping to their Dto class
-            CreateMap<Servicio,ServicioGetDto>().ReverseMap();
-            CreateMap<Servicio, ServicioUpdateDto>().ReverseMap();
-            CreateMap<Servicio, ServicioCreateDto>().ReverseMap();
+            CreateMap<Service,ServiceGetDto>().ReverseMap();
+            CreateMap<Service, ServiceUpdateDto>().ReverseMap();
+            CreateMap<Service, ServicioCreateDto>().ReverseMap();
             #endregion
 
             #region Trabajo mapping to their Dto class
-            CreateMap<Trabajo, TrabajoGetDto>().ReverseMap();
-            CreateMap<Trabajo, TrabajoGetMinDto>().ReverseMap();
-            CreateMap<Trabajo, TrabajoCreateDto>().ReverseMap();
-            CreateMap<Trabajo, TrabajoUpdateDto>().ReverseMap();
+            CreateMap<Work, WorkGetDto>().ReverseMap();
+            CreateMap<Work, WorkGetMinDto>().ReverseMap();
+            CreateMap<Work, WorkCreateDto>().ReverseMap();
+            CreateMap<Work, WorkUpdateDto>().ReverseMap();
             #endregion
 
             #region Usuario mapping to their Dto class
-            CreateMap<Usuario, UsuarioUpdateDto>().ReverseMap();
-            CreateMap<Usuario, UsuarioCreateDto>().ReverseMap();
-            CreateMap<Usuario, UsuarioGetDto>().ReverseMap();
-            CreateMap<Usuario, UsuarioLoginDto>().ReverseMap();
+            CreateMap<User, UserUpdateDto>().ReverseMap();
+            CreateMap<User, UserCreateDto>().ReverseMap();
+            CreateMap<User, UserGetDto>().ReverseMap();
+            CreateMap<User, UserLoginDTO>().ReverseMap();
             #endregion
 
         }

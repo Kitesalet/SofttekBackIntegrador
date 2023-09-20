@@ -11,9 +11,9 @@ namespace IntegradorSofttekImanol.DAL
     public class AppDbContext : DbContext
     {
         /// <summary>
-        /// Initializes an instance of AppDbContext
+        /// Initializes an instance of AppDbContext.
         /// </summary>
-        /// <param name="options">DbContextOptions</param>
+        /// <param name="options">A DbContextOptions.</param>
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -23,11 +23,11 @@ namespace IntegradorSofttekImanol.DAL
 
 
         //Database tables
-        public DbSet<Proyecto> Proyectos { get; set; }
-        public DbSet<Servicio> Servicios { get; set; }
-        public DbSet<Trabajo> Trabajos { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Rol> Roles { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Work> Works { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,11 +37,11 @@ namespace IntegradorSofttekImanol.DAL
 
             var seeder = new List<IEntitySeeder>()
             {
-                new ProyectoSeeder(),
-                new ServicioSeeder(),
-                new TrabajoSeeder(),
-                new UsuarioSeeder(),
-                new RolSeeder()
+                new ProjectSeeder(),
+                new ServiceSeeder(),
+                new WorkSeeder(),
+                new UserSeeder(),
+                new RoleSeeder()
             };
 
             foreach(var seed in seeder)
@@ -78,15 +78,15 @@ namespace IntegradorSofttekImanol.DAL
 
             #region Fluent Api Property Config
 
-            modelBuilder.Entity<Servicio>()
+            modelBuilder.Entity<Service>()
                  .Property(e => e.ValorHora)
                  .HasColumnType("decimal(18, 2)");
 
-            modelBuilder.Entity<Trabajo>()
+            modelBuilder.Entity<Work>()
                 .Property(e => e.valorHora)
                 .HasColumnType("decimal(18, 2)");
 
-            modelBuilder.Entity<Trabajo>()
+            modelBuilder.Entity<Work>()
                 .Property(e => e.Costo)
                 .HasColumnType("decimal(18, 2)");
 

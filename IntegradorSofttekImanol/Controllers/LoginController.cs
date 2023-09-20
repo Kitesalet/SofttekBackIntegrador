@@ -54,7 +54,7 @@ namespace IntegradorSofttekImanol.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] UsuarioAuthenticateDTO authenticate)
+        public async Task<IActionResult> Login([FromBody] UserAuthenticateDTO authenticate)
         {
 
             var userCredentials = await _unitOfWork.UsuarioRepository.AuthenticateCredentials(authenticate);
@@ -66,13 +66,13 @@ namespace IntegradorSofttekImanol.Controllers
 
             var token = _tokenJWTHelper.GenerateToken(userCredentials);
 
-            var user = new UsuarioLoginDto()
+            var user = new UserLoginDTO()
             {
                 Token = token,
                 CodUsuario = userCredentials.CodUsuario,
                 Nombre = userCredentials.Nombre,
                 Tipo = userCredentials.Tipo,
-                Rol = _mapper.Map<RolDto>(userCredentials.Rol)
+                Rol = _mapper.Map<RoleDto>(userCredentials.Rol)
             };
 
             //Never return a password

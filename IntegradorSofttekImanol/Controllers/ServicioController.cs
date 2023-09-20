@@ -18,10 +18,10 @@ namespace IntegradorSofttekImanol.Controllers
     public class ServicioController : ControllerBase
     {
 
-            private readonly IServicioService _service;
+            private readonly IServiceService _service;
             private readonly ILogger<ServicioController> _logger;
 
-            public ServicioController(IServicioService service, ILogger<ServicioController> logger)
+            public ServicioController(IServiceService service, ILogger<ServicioController> logger)
             {
                 _service = service;
                 _logger = logger;
@@ -222,7 +222,7 @@ namespace IntegradorSofttekImanol.Controllers
             [ProducesResponseType(StatusCodes.Status401Unauthorized)]
             [ProducesResponseType(StatusCodes.Status403Forbidden)]
             [Route("service/{id:int}")]
-            public async Task<IActionResult> UpdateServicio(int id, ServicioUpdateDto dto)
+            public async Task<IActionResult> UpdateServicio(int id, ServiceUpdateDto dto)
             {
 
                 try
