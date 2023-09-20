@@ -8,6 +8,6 @@ namespace IntegradorSofttekImanol.Models.DTOs.Servicio
         public string Descr { get; set; }
         public bool State { get; set; }
         public decimal HourValue { get; set; }
-        public List<WorkGetMinDto> Works { get;set;}
+        public IEnumerable<WorkGetMinDto> Works { get;set;}
     }
 }

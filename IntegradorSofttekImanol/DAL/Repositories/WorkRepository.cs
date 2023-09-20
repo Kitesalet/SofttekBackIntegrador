@@ -1,6 +1,7 @@
 ﻿using IntegradorSofttekImanol.DAL.Context;
 using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
@@ -22,6 +23,22 @@ namespace IntegradorSofttekImanol.DAL.Repositories
 
         }
 
+        /// <inheritdoc/>
+        public async Task<List<Work>> GetWorksByProject(int idProject)
+        {
+            var works = await _context.Works.Where(w => w.CodProject == idProject)
+                                       .ToListAsync();
 
+            return works;
+        }
+
+        /// <inheritdoc/>
+        public async Task<List<Work>> GetWorksByService(int idService)
+        {
+            var works = await _context.Works.Where(w => w.CodService == idService)
+                                            .ToListAsync();
+
+            return works;
+        }
     }
 }

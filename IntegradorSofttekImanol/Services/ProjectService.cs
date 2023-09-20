@@ -96,6 +96,8 @@ namespace IntegradorSofttekImanol.Services
                 return null;
             }
 
+            project.Works = await _unitOfWork.WorkRepository.GetWorksByProject(id);
+
             return _mapper.Map<ProjectGetDto>(project);
         }
 
