@@ -20,19 +20,19 @@ namespace IntegradorSofttekImanol.Helpers
         }
 
         /// <summary>
-        /// Generates a JWT Security Token as a response to the correct login of an user
+        /// Generates a JWT Security Token as a response to the correct login of an user.
         /// </summary>
-        /// <param name="user">Usuario</param>
-        /// <returns>a JWT Token serialized in a string</returns>
-        public string GenerateToken(Usuario user)
+        /// <param name="user">A user.</param>
+        /// <returns>a JWT Token serialized in a string.</returns>
+        public string GenerateToken(User user)
         {
             //An array of claims is created, with the information we need in our JWT
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, _jwtSettings.Subject),
-                new Claim(ClaimTypes.NameIdentifier, user.CodUsuario.ToString()),
-                new Claim(ClaimTypes.Name, user.Nombre),
-                new Claim(ClaimTypes.Role, user.Rol.CodRol.ToString())
+                new Claim(ClaimTypes.NameIdentifier, user.CodUser.ToString()),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Role, $"{user.Type}")
             };
 
 

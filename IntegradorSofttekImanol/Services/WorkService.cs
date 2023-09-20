@@ -1,0 +1,116 @@
+﻿using AutoMapper;
+using IntegradorSofttekImanol.Models.DTOs;
+using IntegradorSofttekImanol.Models.DTOs.Servicio;
+using IntegradorSofttekImanol.Models.DTOs.Trabajo;
+using IntegradorSofttekImanol.Models.DTOs.Usuario;
+using IntegradorSofttekImanol.Models.Entities;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
+using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
+
+namespace IntegradorSofttekImanol.Services
+{
+
+    /// <summary>
+    /// The implementation of the service for defining and using WorkDtos and its logic.
+    /// </summary>
+    public class WorkService : IWorkService
+    {
+
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        /// <summary>
+        /// Initializes an instance of WorkService using dependency injection with its parameters.
+        /// </summary>
+        /// <param name="unitOfWork">IUnitOfWork with DI.</param>
+        /// <param name="mapper">IMapper with DI.</param>
+        public WorkService(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> CreateWorkAsync(WorkCreateDto workDto)
+        {
+            try
+            {
+                var work = _mapper.Map<Work>(workDto);
+
+                await _unitOfWork.WorkRepository.AddAsync(work);
+
+                work.HourValue = workDto.HourValue;
+                work.HourQty = workDto.HourQty;
+                work.CodService = workDto.CodService;
+                work.CodProject = workDto.CodProject;
+                work.Date = workDto.Date;
+                work.CreatedDate = DateTime.Now;
+
+                await _unitOfWork.Complete();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message + " - Error");
+                return false;
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> DeleteWorkAsync(int id)
+        {
+            var flag = await _unitOfWork.WorkRepository.Delete(id);
+
+            await _unitOfWork.Complete();
+
+            return flag;
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<WorkGetDto>> GetAllWorksAsync(int page, int units)
+        {
+            var works = await _unitOfWork.WorkRepository.GetAllAsync(page, units, e => e.Project, e => e.Service);
+
+            var worksDto = _mapper.Map<List<WorkGetDto>>(works);
+
+            return worksDto;
+        }
+
+        /// <inheritdoc/>
+        public async Task<WorkGetDto> GetWorkByIdAsync(int id)
+        {
+            var work = await _unitOfWork.WorkRepository.GetByIdAsync(id);
+
+            if (work == null || work.DeletedDate != null)
+            {
+                return null;
+            }
+
+            return _mapper.Map<WorkGetDto>(work);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> UpdateWork(WorkUpdateDto workDto)
+        {
+            var work = await _unitOfWork.WorkRepository.GetByIdAsync(workDto.codWork);
+
+            if (work == null)
+            {
+                return false;
+            }
+
+            work.CodProject = workDto.CodProject;
+            work.CodService = workDto.CodService;
+            work.HourQty = workDto.HourQty;
+            work.HourValue = workDto.HourValue;
+            work.UpdatedDate = DateTime.Now;
+
+            _unitOfWork.WorkRepository.Update(work);
+
+            await _unitOfWork.Complete();
+
+            return true;
+        }
+    }
+}

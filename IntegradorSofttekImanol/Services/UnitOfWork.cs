@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using IntegradorSofttekImanol.DAL;
+using IntegradorSofttekImanol.DAL.Context;
 using IntegradorSofttekImanol.DAL.Repositories;
-using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 
 namespace IntegradorSofttekImanol.Services
 {
@@ -11,11 +11,10 @@ namespace IntegradorSofttekImanol.Services
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
-        public UsuarioRepository UsuarioRepository { get; }
-        public ProyectoRepository ProyectoRepository { get; }
-        public TrabajoRepository TrabajoRepository { get; }
-        public RolRepository RolRepository { get; }
-        public ServicioRepository ServicioRepository { get; }
+        public UserRepository UserRepository { get; }
+        public ProjectRepository ProjectRepository { get; }
+        public WorkRepository WorkRepository { get; }
+        public ServiceRepository ServiceRepository { get; }
 
         /// <summary>
         /// Initializes an instance of UnitOfWork using dependency injection with its parameters
@@ -25,11 +24,10 @@ namespace IntegradorSofttekImanol.Services
         public UnitOfWork(AppDbContext context, IMapper mapper)
         {
             _context = context;
-            UsuarioRepository = new UsuarioRepository(context);
-            ProyectoRepository = new ProyectoRepository(context);
-            TrabajoRepository = new TrabajoRepository(context);
-            RolRepository = new RolRepository(context, mapper);
-            ServicioRepository = new ServicioRepository(context);
+            UserRepository = new UserRepository(context);
+            ProjectRepository = new ProjectRepository(context);
+            WorkRepository = new WorkRepository(context);
+            ServiceRepository = new ServiceRepository(context);
        
     }
 

@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Helpers;
 using IntegradorSofttekImanol.Infrastructure;
-using IntegradorSofttekImanol.Models.DTOs;
+using IntegradorSofttekImanol.Models.Dictionaries;
+using IntegradorSofttekImanol.Models.DTOs.OtherDtos;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.HelperClasses;
-using IntegradorSofttekImanol.Models.Interfaces;
+using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net;
@@ -15,7 +16,7 @@ namespace IntegradorSofttekImanol.Controllers
     /// <summary>
     /// Generates a Controller responsible for user authentication and login.
     /// </summary>
-    
+
     [Route("api")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -54,10 +55,10 @@ namespace IntegradorSofttekImanol.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] UsuarioAuthenticateDTO authenticate)
+        public async Task<IActionResult> Login([FromBody] UserAuthenticateDTO authenticate)
         {
 
-            var userCredentials = await _unitOfWork.UsuarioRepository.AuthenticateCredentials(authenticate);
+            var userCredentials = await _unitOfWork.UserRepository.AuthenticateCredentials(authenticate);
 
             if (userCredentials == null)
             {
@@ -66,13 +67,12 @@ namespace IntegradorSofttekImanol.Controllers
 
             var token = _tokenJWTHelper.GenerateToken(userCredentials);
 
-            var user = new UsuarioLoginDto()
+            var user = new UserLoginDTO()
             {
                 Token = token,
-                CodUsuario = userCredentials.CodUsuario,
-                Nombre = userCredentials.Nombre,
-                Tipo = userCredentials.Tipo,
-                Rol = _mapper.Map<RolDto>(userCredentials.Rol)
+                CodUser = userCredentials.CodUser,
+                Name = userCredentials.Name,
+                Type = UserRoleDic.TranslateUserRole((int)userCredentials.Type)
             };
 
             //Never return a password

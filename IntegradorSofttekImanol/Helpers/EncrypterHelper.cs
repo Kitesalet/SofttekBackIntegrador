@@ -4,34 +4,33 @@ using System.Text;
 namespace IntegradorSofttekImanol.Helpers
 {
     /// <summary>
-    /// This class has methods that encrypt strings
+    /// This class has methods that encrypt strings.
     /// </summary>
     public static class EncrypterHelper
     {
         /// <summary>
         /// This method is used to encrypt a string.
         /// </summary>
-        /// <param name="password">A string</param>
-        /// <param name="secondParam">A string</param>
-        /// <returns>An encrypted string based on SHA256</returns>
+        /// <param name="password">A string.</param>
+        /// <param name="secondParam">A string.</param>
+        /// <returns>An encrypted string based on SHA256.</returns>
         public static string Encrypter(string password, string secondParam)
         {
 
             var salt = CreateSalt(secondParam);
             string saltAndPwd = String.Concat(password, salt);
 
-            //Algoritmo de encriptacion
+            //Encryption algorithm
             SHA256 sha256 = SHA256.Create();
             ASCIIEncoding encoding = new ASCIIEncoding();
             byte[] stream = Array.Empty<byte>();
             StringBuilder sb = new StringBuilder();
 
-            //Formatea el arreglo de bytes
+            //Bytes array format
             stream = sha256.ComputeHash(encoding.GetBytes(saltAndPwd));
 
             for(int i = 0; i < stream.Length; i++)
             {
-                //Se toma cada byte de dos en dos
                 sb.AppendFormat("{0:x2}", stream[i]);
             }
 
@@ -41,10 +40,10 @@ namespace IntegradorSofttekImanol.Helpers
 
 
         /// <summary>
-        /// This metod generates a SALT based on a string parameter
+        /// This metod generates a SALT based on a string parameter.
         /// </summary>
-        /// <param name="dni">A string</param>
-        /// <returns>A randomly generated Salt string</returns>
+        /// <param name="dni">A string.</param>
+        /// <returns>A randomly generated Salt string.</returns>
         private static string CreateSalt(string dni)
         {
             var salt = dni;
