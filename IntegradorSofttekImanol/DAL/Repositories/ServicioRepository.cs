@@ -1,5 +1,6 @@
 ﻿using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
@@ -21,6 +22,12 @@ namespace IntegradorSofttekImanol.DAL.Repositories
 
         }
 
-
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Servicio>> GetActiveServiciosAsync()
+        {
+            return await _context.Servicios.Include(e => e.Trabajos)
+                                            .Where(s => s.Estado == true)
+                                            .ToListAsync();
+        }
     }
 }

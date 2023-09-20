@@ -7,5 +7,11 @@ namespace IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces
     /// </summary>
     public interface IServicioRepository : IRepository<Servicio>
     {
+        /// <summary>
+        /// Gets all the active services
+        /// </summary>
+        /// <returns>All the active services</returns>
+        public Task<IEnumerable<Servicio>> GetActiveServiciosAsync();
+
     }
 }
