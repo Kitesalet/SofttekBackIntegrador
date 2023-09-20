@@ -41,5 +41,11 @@ namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
         /// <param name="id">An int</param>
         /// <returns>A boolean value based on the Deletion of the service, true if it was soft or hard deleted</returns>
         Task<bool> DeleteServicioAsync(int id);
+
+        /// <summary>
+        /// Gets all the active services Dtos.
+        /// </summary>
+        /// <returns>All the active services dtos.</returns>
+        Task<IEnumerable<ServicioGetDto>> GetActiveServicios();
     }
 }

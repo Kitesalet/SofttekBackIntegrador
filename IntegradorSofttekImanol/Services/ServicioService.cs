@@ -61,6 +61,18 @@ namespace IntegradorSofttekImanol.Services
             return flag;
         }
 
+        /// <inheritdoc/>
+        public async Task<IEnumerable<ServicioGetDto>> GetActiveServicios()
+        {
+
+            var servicios = await _unitOfWork.ServicioRepository.GetActiveServiciosAsync();
+
+            var serviciosDto = _mapper.Map<List<ServicioGetDto>>(servicios);
+
+            return serviciosDto;
+
+        }
+
         /// <inheritdoc />
         public async Task<IEnumerable<ServicioGetDto>> GetAllServiciosAsync(int page, int units)
         {
@@ -68,7 +80,7 @@ namespace IntegradorSofttekImanol.Services
 
             foreach(var x in servicios)
             {
-                // Hacer un GetTrabajosByServicio
+                //Hacer un GetTrabajosByServicio
             }
 
             var serviciosDto = _mapper.Map<List<ServicioGetDto>>(servicios);

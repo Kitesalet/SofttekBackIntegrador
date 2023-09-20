@@ -32,6 +32,8 @@ namespace IntegradorSofttekImanol.Controllers
             /// </summary>
             /// <returns>
             /// 200 OK response with the list of services if successful.
+            /// |
+            /// 500 BadRequest if unsuccesful.
             /// </returns>
 
             [HttpGet]
@@ -76,6 +78,39 @@ namespace IntegradorSofttekImanol.Controllers
                     _logger.LogError(ex, "An unexpected error occurred.");
                     return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
                 }
+            }
+    
+
+            /// <summary>
+            /// Gets all active services.
+            /// </summary>
+            /// <returns>
+            /// 200 Ok with the list of services if successful.
+            /// |
+            /// 500 BadResponse if unsuccessful
+            /// </returns>
+            
+            [HttpGet]
+            [Authorize(Policy = "AdministradorOrConsultor")]
+            [ProducesResponseType(StatusCodes.Status200OK)]
+            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+            [Route("servicios/active")]
+            public async Task<IActionResult> GetAllActiveServicios()
+            {
+                try
+                {
+                    var activeServicios = await _service.GetActiveServicios();
+
+                    _logger.LogInformation("All active services were retrieved!");
+                    return Ok(activeServicios);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "An unexpected error occurred.");
+                    return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+
+                }
+               
             }
 
             /// <summary>
