@@ -37,6 +37,8 @@ namespace IntegradorSofttekImanol.Helpers
             #region Trabajo mapping to their Dto class
             CreateMap<Trabajo, TrabajoGetDto>().ReverseMap();
             CreateMap<Trabajo, TrabajoGetMinDto>().ReverseMap();
+            CreateMap<Trabajo, TrabajoCreateDto>().ReverseMap();
+            CreateMap<Trabajo, TrabajoUpdateDto>().ReverseMap();
             #endregion
 
             #region Usuario mapping to their Dto class
