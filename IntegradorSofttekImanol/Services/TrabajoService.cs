@@ -20,7 +20,7 @@ namespace IntegradorSofttekImanol.Services
         private readonly IMapper _mapper;
 
         /// <summary>
-        /// Initializes an instance of ServicioService using dependency injection with its parameters
+        /// Initializes an instance of TrabajoService using dependency injection with its parameters
         /// </summary>
         /// <param name="unitOfWork">IUnitOfWork with DI</param>
         /// <param name="mapper">IMapper with DI</param>
