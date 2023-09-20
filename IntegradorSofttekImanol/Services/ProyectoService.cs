@@ -36,6 +36,7 @@ namespace IntegradorSofttekImanol.Services
 
                 await _unitOfWork.ProyectoRepository.AddAsync(proyecto);
 
+                proyecto.Estado = Estado.Pendiente;
                 proyecto.FechaAlta = DateTime.Now;
 
                 await _unitOfWork.Complete();
