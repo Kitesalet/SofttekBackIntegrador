@@ -15,13 +15,18 @@ namespace IntegradorSofttekImanol.Controllers
     [Route("api")]
     [ApiController]
     [Authorize]
-    public class ServicioController : ControllerBase
+    public class ServiceController : ControllerBase
     {
 
             private readonly IServiceService _service;
-            private readonly ILogger<ServicioController> _logger;
+            private readonly ILogger<ServiceController> _logger;
 
-            public ServicioController(IServiceService service, ILogger<ServicioController> logger)
+            /// <summary>
+            /// Initializes an instance of ServiceController using dependency injection with its parameters.
+            /// </summary>
+            /// <param name="service">An IServiceService.</param>
+            /// <param name="logger">An ILogger.</param>
+            public ServiceController(IServiceService service, ILogger<ServiceController> logger)
             {
                 _service = service;
                 _logger = logger;
@@ -42,33 +47,18 @@ namespace IntegradorSofttekImanol.Controllers
             [ProducesResponseType(StatusCodes.Status401Unauthorized)]
             [ProducesResponseType(StatusCodes.Status400BadRequest)]
             [Route("services")]
-            public async Task<IActionResult> GetAllServicios([FromQuery] int page = 1, [FromQuery] int units = 10)
+            public async Task<IActionResult> GetAllServices([FromQuery] int page = 1, [FromQuery] int units = 10)
             {
 
                 try
                 {
                     if (page < 1 || units < 0)
                     {
-                        _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}");
-                        return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "Pages or units input was invalid");
+                        _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}.");
+                        return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "Pages or units input was invalid.");
                     }
 
-                    var services = await _service.GetAllServiciosAsync(page, units);
-
-                    #region pagination with the helper class
-                    /*
-                    var pageToShow = 1;
-
-                    if (Request.Query.ContainsKey("page"))
-                    {
-                        int.TryParse(Request.Query["page"], out pageToShow);
-                    }
-
-                    var url = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}").ToString();
-
-                    var paginateservices = PaginateHelper.Paginate(services,pageToShow, url);
-                    */
-                    #endregion
+                    var services = await _service.GetAllServicesAsync(page, units);
 
                     _logger.LogInformation("All services were retrieved!");
                     return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, services);
@@ -94,15 +84,15 @@ namespace IntegradorSofttekImanol.Controllers
             [Authorize(Policy = "AdministradorOrConsultor")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-            [Route("servicios/active")]
-            public async Task<IActionResult> GetAllActiveServicios()
+            [Route("services/active")]
+            public async Task<IActionResult> GetAllActiveServices()
             {
                 try
                 {
-                    var activeServicios = await _service.GetActiveServicios();
+                    var activeServices = await _service.GetActiveServices();
 
                     _logger.LogInformation("All active services were retrieved!");
-                    return Ok(activeServicios);
+                    return Ok(activeServices);
                 }
                 catch (Exception ex)
                 {
@@ -130,22 +120,22 @@ namespace IntegradorSofttekImanol.Controllers
             [ProducesResponseType(StatusCodes.Status401Unauthorized)]
             [ProducesResponseType(StatusCodes.Status400BadRequest)]
             [Route("service/{id:int}")]
-            public async Task<IActionResult> GetServicio([FromRoute] int id)
+            public async Task<IActionResult> GetService([FromRoute] int id)
             {
 
                 try
                 {
                     if (id < 0)
                     {
-                        _logger.LogInformation($"Id field was invalid, id = {id}");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
+                        _logger.LogInformation($"Id field was invalid, id = {id}.");
+                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                     }
 
-                    var service = await _service.GetServicioByIdAsync(id);
+                    var service = await _service.GetServiceByIdAsync(id);
 
                     if (service == null)
                     {
-                        _logger.LogInformation($"service was not found, id = {id}");
+                        _logger.LogInformation($"service was not found, id = {id}.");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "service not found.");
                     }
 
@@ -179,17 +169,17 @@ namespace IntegradorSofttekImanol.Controllers
             [ProducesResponseType(StatusCodes.Status401Unauthorized)]
             [ProducesResponseType(StatusCodes.Status403Forbidden)]
             [Route("service/register")]
-            public async Task<IActionResult> CreateServicio(ServicioCreateDto dto)
+            public async Task<IActionResult> CreateService(ServiceCreateDto dto)
             {
 
                 try
                 {
-                    var flag = await _service.CreateServicioAsync(dto);
+                    var flag = await _service.CreateServiceAsync(dto);
 
                     if (!flag)
                     {
-                        _logger.LogInformation($"service was not created, Descr = {dto.Descr}");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The service was not created");
+                        _logger.LogInformation($"service was not created, Descr = {dto.Descr}.");
+                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The service was not created.");
                     }
 
                     _logger.LogInformation($"service was created, Descr = {dto.Descr}");
@@ -222,7 +212,7 @@ namespace IntegradorSofttekImanol.Controllers
             [ProducesResponseType(StatusCodes.Status401Unauthorized)]
             [ProducesResponseType(StatusCodes.Status403Forbidden)]
             [Route("service/{id:int}")]
-            public async Task<IActionResult> UpdateServicio(int id, ServiceUpdateDto dto)
+            public async Task<IActionResult> UpdateService(int id, ServiceUpdateDto dto)
             {
 
                 try
@@ -233,13 +223,13 @@ namespace IntegradorSofttekImanol.Controllers
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
                     }
 
-                    if (await _service.GetServicioByIdAsync(id) == null)
+                    if (await _service.GetServiceByIdAsync(id) == null)
                     {
                         _logger.LogInformation($"service was not found in the database, id = {id}");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "service was not found!");
                     }
 
-                    var result = await _service.UpdateServicio(dto);
+                    var result = await _service.UpdateService(dto);
 
                     if (!result)
                     {
@@ -276,18 +266,18 @@ namespace IntegradorSofttekImanol.Controllers
             [ProducesResponseType(StatusCodes.Status403Forbidden)]
             [ProducesResponseType(StatusCodes.Status400BadRequest)]
             [Route("service/{id:int}")]
-            public async Task<IActionResult> DeleteServicio([FromRoute] int id)
+            public async Task<IActionResult> DeleteService([FromRoute] int id)
             {
 
                 try
                 {
                     if (id < 0)
                     {
-                        _logger.LogInformation($"Id field was invalid, it was 0");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
+                        _logger.LogInformation($"Id field was invalid.");
+                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                     }
 
-                    var result = await _service.DeleteServicioAsync(id);
+                    var result = await _service.DeleteServiceAsync(id);
 
                     if (!result)
                     {
@@ -295,7 +285,7 @@ namespace IntegradorSofttekImanol.Controllers
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The service was not found!");
                     }
 
-                    _logger.LogInformation($"service was deleted ( soft deleted or hard deleted ), id = {id}");
+                    _logger.LogInformation($"service was deleted ( soft deleted or hard deleted ), id = {id}.");
                     return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The service was deleted!");
                 }
                 catch (Exception ex)

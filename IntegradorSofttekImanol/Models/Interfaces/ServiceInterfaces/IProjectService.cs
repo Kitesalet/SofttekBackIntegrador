@@ -27,14 +27,14 @@ namespace IntegradorSofttekImanol.Models.Interfaces.projectInterfaces
         /// <param name="proyectoDto">A ProjectCreateDto.</param>
         /// <returns>A boolean value based on the creation of the project.
         /// </returns>
-        Task<bool> CreateProyectoAsync(ProjectCreateDto proyectoDto);
+        Task<bool> CreateProjectAsync(ProjectCreateDto proyectoDto);
 
         /// <summary>
         /// Updates the project record data that hasnt been soft deleted.
         /// </summary>
         /// <param name="proyectoDto">A ProjectUpdateDto.</param>
         /// <returns>A boolean value based on the update of the project.</returns>
-        Task<bool> UpdateProyecto(ProjectUpdateDto proyectoDto);
+        Task<bool> UpdateProject(ProjectUpdateDto proyectoDto);
 
         /// <summary>
         /// Deletes a project record based on its id, first it soft deletes it, then it hard deletes it.

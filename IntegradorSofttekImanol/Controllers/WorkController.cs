@@ -1,5 +1,4 @@
 ﻿using IntegradorSofttekImanol.Infrastructure;
-using IntegradorSofttekImanol.Models.DTOs.Servicio;
 using IntegradorSofttekImanol.Models.DTOs.Trabajo;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -14,13 +13,18 @@ namespace IntegradorSofttekImanol.Controllers
 
     [Route("api")]
     [ApiController]
-    public class TrabajoController : ControllerBase
+    public class WorkController : ControllerBase
     {
 
         private readonly IWorkService _service;
-        private readonly ILogger<TrabajoController> _logger;
+        private readonly ILogger<WorkController> _logger;
 
-        public TrabajoController(IWorkService work, ILogger<TrabajoController> logger)
+        /// <summary>
+        /// Initializes an instance of WorkController using dependency injection with its parameters.
+        /// </summary>
+        /// <param name="work">An IWorkService.</param>
+        /// <param name="logger">An ILogger.</param>
+        public WorkController(IWorkService work, ILogger<WorkController> logger)
         {
             _service = work;
             _logger = logger;
@@ -39,33 +43,18 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("works")]
-        public async Task<IActionResult> GetAllTrabajos([FromQuery] int page = 1, [FromQuery] int units = 10)
+        public async Task<IActionResult> GetAllWorks([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
 
             try
             {
                 if (page < 1 || units < 0)
                 {
-                    _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "Pages or units input was invalid");
+                    _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}.");
+                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "Pages or units input was invalid.");
                 }
 
-                var works = await _service.GetAllTrabajosAsync(page, units);
-
-                #region pagination with the helper class
-                /*
-                var pageToShow = 1;
-
-                if (Request.Query.ContainsKey("page"))
-                {
-                    int.TryParse(Request.Query["page"], out pageToShow);
-                }
-
-                var url = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}").ToString();
-
-                var paginateworks = PaginateHelper.Paginate(works,pageToShow, url);
-                */
-                #endregion
+                var works = await _service.GetAllWorksAsync(page, units);
 
                 _logger.LogInformation("All works were retrieved!");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, works);
@@ -94,26 +83,26 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("work/{id:int}")]
-        public async Task<IActionResult> GetTrabajo([FromRoute] int id)
+        public async Task<IActionResult> GetWork([FromRoute] int id)
         {
 
             try
             {
                 if (id < 0)
                 {
-                    _logger.LogInformation($"Id field was invalid, id = {id}");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
+                    _logger.LogInformation($"Id field was invalid, id = {id}.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
 
-                var work = await _service.GetTrabajoByIdAsync(id);
+                var work = await _service.GetWorkByIdAsync(id);
 
                 if (work == null)
                 {
-                    _logger.LogInformation($"work was not found, id = {id}");
+                    _logger.LogInformation($"work was not found, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "work not found.");
                 }
 
-                _logger.LogInformation($"work was retrieved, id = {id}");
+                _logger.LogInformation($"work was retrieved, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, work);
             }
             catch (Exception ex)
@@ -143,20 +132,20 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Route("work/register")]
-        public async Task<IActionResult> CreateTabajo(WorkCreateDto dto)
+        public async Task<IActionResult> CreateWork(WorkCreateDto dto)
         {
 
             try
             {
-                var flag = await _service.CreateTrabajoAsync(dto);
+                var flag = await _service.CreateWorkAsync(dto);
 
                 if (!flag)
                 {
-                    _logger.LogInformation($"work was not created, Fecha = {dto.Fecha}");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The work was not created");
+                    _logger.LogInformation($"work was not created, Fecha = {dto.Date}.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The work was not created.");
                 }
 
-                _logger.LogInformation($"work was created, Fecha = {dto.Fecha}");
+                _logger.LogInformation($"work was created, Fecha = {dto.Date}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The work was created!");
             }
             catch (Exception ex)
@@ -186,32 +175,32 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Route("work/{id:int}")]
-        public async Task<IActionResult> UpdateTrabajo(int id, WorkUpdateDto dto)
+        public async Task<IActionResult> UpdateWork(int id, WorkUpdateDto dto)
         {
 
             try
             {
                 if (id < 0)
                 {
-                    _logger.LogInformation($"Id field was invalid, it was 0");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
+                    _logger.LogInformation($"Id field was invalid.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
 
-                if (await _service.GetTrabajoByIdAsync(id) == null)
+                if (await _service.GetWorkByIdAsync(id) == null)
                 {
-                    _logger.LogInformation($"work was not found in the database, id = {id}");
+                    _logger.LogInformation($"work was not found in the database, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "work was not found!");
                 }
 
-                var result = await _service.UpdateTrabajo(dto);
+                var result = await _service.UpdateWork(dto);
 
                 if (!result)
                 {
-                    _logger.LogInformation($"Error updating the work, id = {id}");
+                    _logger.LogInformation($"Error updating the work, id = {id},");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the work.");
                 }
 
-                _logger.LogInformation($"work was properly updated, id = {id}");
+                _logger.LogInformation($"work was properly updated, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "work was properly updated!");
             }
             catch (Exception ex)
@@ -240,26 +229,26 @@ namespace IntegradorSofttekImanol.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("work/{id:int}")]
-        public async Task<IActionResult> DeleteTrabajo([FromRoute] int id)
+        public async Task<IActionResult> DeleteWork([FromRoute] int id)
         {
 
             try
             {
                 if (id < 0)
                 {
-                    _logger.LogInformation($"Id field was invalid, it was 0");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
+                    _logger.LogInformation($"Id field was invalid.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
 
-                var result = await _service.DeleteTrabajoAsync(id);
+                var result = await _service.DeleteWorkAsync(id);
 
                 if (!result)
                 {
-                    _logger.LogInformation($"work was not found, id = {id}");
+                    _logger.LogInformation($"work was not found, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The work was not found!");
                 }
 
-                _logger.LogInformation($"work was deleted ( soft deleted or hard deleted ), id = {id}");
+                _logger.LogInformation($"work was deleted ( soft deleted or hard deleted ), id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The work was deleted!");
             }
             catch (Exception ex)

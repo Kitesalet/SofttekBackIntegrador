@@ -98,7 +98,7 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc />
-        public async Task<bool> Updateproject(ProjectUpdateDto projectDto)
+        public async Task<bool> UpdateProject(ProjectUpdateDto projectDto)
         {
             var project = await _unitOfWork.ProjectRepository.GetByIdAsync(projectDto.CodProject);
 
@@ -119,5 +119,6 @@ namespace IntegradorSofttekImanol.Services
 
             return true;
         }
+
     }
 }

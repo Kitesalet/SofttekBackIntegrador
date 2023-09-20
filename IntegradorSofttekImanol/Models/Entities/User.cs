@@ -25,7 +25,7 @@ namespace IntegradorSofttekImanol.Models.Entities
         [Column("tipo",TypeName = "int")]
         [Required]
         [Range(1, 2, ErrorMessage = "The input number is invalid")]
-        [ForeignKey("Rol")]
+        [ForeignKey("Role")]
         public int Type { get; set; }
 
         [Column("contrasena",TypeName = "varchar(200)")]

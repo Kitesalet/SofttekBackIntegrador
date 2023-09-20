@@ -20,7 +20,7 @@ namespace IntegradorSofttekImanol.Models.Entities
         [Column("estado", TypeName = "bit")]
         public bool State { get; set; }
 
-        [Column("valorHora")]
+        [Column("valorHora", TypeName = "decimal(18, 2)")]
         [Required]
         public decimal HourValue { get; set; }
 

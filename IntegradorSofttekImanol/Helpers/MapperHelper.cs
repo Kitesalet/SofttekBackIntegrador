@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Models.DTOs;
-using IntegradorSofttekImanol.Models.DTOs.Project;
 using IntegradorSofttekImanol.Models.DTOs.Proyecto;
 using IntegradorSofttekImanol.Models.DTOs.Servicio;
 using IntegradorSofttekImanol.Models.DTOs.Trabajo;

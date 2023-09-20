@@ -33,14 +33,14 @@ namespace IntegradorSofttekImanol.Models.Entities
         [Required]
         public int HourQty { get; set; }
 
-        [Column("valorHora")]
+        [Column("valorHora", TypeName = "decimal(18, 2)")]
         [Required]
         public decimal HourValue { get; set; }
 
         /// <summary>
         /// This property returns the product of ValorHora and CantHoras properties.
         /// </summary>
-        [Column("costo")]
+        [Column("costo", TypeName = "decimal(18, 2)")]
         [Required]
         public decimal Cost
         {

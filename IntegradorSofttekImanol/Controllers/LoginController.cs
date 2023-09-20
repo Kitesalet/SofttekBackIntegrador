@@ -57,7 +57,7 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> Login([FromBody] UserAuthenticateDTO authenticate)
         {
 
-            var userCredentials = await _unitOfWork.UsuarioRepository.AuthenticateCredentials(authenticate);
+            var userCredentials = await _unitOfWork.UserRepository.AuthenticateCredentials(authenticate);
 
             if (userCredentials == null)
             {
@@ -69,10 +69,10 @@ namespace IntegradorSofttekImanol.Controllers
             var user = new UserLoginDTO()
             {
                 Token = token,
-                CodUsuario = userCredentials.CodUsuario,
-                Nombre = userCredentials.Nombre,
-                Tipo = userCredentials.Tipo,
-                Rol = _mapper.Map<RoleDto>(userCredentials.Rol)
+                CodUser = userCredentials.CodUser,
+                Name = userCredentials.Name,
+                Type = userCredentials.Type,
+                Role = _mapper.Map<RoleDto>(userCredentials.Role)
             };
 
             //Never return a password

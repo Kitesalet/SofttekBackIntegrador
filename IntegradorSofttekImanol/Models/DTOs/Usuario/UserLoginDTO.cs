@@ -9,7 +9,7 @@
         public int CodUser { get; set; }
         public int Type { get; set; }
         public string Token { get; set; }
-        public RoleDto Rol { get; set; }
+        public RoleDto Role { get; set; }
 
     }
 }
