@@ -3,7 +3,7 @@ using IntegradorSofttekImanol.DAL.Context;
 using IntegradorSofttekImanol.DAL.Repositories;
 using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 
-namespace IntegradorSofttekImanol.Services
+namespace IntegradorSofttekImanol.DAL.UnitOfWork
 {
     /// <summary>
     /// The implemmentation of a unit that manages repositories and databases.
@@ -28,8 +28,8 @@ namespace IntegradorSofttekImanol.Services
             ProjectRepository = new ProjectRepository(context);
             WorkRepository = new WorkRepository(context);
             ServiceRepository = new ServiceRepository(context);
-       
-    }
+
+        }
 
         /// <inheritdoc/>
         public async Task<int> Complete()

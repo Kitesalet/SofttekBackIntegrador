@@ -6,7 +6,6 @@
         public int CodProject { get; set; }
         public int CodService { get; set; }
         public int HourQty { get; set; }
-        public decimal HourValue { get; set; }
 
     }
 }
