@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Models.DTOs.OtherDtos;
+using IntegradorSofttekImanol.Models.DTOs.Project;
 using IntegradorSofttekImanol.Models.DTOs.Proyecto;
+using IntegradorSofttekImanol.Models.DTOs.Service;
 using IntegradorSofttekImanol.Models.DTOs.Servicio;
 using IntegradorSofttekImanol.Models.DTOs.Trabajo;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
@@ -26,12 +28,14 @@ namespace IntegradorSofttekImanol.Helpers
             CreateMap<Project, ProjectGetDto>().ReverseMap();
             CreateMap<Project, ProjectUpdateDto>().ReverseMap();
             CreateMap<Project, ProjectCreateDto>().ReverseMap();
+            CreateMap<Project, ProjectGetMinDto>().ReverseMap();
             #endregion
 
             #region Service mapping to their Dto class
             CreateMap<Service,ServiceGetDto>().ReverseMap();
             CreateMap<Service, ServiceUpdateDto>().ReverseMap();
             CreateMap<Service, ServiceCreateDto>().ReverseMap();
+            CreateMap<Service, ServiceGetMinDto>().ReverseMap();
             #endregion
 
             #region Work mapping to their Dto class

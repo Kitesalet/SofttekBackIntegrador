@@ -2,7 +2,7 @@
 {
     public class WorkGetMinDto
     {
-        public int codWork { get; set; }
+        public int CodWork { get; set; }
         public DateTime Date { get; set; }
         public decimal Cost { get; set; }
     }

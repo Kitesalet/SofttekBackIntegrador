@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Models.DTOs;
+using IntegradorSofttekImanol.Models.DTOs.Project;
 using IntegradorSofttekImanol.Models.DTOs.Proyecto;
+using IntegradorSofttekImanol.Models.DTOs.Service;
 using IntegradorSofttekImanol.Models.DTOs.Servicio;
 using IntegradorSofttekImanol.Models.DTOs.Trabajo;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
@@ -89,9 +91,9 @@ namespace IntegradorSofttekImanol.Services
             }
 
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(work.CodService);
-            var serviceDto = _mapper.Map<ServiceGetDto>(service);
+            var serviceDto = _mapper.Map<ServiceGetMinDto>(service);
             var project = await _unitOfWork.ProjectRepository.GetByIdAsync(work.CodProject);
-            var projectDto = _mapper.Map<ProjectGetDto>(project);
+            var projectDto = _mapper.Map<ProjectGetMinDto>(project);
 
             var workDto = _mapper.Map<WorkGetDto>(work);
 
