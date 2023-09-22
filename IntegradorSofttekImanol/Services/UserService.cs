@@ -76,7 +76,7 @@ namespace IntegradorSofttekImanol.Services
 
             var users = await _unitOfWork.UserRepository.GetAllAsync(page, units); 
             
-            var usersDto = new List<UserGetDto>();
+            var usersDto = _mapper.Map<List<UserGetDto>>(users);
             
             return usersDto;
                    

@@ -59,7 +59,7 @@ namespace IntegradorSofttekImanol.Migrations
 
                     b.HasKey("CodProject");
 
-                    b.ToTable("proyectos");
+                    b.ToTable("proyectos", (string)null);
 
                     b.HasData(
                         new
@@ -113,7 +113,7 @@ namespace IntegradorSofttekImanol.Migrations
 
                     b.HasKey("CodRole");
 
-                    b.ToTable("roles");
+                    b.ToTable("roles", (string)null);
 
                     b.HasData(
                         new
@@ -168,7 +168,7 @@ namespace IntegradorSofttekImanol.Migrations
 
                     b.HasKey("CodService");
 
-                    b.ToTable("servicios");
+                    b.ToTable("servicios", (string)null);
 
                     b.HasData(
                         new
@@ -228,7 +228,7 @@ namespace IntegradorSofttekImanol.Migrations
 
                     b.HasIndex("RoleCodRole");
 
-                    b.ToTable("usuarios");
+                    b.ToTable("usuarios", (string)null);
 
                     b.HasData(
                         new
@@ -311,7 +311,7 @@ namespace IntegradorSofttekImanol.Migrations
 
                     b.HasIndex("CodService");
 
-                    b.ToTable("trabajos");
+                    b.ToTable("trabajos", (string)null);
 
                     b.HasData(
                         new

@@ -219,7 +219,7 @@ namespace IntegradorSofttekImanol.Controllers
 
                 try
                 {
-                    if (id < 0)
+                    if (id < 0 || id != dto.CodService)
                     {
                         _logger.LogInformation($"Id field was invalid, it was 0");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");

@@ -195,9 +195,10 @@ namespace IntegradorSofttekImanol.Controllers
             {
                 if (id < 0)
                 {
-                    _logger.LogInformation($"Id field was invalid, it was 0.");
+                    _logger.LogInformation($"Id field was invalid.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
+
 
                 if (await _service.GetUserByIdAsync(id, isUpdating) == null)
                 {
