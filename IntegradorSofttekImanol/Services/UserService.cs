@@ -18,16 +18,19 @@ namespace IntegradorSofttekImanol.Services
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
         /// <summary>
         /// Initializes an instance of UserService using dependency injection with its parameters.
         /// </summary>
         /// <param name="unitOfWork">IUnitOfWork with DI.</param>
         /// <param name="mapper">IMapper with DI.</param>
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _configuration = configuration;
+
         }
 
         /// <inheritdoc/>
@@ -37,7 +40,7 @@ namespace IntegradorSofttekImanol.Services
             {
                 var user = _mapper.Map<User>(userDto);
 
-                user.Password = EncrypterHelper.Encrypter(user.Password, $"RaNdOmCoDe");
+                user.Password = EncrypterHelper.Encrypter(user.Password, _configuration["EncryptKey"] );
 
                 await _unitOfWork.UserRepository.AddAsync(user);
 
@@ -106,7 +109,7 @@ namespace IntegradorSofttekImanol.Services
             {
                 user.Name = userDto.Name;
                 user.Type = (UserRole)userDto.Type;
-                user.Password = userDto.Password;
+                user.Password = EncrypterHelper.Encrypter(userDto.Password, _configuration["EncryptKey"]);
                 user.UpdatedDate = DateTime.Now;
                 user.DeletedDate = userDto.DeletedDate;
 

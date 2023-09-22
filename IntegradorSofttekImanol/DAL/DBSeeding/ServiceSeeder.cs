@@ -20,12 +20,44 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 new Service
                 {
                     CodService = 1,
-                    Descr = "xxxxxxxx",
+                    Descr = "Maintenance",
                     State = true,
                     CreatedDate = DateTime.Now,
                     HourValue = 100
+                },
+                new Service
+                {
+                    CodService = 2,
+                    Descr = "Inspection",
+                    State = false,
+                    CreatedDate = DateTime.Now,
+                    HourValue = 120
+                },
+                new Service
+                {
+                    CodService = 3,
+                    Descr = "Drilling",
+                    State = true,
+                    CreatedDate = DateTime.Now,
+                    HourValue = 150
+                },
+                new Service
+                {
+                    CodService = 4,
+                    Descr = "Assessment",
+                    State = false,
+                    CreatedDate = DateTime.Now,
+                    HourValue = 200
+                },
+                new Service
+                {
+                    CodService = 5,
+                    Descr = "Construction",
+                    State = true,
+                    CreatedDate = DateTime.Now,
+                    HourValue = 250
                 }
-                );
+            );
         }
 
     }
