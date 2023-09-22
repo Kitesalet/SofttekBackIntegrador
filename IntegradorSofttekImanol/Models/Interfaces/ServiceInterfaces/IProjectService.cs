@@ -19,7 +19,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces.projectInterfaces
         /// </summary>
         /// <param name="id">An int</param>
         /// <returns>One of the project entities as a projectDTO.</returns>
-        Task<ProjectGetDto> GetProjectByIdAsync(int id);
+        Task<ProjectGetDto> GetProjectByIdAsync(int id, bool isUpdating = false);
 
         /// <summary>
         /// Creates a project record.

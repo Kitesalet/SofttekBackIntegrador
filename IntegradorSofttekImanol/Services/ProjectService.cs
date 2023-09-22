@@ -87,11 +87,11 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc />
-        public async Task<ProjectGetDto> GetProjectByIdAsync(int id)
+        public async Task<ProjectGetDto> GetProjectByIdAsync(int id, bool isUpdating = false)
         {
             var project = await _unitOfWork.ProjectRepository.GetByIdAsync(id);
 
-            if (project == null || project.DeletedDate != null)
+            if (project == null || project.DeletedDate != null && isUpdating == false)
             {
                 return null;
             }
@@ -104,24 +104,29 @@ namespace IntegradorSofttekImanol.Services
         /// <inheritdoc />
         public async Task<bool> UpdateProject(ProjectUpdateDto projectDto)
         {
+
             var project = await _unitOfWork.ProjectRepository.GetByIdAsync(projectDto.CodProject);
 
-            if (project == null)
+            try
+            {
+
+                project.Address = projectDto.Address;
+                project.State = projectDto.State;
+                project.Name = projectDto.Name;
+                project.UpdatedDate = DateTime.Now;
+                project.DeletedDate = projectDto.DeletedDate;
+
+                _unitOfWork.ProjectRepository.Update(project);
+
+                await _unitOfWork.Complete();
+
+                return true;
+            }
+            catch (Exception)
             {
                 return false;
             }
 
-            project.Address = projectDto.Address;
-            project.State = projectDto.State;
-            project.Name = projectDto.Name;
-            project.UpdatedDate = DateTime.Now;
-            //realizar getprojectsByTrabajo
-
-            _unitOfWork.ProjectRepository.Update(project);
-
-            await _unitOfWork.Complete();
-
-            return true;
         }
 
     }

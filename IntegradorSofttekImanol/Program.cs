@@ -78,7 +78,7 @@ builder.Services.AddScoped<IServiceService, ServiceService>();
 #region JWT Configuration
 
 // Gets JWT parameters from appsettings.json, mapping the properties from JSON to the object.
-var jwtSettings = builder.Configuration.GetSection("").Get<JwtSettings>();
+var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
 
 // Adds JWT authorization as a service, defining Bearer as the authentication scheme, and setting parameters for JWT token validation.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

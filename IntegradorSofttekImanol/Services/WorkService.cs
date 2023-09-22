@@ -78,11 +78,11 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<WorkGetDto> GetWorkByIdAsync(int id)
+        public async Task<WorkGetDto> GetWorkByIdAsync(int id, bool isUpdating)
         {
             var work = await _unitOfWork.WorkRepository.GetByIdAsync(id);
 
-            if (work == null || work.DeletedDate != null)
+            if (work == null || work.DeletedDate != null && isUpdating == false)
             {
                 return null;
             }
@@ -95,22 +95,27 @@ namespace IntegradorSofttekImanol.Services
         {
             var work = await _unitOfWork.WorkRepository.GetByIdAsync(workDto.codWork);
 
-            if (work == null)
+            try
             {
+                work.CodProject = workDto.CodProject;
+                work.CodService = workDto.CodService;
+                work.HourQty = workDto.HourQty;
+                work.HourValue = workDto.HourValue;
+                work.UpdatedDate = DateTime.Now;
+
+                _unitOfWork.WorkRepository.Update(work);
+
+                await _unitOfWork.Complete();
+
+                return true;
+
+            }
+            catch (Exception)
+            {
+
                 return false;
             }
 
-            work.CodProject = workDto.CodProject;
-            work.CodService = workDto.CodService;
-            work.HourQty = workDto.HourQty;
-            work.HourValue = workDto.HourValue;
-            work.UpdatedDate = DateTime.Now;
-
-            _unitOfWork.WorkRepository.Update(work);
-
-            await _unitOfWork.Complete();
-
-            return true;
         }
     }
 }

@@ -9,5 +9,6 @@ namespace IntegradorSofttekImanol.Models.DTOs.Proyecto
         public string Name { get; set; }
         public string Address { get; set; }
         public ProjectState State { get; set; }
+        public DateTime? DeletedDate { get; set; }
     }
 }

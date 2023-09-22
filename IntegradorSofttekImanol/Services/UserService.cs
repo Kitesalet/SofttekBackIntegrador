@@ -83,12 +83,12 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<UserGetDto> GetUserByIdAsync(int id)
+        public async Task<UserGetDto> GetUserByIdAsync(int id, bool isUpdating)
         {
             
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
 
-            if(user == null || user.DeletedDate != null)
+            if (user == null || user.DeletedDate != null && isUpdating == false)
             {
                 return null;
             }
@@ -102,21 +102,24 @@ namespace IntegradorSofttekImanol.Services
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(userDto.CodUser);
 
-            if (user == null)
+            try
+            {
+                user.Name = userDto.Name;
+                user.Type = (UserRole)userDto.Type;
+                user.Password = userDto.Password;
+                user.UpdatedDate = DateTime.Now;
+
+                _unitOfWork.UserRepository.Update(user);
+
+                await _unitOfWork.Complete();
+
+                return true;
+
+            }
+            catch (Exception)
             {
                 return false;
             }
-
-            user.Name = userDto.Name;
-            user.Type = (UserRole)userDto.Type;
-            user.Password = userDto.Password;
-            user.UpdatedDate = DateTime.Now;
-
-            _unitOfWork.UserRepository.Update(user);
-
-            await _unitOfWork.Complete();
-
-            return true;
 
         }
     }
