@@ -52,13 +52,19 @@ namespace IntegradorSofttekImanol.Controllers
 
                 try
                 {
+                    #region Validations
+
                     if (page < 1 || units < 0)
                     {
                         _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}.");
                         return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "Pages or units input was invalid.");
                     }
+                    #endregion
 
                     var services = await _service.GetAllServicesAsync(page, units);
+
+                    #region Errors
+                    #endregion
 
                     _logger.LogInformation("All services were retrieved!");
                     return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, services);
@@ -89,7 +95,14 @@ namespace IntegradorSofttekImanol.Controllers
             {
                 try
                 {
+
+                    #region Validations
+                #endregion
+
                     var activeServices = await _service.GetActiveServices();
+
+                    #region Errors
+                #endregion
 
                     _logger.LogInformation("All active services were retrieved!");
                     return Ok(activeServices);
@@ -125,19 +138,24 @@ namespace IntegradorSofttekImanol.Controllers
 
                 try
                 {
+
+                    #region Validations
                     if (id < 0)
                     {
                         _logger.LogInformation($"Id field was invalid, id = {id}.");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                     }
+                    #endregion
 
                     var service = await _service.GetServiceByIdAsync(id);
 
+                    #region Errors
                     if (service == null)
                     {
                         _logger.LogInformation($"service was not found, id = {id}.");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "service not found.");
                     }
+                    #endregion
 
                     _logger.LogInformation($"service was retrieved, id = {id}");
                     return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, service);
@@ -174,13 +192,19 @@ namespace IntegradorSofttekImanol.Controllers
 
                 try
                 {
+                    #region Validations
+                    #endregion
+
                     var flag = await _service.CreateServiceAsync(dto);
 
+                    #region Errors
+ 
                     if (!flag)
                     {
                         _logger.LogInformation($"service was not created, Descr = {dto.Descr}.");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The service was not created.");
                     }
+                    #endregion
 
                     _logger.LogInformation($"service was created, Descr = {dto.Descr}");
                     return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The service was created!");
@@ -219,7 +243,10 @@ namespace IntegradorSofttekImanol.Controllers
 
                 try
                 {
-                    if (id < 0)
+
+                    #region Validations
+
+                    if (id < 0 || id != dto.CodService)
                     {
                         _logger.LogInformation($"Id field was invalid, it was 0");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
@@ -230,14 +257,17 @@ namespace IntegradorSofttekImanol.Controllers
                         _logger.LogInformation($"service was not found in the database, id = {id}");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "service was not found!");
                     }
+                    #endregion
 
                     var result = await _service.UpdateService(dto);
 
+                    #region Errors
                     if (!result)
                     {
                         _logger.LogInformation($"Error updating the service, id = {id}");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the service.");
                     }
+                    #endregion
 
                     _logger.LogInformation($"service was properly updated, id = {id}");
                     return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "service was properly updated!");
@@ -273,19 +303,24 @@ namespace IntegradorSofttekImanol.Controllers
 
                 try
                 {
-                    if (id < 0)
-                    {
+                    #region Validations
+
+                     if (id < 0)
+                     {
                         _logger.LogInformation($"Id field was invalid.");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                    }
+                     }
+                #endregion
 
                     var result = await _service.DeleteServiceAsync(id);
 
+                    #region Errors
                     if (!result)
                     {
                         _logger.LogInformation($"service was not found, id = {id}");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The service was not found!");
                     }
+                    #endregion
 
                     _logger.LogInformation($"service was deleted ( soft deleted or hard deleted ), id = {id}.");
                     return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The service was deleted!");

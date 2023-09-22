@@ -38,11 +38,22 @@ namespace IntegradorSofttekImanol.Services
         {
             try
             {
+
+                var activeService = await _unitOfWork.ServiceRepository.GetByIdAsync(workDto.CodService);
+
+                //This returns a false value if the service state is false, if it returns a null value, or if its soft deleted
+                if(activeService.State == false || activeService == null || activeService.DeletedDate != null)
+                {
+                    return false;
+                }
+
                 var work = _mapper.Map<Work>(workDto);
 
                 await _unitOfWork.WorkRepository.AddAsync(work);
 
-                work.HourValue = workDto.HourValue;
+                //Sets the work hour value to be the same as the service hour value at the date the work was created
+                work.HourValue = activeService.HourValue;
+
                 work.HourQty = workDto.HourQty;
                 work.CodService = workDto.CodService;
                 work.CodProject = workDto.CodProject;
@@ -106,14 +117,20 @@ namespace IntegradorSofttekImanol.Services
         /// <inheritdoc/>
         public async Task<bool> UpdateWork(WorkUpdateDto workDto)
         {
-            var work = await _unitOfWork.WorkRepository.GetByIdAsync(workDto.codWork);
+            var work = await _unitOfWork.WorkRepository.GetByIdAsync(workDto.CodWork);
+            var service = await _unitOfWork.ServiceRepository.GetByIdAsync(workDto.CodService);
+
+            if(service == null || service.State == false || service.DeletedDate != null)
+            {
+                return false;
+            }
 
             try
             {
                 work.CodProject = workDto.CodProject;
                 work.CodService = workDto.CodService;
                 work.HourQty = workDto.HourQty;
-                work.HourValue = workDto.HourValue;
+                work.HourValue = service.HourValue;
                 work.UpdatedDate = DateTime.Now;
                 work.DeletedDate = workDto.DeletedDate;
 

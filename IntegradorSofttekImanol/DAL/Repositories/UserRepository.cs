@@ -14,15 +14,17 @@ namespace IntegradorSofttekImanol.DAL.Repositories
     public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly AppDbContext _context;
+        private readonly IConfiguration _configuration;
 
         /// <summary>
         /// Initializes an instance of UsuarioRepository using dependency injection with its parameters.
         /// </summary>
         /// <param name="context">An AppDbContext with DI.</param>
-        public UserRepository(AppDbContext context) : base(context)
+        public UserRepository(AppDbContext context, IConfiguration configuration) : base(context)
         {
 
             _context = context;
+            _configuration = configuration;
            
         }
 
@@ -33,7 +35,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
             return await _context.Users
                                       .SingleOrDefaultAsync(e => e.DeletedDate == null 
                                                              && e.CodUser.ToString() == dto.CodUser 
-                                                             && e.Password == EncrypterHelper.Encrypter(dto.Password, "RaNdOmCoDe"));;
+                                                             && e.Password == EncrypterHelper.Encrypter(dto.Password, _configuration["EncryptKey"]));;
 
         }
         

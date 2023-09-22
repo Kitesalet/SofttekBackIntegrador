@@ -23,6 +23,7 @@ namespace IntegradorSofttekImanol.Controllers
     {
 
         private TokenJwtHelper _tokenJWTHelper;
+        private readonly ILogger _logger;
         private readonly IUnitOfWork _unitOfWork;
 
 
@@ -31,11 +32,12 @@ namespace IntegradorSofttekImanol.Controllers
         /// </summary>
         /// <param name="unitOfWork">UnitOfWork.</param>
         /// <param name="configuration">IOptions with JwtSettings.</param>
-        public LoginController(IUnitOfWork unitOfWork, IOptions<JwtSettings> configuration)
+        public LoginController(IUnitOfWork unitOfWork,ILogger logger, IOptions<JwtSettings> configuration)
         {
             
             _unitOfWork = unitOfWork;
             _tokenJWTHelper = new TokenJwtHelper(configuration);
+            _logger = logger;
 
         }
 
@@ -54,25 +56,34 @@ namespace IntegradorSofttekImanol.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UserAuthenticateDTO authenticate)
         {
-
-            var userCredentials = await _unitOfWork.UserRepository.AuthenticateCredentials(authenticate);
-
-            if (userCredentials == null)
+            try
             {
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.Unauthorized,"The entered credentials are invalid");
+                var userCredentials = await _unitOfWork.UserRepository.AuthenticateCredentials(authenticate);
+
+                if (userCredentials == null)
+                {
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.Unauthorized, "The entered credentials are invalid");
+                }
+
+                var token = _tokenJWTHelper.GenerateToken(userCredentials);
+
+                var user = new UserLoginDTO()
+                {
+                    Token = token,
+                    CodUser = userCredentials.CodUser,
+                    Name = userCredentials.Name,
+                    Type = UserRoleDic.TranslateUserRole((int)userCredentials.Type)
+                };
+
+                _logger.LogInformation($"A user with the {userCredentials.CodUser} has logged in!");
+                return Ok(user);
             }
-
-            var token = _tokenJWTHelper.GenerateToken(userCredentials);
-
-            var user = new UserLoginDTO()
+            catch (Exception ex)
             {
-                Token = token,
-                CodUser = userCredentials.CodUser,
-                Name = userCredentials.Name,
-                Type = UserRoleDic.TranslateUserRole((int)userCredentials.Type)
-            };
+                _logger.LogError(ex, "An unexpected error occurred.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
 
-            return Ok(user);
+            }    
 
         }
 

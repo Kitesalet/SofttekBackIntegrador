@@ -20,20 +20,28 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 new Project
                 {
                     CodProject = 1,
-                    Address = "xxxxxxxx",
-                    State = (ProjectState)2,
-                    Name = "random",
+                    Address = "123 Oil Avenue",
+                    State = ProjectState.Pendiente,
+                    Name = "Oil Rig",
                     CreatedDate = DateTime.Now
                 },
                 new Project
                 {
                     CodProject = 2,
-                    Address = "xxxxxxxx",
-                    State = ProjectState.Pendiente,
-                    Name = "random",
+                    Address = "456 Drilling Avenue",
+                    State = ProjectState.Confirmado,
+                    Name = "Drilling",
+                    CreatedDate = DateTime.Now
+                },
+                new Project
+                {
+                    CodProject = 3,
+                    Address = "789 Refinery Avenuen",
+                    State = ProjectState.Terminado,
+                    Name = "Refinery",
                     CreatedDate = DateTime.Now
                 }
-                );
+            );
         }
     }
 }

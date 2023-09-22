@@ -42,8 +42,6 @@ namespace IntegradorSofttekImanol.Helpers
             //An instance of JwtSecurityToken is created, using claims, expiration time, credentials, audience and issuer
             var securityToken = new JwtSecurityToken(
                 claims: claims,
-                audience:_jwtSettings.Audience,
-                issuer: _jwtSettings.Issuer,
                 expires: DateTime.Now.AddMinutes(_jwtSettings.ExpirationMinutes),
                 signingCredentials: credentials
                 );

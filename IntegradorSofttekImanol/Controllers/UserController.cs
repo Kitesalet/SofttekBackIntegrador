@@ -50,11 +50,15 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
-                if(page < 1 || units < 0)
+                #region Validations
+
+                if (page < 1 || units < 0)
                 {
                     _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}.");
                     return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest,"Pages or units input was invalid.");
                 }
+
+                #endregion
 
                 var users = await _service.GetAllUsersAsync(page, units);
 
@@ -90,19 +94,25 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+
+                #region Validations
+
                 if (id < 0)
                 {
                     _logger.LogInformation($"Id field was invalid, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
+                #endregion
 
                 var user = await _service.GetUserByIdAsync(id);
 
+                #region Errors
                 if (user == null)
                 {
                     _logger.LogInformation($"User was not found, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "User not found.");
                 }
+                #endregion
 
                 _logger.LogInformation($"User was retrieved, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, user);
@@ -139,22 +149,21 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
-                var userExiste = await _service.GetUserByIdAsync(dto.Dni);
 
-                if (userExiste != null)
-                {
-                    _logger.LogInformation($"User already existed, Dni = {dto.Dni}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.Conflict, "The user already exists!");
+                #region Validations
+                #endregion
 
-                }
-
+                //It creates the user as a Consultor at first
                 var flag = await _service.CreateUserAsync(dto);
+
+                #region Errors
 
                 if (!flag)
                 {
                     _logger.LogInformation($"User was not created, Dni = {dto.Dni}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The user was not created.");
                 }
+                #endregion
 
                 _logger.LogInformation($"User was created, Dni = {dto.Dni}");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The user was created!");
@@ -193,11 +202,20 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
-                if (id < 0)
+                #region Validations
+
+                if (id < 0 || id != dto.CodUser)
                 {
-                    _logger.LogInformation($"Id field was invalid, it was 0.");
+                    _logger.LogInformation($"Id field was invalid, id = {id}");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
+
+                if (dto.Type > 2 || dto.Type < 1)
+                {
+                    _logger.LogInformation($"Type field was invalid, type = {dto.Type}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The type field was invalid");
+                }
+
 
                 if (await _service.GetUserByIdAsync(id, isUpdating) == null)
                 {
@@ -205,13 +223,18 @@ namespace IntegradorSofttekImanol.Controllers
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "User was not found!");
                 }
 
+                #endregion
+
                 var result = await _service.UpdateUser(dto);
+
+                #region Errors
 
                 if (!result)
                 {
                     _logger.LogInformation($"Error updating the user, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the user.");
                 }
+                #endregion
 
                 _logger.LogInformation($"User was properly updated, id = {id}");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "User was properly updated!");
@@ -247,19 +270,25 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+                #region Validations
+
                 if (id < 0)
                 {
                     _logger.LogInformation($"Id field was invalid.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
+                #endregion
 
                 var result = await _service.DeleteUserAsync(id);
+
+                #region Errors
 
                 if (!result)
                 {
                     _logger.LogInformation($"User was not found, id = {id}");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The user was not found!");
                 }
+                #endregion
 
                 _logger.LogInformation($"User was deleted ( soft deleted or hard deleted ), id = {id}");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The user was deleted!");
