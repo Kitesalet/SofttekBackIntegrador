@@ -108,6 +108,7 @@ namespace IntegradorSofttekImanol.Services
                 user.Type = (UserRole)userDto.Type;
                 user.Password = userDto.Password;
                 user.UpdatedDate = DateTime.Now;
+                user.DeletedDate = userDto.DeletedDate;
 
                 _unitOfWork.UserRepository.Update(user);
 

@@ -113,6 +113,7 @@ namespace IntegradorSofttekImanol.Services
                 service.State = serviceDto.State;
                 service.HourValue = serviceDto.HourValue;
                 service.UpdatedDate = DateTime.Now;
+                service.DeletedDate = serviceDto.DeletedDate;
 
                 _unitOfWork.ServiceRepository.Update(service);
 

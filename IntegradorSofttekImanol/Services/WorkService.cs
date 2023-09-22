@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IntegradorSofttekImanol.Models.DTOs;
+using IntegradorSofttekImanol.Models.DTOs.Proyecto;
 using IntegradorSofttekImanol.Models.DTOs.Servicio;
 using IntegradorSofttekImanol.Models.DTOs.Trabajo;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
@@ -87,7 +88,17 @@ namespace IntegradorSofttekImanol.Services
                 return null;
             }
 
-            return _mapper.Map<WorkGetDto>(work);
+            var service = await _unitOfWork.ServiceRepository.GetByIdAsync(work.CodService);
+            var serviceDto = _mapper.Map<ServiceGetDto>(service);
+            var project = await _unitOfWork.ProjectRepository.GetByIdAsync(work.CodProject);
+            var projectDto = _mapper.Map<ProjectGetDto>(project);
+
+            var workDto = _mapper.Map<WorkGetDto>(work);
+
+            workDto.Project = projectDto;
+            workDto.Service = serviceDto;
+
+            return workDto;
         }
 
         /// <inheritdoc/>
@@ -102,6 +113,7 @@ namespace IntegradorSofttekImanol.Services
                 work.HourQty = workDto.HourQty;
                 work.HourValue = workDto.HourValue;
                 work.UpdatedDate = DateTime.Now;
+                work.DeletedDate = workDto.DeletedDate;
 
                 _unitOfWork.WorkRepository.Update(work);
 
