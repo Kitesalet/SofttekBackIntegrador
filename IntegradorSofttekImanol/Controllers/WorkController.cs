@@ -178,6 +178,8 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> UpdateWork(int id, WorkUpdateDto dto)
         {
 
+            bool isUpdating = true;
+
             try
             {
                 if (id < 0)
@@ -186,7 +188,7 @@ namespace IntegradorSofttekImanol.Controllers
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
 
-                if (await _service.GetWorkByIdAsync(id) == null)
+                if (await _service.GetWorkByIdAsync(id, isUpdating) == null)
                 {
                     _logger.LogInformation($"work was not found in the database, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "work was not found!");

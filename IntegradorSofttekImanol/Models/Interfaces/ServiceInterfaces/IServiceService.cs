@@ -20,7 +20,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
         /// </summary>
         /// <param name="id">An int.</param>
         /// <returns>One of the service entities as a ServiceDto.</returns>
-        Task<ServiceGetDto> GetServiceByIdAsync(int id);
+        Task<ServiceGetDto> GetServiceByIdAsync(int id, bool isUpdating = false);
 
         /// <summary>
         /// Creates a Service record.

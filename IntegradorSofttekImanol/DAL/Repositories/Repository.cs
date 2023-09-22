@@ -48,7 +48,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
             }
             else
             {
-                _context.Entry(entity).State = EntityState.Deleted;
+                return false;
             } 
 
             return true;

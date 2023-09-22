@@ -23,22 +23,19 @@ namespace IntegradorSofttekImanol.Controllers
     {
 
         private TokenJwtHelper _tokenJWTHelper;
-        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
 
         /// <summary>
-        /// Initializes an instance of LoginController using dependency injection with its parameters
+        /// Initializes an instance of LoginController using dependency injection with its parameters.
         /// </summary>
-        /// <param name="unitOfWork">UnitOfWork</param>
-        /// <param name="configuration">IOptions with JwtSettings</param>
-        /// <param name="mapper">IMapper</param>
-        public LoginController(IUnitOfWork unitOfWork, IOptions<JwtSettings> configuration, IMapper mapper)
+        /// <param name="unitOfWork">UnitOfWork.</param>
+        /// <param name="configuration">IOptions with JwtSettings.</param>
+        public LoginController(IUnitOfWork unitOfWork, IOptions<JwtSettings> configuration)
         {
             
             _unitOfWork = unitOfWork;
             _tokenJWTHelper = new TokenJwtHelper(configuration);
-            _mapper = mapper;
 
         }
 
@@ -74,8 +71,6 @@ namespace IntegradorSofttekImanol.Controllers
                 Name = userCredentials.Name,
                 Type = UserRoleDic.TranslateUserRole((int)userCredentials.Type)
             };
-
-            //Never return a password
 
             return Ok(user);
 

@@ -86,11 +86,11 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc />
-        public async Task<ServiceGetDto> GetServiceByIdAsync(int id)
+        public async Task<ServiceGetDto> GetServiceByIdAsync(int id, bool isUpdating = false)
         {
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
 
-            if (service == null || service.DeletedDate != null)
+            if (service == null || service.DeletedDate != null && isUpdating == false)
             {
                 return null;
             }
@@ -107,21 +107,26 @@ namespace IntegradorSofttekImanol.Services
         {
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(serviceDto.CodService);
 
-            if (service == null)
+            try
+            {
+                service.Descr = serviceDto.Descr;
+                service.State = serviceDto.State;
+                service.HourValue = serviceDto.HourValue;
+                service.UpdatedDate = DateTime.Now;
+                service.DeletedDate = serviceDto.DeletedDate;
+
+                _unitOfWork.ServiceRepository.Update(service);
+
+                await _unitOfWork.Complete();
+
+                return true;
+            }
+            catch (Exception)
             {
                 return false;
             }
 
-            service.Descr = serviceDto.Descr;
-            service.State = serviceDto.State;
-            service.HourValue = serviceDto.HourValue;
-            service.UpdatedDate = DateTime.Now;
 
-            _unitOfWork.ServiceRepository.Update(service);
-
-            await _unitOfWork.Complete();
-
-            return true;
         }
     }
 }

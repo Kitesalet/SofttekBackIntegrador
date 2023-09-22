@@ -18,7 +18,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
         /// </summary>
         /// <param name="id">An int.</param>
         /// <returns>One of the work entities as a WorkDto.</returns>
-        Task<WorkGetDto> GetWorkByIdAsync(int id);
+        Task<WorkGetDto> GetWorkByIdAsync(int id, bool isUpdating = false);
 
         /// <summary>
         /// Creates a work record.

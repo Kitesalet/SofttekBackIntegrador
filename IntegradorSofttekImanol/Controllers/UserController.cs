@@ -189,6 +189,8 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> UpdateUser(int id, UserUpdateDto dto)
         {
 
+            bool isUpdating = true;
+
             try
             {
                 if (id < 0)
@@ -197,7 +199,7 @@ namespace IntegradorSofttekImanol.Controllers
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
 
-                if (await _service.GetUserByIdAsync(id) == null)
+                if (await _service.GetUserByIdAsync(id, isUpdating) == null)
                 {
                     _logger.LogInformation($"User was not found in the database, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "User was not found!");
