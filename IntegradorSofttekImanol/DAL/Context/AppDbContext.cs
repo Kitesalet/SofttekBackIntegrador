@@ -10,14 +10,16 @@ namespace IntegradorSofttekImanol.DAL.Context
     /// </summary>
     public class AppDbContext : DbContext
     {
+        private readonly IConfiguration _configuration;
+
         /// <summary>
         /// Initializes an instance of AppDbContext.
         /// </summary>
         /// <param name="options">A DbContextOptions.</param>
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration) : base(options)
         {
 
-
+            _configuration = configuration;
 
         }
 
@@ -41,8 +43,7 @@ namespace IntegradorSofttekImanol.DAL.Context
                 new ProjectSeeder(),
                 new ServiceSeeder(),
                 new WorkSeeder(),
-                new UserSeeder(),
-                new RoleSeeder()
+                new UserSeeder(_configuration),
             };
 
             foreach (var seed in seeder)

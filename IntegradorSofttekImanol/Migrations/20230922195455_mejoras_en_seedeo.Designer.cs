@@ -4,6 +4,7 @@ using IntegradorSofttekImanol.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntegradorSofttekImanol.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230922195455_mejoras_en_seedeo")]
+    partial class mejoras_en_seedeo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +61,7 @@ namespace IntegradorSofttekImanol.Migrations
 
                     b.HasKey("CodProject");
 
-                    b.ToTable("proyectos", (string)null);
+                    b.ToTable("proyectos");
 
                     b.HasData(
                         new
@@ -124,7 +126,7 @@ namespace IntegradorSofttekImanol.Migrations
 
                     b.HasKey("CodService");
 
-                    b.ToTable("servicios", (string)null);
+                    b.ToTable("servicios");
 
                     b.HasData(
                         new
@@ -211,7 +213,7 @@ namespace IntegradorSofttekImanol.Migrations
 
                     b.HasKey("CodUser");
 
-                    b.ToTable("usuarios", (string)null);
+                    b.ToTable("usuarios");
 
                     b.HasData(
                         new
@@ -285,7 +287,7 @@ namespace IntegradorSofttekImanol.Migrations
 
                     b.HasIndex("CodService");
 
-                    b.ToTable("trabajos", (string)null);
+                    b.ToTable("trabajos");
 
                     b.HasData(
                         new

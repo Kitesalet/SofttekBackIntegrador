@@ -21,10 +21,10 @@ namespace IntegradorSofttekImanol.DAL.UnitOfWork
         /// </summary>
         /// <param name="context">AppDbContext with DI</param>
         /// <param name="mapper"></param>
-        public UnitOfWork(AppDbContext context, IMapper mapper)
+        public UnitOfWork(AppDbContext context, IMapper mapper, IConfiguration configuration)
         {
             _context = context;
-            UserRepository = new UserRepository(context);
+            UserRepository = new UserRepository(context, configuration);
             ProjectRepository = new ProjectRepository(context);
             WorkRepository = new WorkRepository(context);
             ServiceRepository = new ServiceRepository(context);

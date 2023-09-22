@@ -48,13 +48,20 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+
+                #region Validations
+
                 if (page < 1 || units < 0)
                 {
                     _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}.");
                     return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "Pages or units input was invalid.");
                 }
+                #endregion
 
                 var projects = await _service.GetAllProjectsAsync(page, units);
+
+                #region Erorrs
+                #endregion
 
                 _logger.LogInformation("All Projects were retrieved!.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, projects);
@@ -89,13 +96,19 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+                #region Validations
+
                 if (state < 1 || state > 3)
                 {
                     _logger.LogInformation($"State introduced was invalid, state = {state}.");
                     return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "The state introduced was invalid!");
                 }
+                #endregion
 
-                var projects = await _service.GetProjectByStateAsync(state);        
+                var projects = await _service.GetProjectByStateAsync(state);
+
+                #region Errors
+                #endregion
 
                 _logger.LogInformation("All filtered Projects were retrieved!");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, projects);
@@ -129,19 +142,23 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+                #region Validations
                 if (id < 0)
                 {
                     _logger.LogInformation($"Id field was invalid, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
+                #endregion
 
                 var proyect = await _service.GetProjectByIdAsync(id);
 
+                #region Errors
                 if (proyect == null)
                 {
                     _logger.LogInformation($"proyect was not found, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "proyect not found.");
                 }
+                #endregion
 
                 _logger.LogInformation($"proyect was retrieved, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, proyect);
@@ -178,13 +195,18 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+                #region Validations
+                #endregion
+
                 var flag = await _service.CreateProjectAsync(dto);
 
+                #region Errors
                 if (!flag)
                 {
                     _logger.LogInformation($"project was not created, Nombre = {dto.Name}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The project was not created");
                 }
+                #endregion
 
                 _logger.LogInformation($"proyect was created, Descr = {dto.Name}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The project was created!");
@@ -223,6 +245,8 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+
+                #region Validations
                 if (id < 0 || dto.CodProject != id)
                 {
                     _logger.LogInformation($"Id field was invalid.");
@@ -234,14 +258,17 @@ namespace IntegradorSofttekImanol.Controllers
                     _logger.LogInformation($"proyect was not found in the database, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "proyect was not found!");
                 }
+                #endregion
 
                 var result = await _service.UpdateProject(dto);
 
+                #region Errors
                 if (!result)
                 {
                     _logger.LogInformation($"Error updating the proyect, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the project.");
                 }
+                #endregion
 
                 _logger.LogInformation($"proyect was properly updated, id = {id}");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "project was properly updated!");
@@ -277,21 +304,27 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+                #region Validations
+
                 if (id < 0)
                 {
                     _logger.LogInformation($"Id field was invalid, it was 0.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
 
+                #endregion
+
                 var result = await _service.DeleteProjectAsync(id);
 
+                #region Errors
                 if (!result)
                 {
                     _logger.LogInformation($"Project was not found, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The project was not found!");
                 }
+                #endregion
 
-                _logger.LogInformation($"Project was deleted ( soft deleted or hard deleted ), id = {id}.");
+                _logger.LogInformation($"Project was deleted ( soft deleted ), id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The Project was deleted!.");
             }
             catch (Exception ex)

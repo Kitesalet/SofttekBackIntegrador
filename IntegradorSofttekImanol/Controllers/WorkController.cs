@@ -88,19 +88,23 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+                #region Validations
                 if (id < 0)
                 {
                     _logger.LogInformation($"Id field was invalid, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
+                #endregion
 
                 var work = await _service.GetWorkByIdAsync(id);
 
+                #region Errors
                 if (work == null)
                 {
                     _logger.LogInformation($"work was not found, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "work not found.");
                 }
+                #endregion
 
                 _logger.LogInformation($"work was retrieved, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, work);
@@ -136,15 +140,24 @@ namespace IntegradorSofttekImanol.Controllers
         {
 
             try
-            {             
+            {
+                #region Validations
+                if (dto.HourQty < 1)
+                {
+                    _logger.LogInformation($"HourQty field was invalid, HourValue = {dto.HourQty}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "HourQty field was invalid!");
+                }
+                #endregion
 
                 var flag = await _service.CreateWorkAsync(dto);
 
+                #region Errors
                 if (!flag)
                 {
-                    _logger.LogInformation($"work was not created, Fecha = {dto.Date}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The work was not created.");
+                    _logger.LogInformation($"work was not created, Fecha = {dto.Date}, CodService = {dto.CodService}.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The work was not created, check if the associated service state is active.");
                 }
+                #endregion
 
                 _logger.LogInformation($"work was created, Fecha = {dto.Date}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The work was created!");
@@ -183,6 +196,8 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+                #region Validations
+
                 if (id < 0 || id != dto.CodWork)
                 {
                     _logger.LogInformation($"Id field was invalid.");
@@ -195,13 +210,17 @@ namespace IntegradorSofttekImanol.Controllers
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "work was not found!");
                 }
 
+                #endregion
+
                 var result = await _service.UpdateWork(dto);
 
+                #region Errors
                 if (!result)
                 {
-                    _logger.LogInformation($"Error updating the work, id = {id},");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the work.");
+                    _logger.LogInformation($"Error updating the work, Id = {id}, CodService = {dto.CodService}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the work, check if the associated service state is Active!");
                 }
+                #endregion
 
                 _logger.LogInformation($"work was properly updated, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "work was properly updated!");
@@ -237,19 +256,25 @@ namespace IntegradorSofttekImanol.Controllers
 
             try
             {
+                #region Validations
+
                 if (id < 0)
                 {
                     _logger.LogInformation($"Id field was invalid.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
 
+                #endregion
+
                 var result = await _service.DeleteWorkAsync(id);
 
+                #region Errors
                 if (!result)
                 {
                     _logger.LogInformation($"work was not found, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The work was not found!");
                 }
+                #endregion
 
                 _logger.LogInformation($"work was deleted ( soft deleted or hard deleted ), id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The work was deleted!");
