@@ -1,8 +1,8 @@
 ﻿using IntegradorSofttekImanol.Infrastructure;
 using IntegradorSofttekImanol.Models.DTOs.Proyecto;
 using IntegradorSofttekImanol.Models.Entities;
-using IntegradorSofttekImanol.Models.Interfaces;
 using IntegradorSofttekImanol.Models.Interfaces.projectInterfaces;
+using IntegradorSofttekImanol.Models.Interfaces.ValidationInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

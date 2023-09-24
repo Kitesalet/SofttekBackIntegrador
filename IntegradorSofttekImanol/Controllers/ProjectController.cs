@@ -1,7 +1,7 @@
 ﻿using IntegradorSofttekImanol.Infrastructure;
 using IntegradorSofttekImanol.Models.DTOs.Proyecto;
-using IntegradorSofttekImanol.Models.Interfaces;
 using IntegradorSofttekImanol.Models.Interfaces.projectInterfaces;
+using IntegradorSofttekImanol.Models.Interfaces.ValidationInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -145,8 +145,6 @@ namespace IntegradorSofttekImanol.Controllers
         [Route("project/register")]
         public async Task<IActionResult> CreateProject(ProjectCreateDto dto)
         {
-
-       
 
                 var flag = await _service.CreateProjectAsync(dto);
 

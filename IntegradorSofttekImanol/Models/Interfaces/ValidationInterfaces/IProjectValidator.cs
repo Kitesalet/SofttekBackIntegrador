@@ -4,7 +4,7 @@ using IntegradorSofttekImanol.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace IntegradorSofttekImanol.Models.Interfaces
+namespace IntegradorSofttekImanol.Models.Interfaces.ValidationInterfaces
 {
     public interface IProjectValidator
     {
@@ -19,7 +19,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces
 
 
         Task<IActionResult> UpdateProjectValidator(int id, ProjectUpdateDto dto);
-        
+
 
     }
 }
