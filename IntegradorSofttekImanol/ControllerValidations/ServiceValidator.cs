@@ -1,4 +1,5 @@
-﻿using IntegradorSofttekImanol.Infrastructure;
+﻿using IntegradorSofttekImanol.Controllers;
+using IntegradorSofttekImanol.Infrastructure;
 using IntegradorSofttekImanol.Models.DTOs.Servicio;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
 using IntegradorSofttekImanol.Models.Interfaces.ValidationInterfaces;
@@ -9,10 +10,10 @@ namespace IntegradorSofttekImanol.ControllerValidations
 {
     public class ServiceValidator : IServiceValidator
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<ServiceController> _logger;
         private readonly IServiceService _service;
 
-        public ServiceValidator(ILogger logger, IServiceService service)
+        public ServiceValidator(ILogger<ServiceController> logger, IServiceService service)
         {
             _logger = logger;
             _service = service;

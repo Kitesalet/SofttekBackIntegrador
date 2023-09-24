@@ -1,4 +1,5 @@
-﻿using IntegradorSofttekImanol.Infrastructure;
+﻿using IntegradorSofttekImanol.Controllers;
+using IntegradorSofttekImanol.Infrastructure;
 using IntegradorSofttekImanol.Models.DTOs.Proyecto;
 using IntegradorSofttekImanol.Models.Entities;
 using IntegradorSofttekImanol.Models.Interfaces.projectInterfaces;
@@ -11,10 +12,10 @@ namespace IntegradorSofttekImanol.ControllerValidations
     public class ProjectValidator : IProjectValidator
     {
 
-        private readonly ILogger _logger;
+        private readonly ILogger<ProjectController> _logger;
         private readonly IProjectService _service;
 
-        public ProjectValidator(ILogger logger, IProjectService service)
+        public ProjectValidator(ILogger<ProjectController> logger, IProjectService service)
         {
             _logger = logger;
             _service = service;

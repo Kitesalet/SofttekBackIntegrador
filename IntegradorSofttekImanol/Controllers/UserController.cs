@@ -1,6 +1,7 @@
 ﻿using IntegradorSofttekImanol.Infrastructure;
 using IntegradorSofttekImanol.Models.DTOs.Usuario;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
+using IntegradorSofttekImanol.Models.Interfaces.ValidationInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -20,16 +21,18 @@ namespace IntegradorSofttekImanol.Controllers
     {
         private readonly IUserService _service;
         private readonly ILogger<UserController> _logger;
+        private readonly IUserValidator _validator;
 
         /// <summary>
         /// Initializes an instance of UserController using dependency injection with its parameters.
         /// </summary>
         /// <param name="service">An IUserService.</param>
         /// <param name="logger">An ILogger.</param>
-        public UserController(IUserService service, ILogger<UserController> logger)
+        public UserController(IUserService service,IUserValidator validator, ILogger<UserController> logger)
         {
             _service = service;
             _logger = logger;
+            _validator = validator;
         }
 
         /// <summary>
@@ -48,28 +51,15 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
 
-            try
-            {
                 #region Validations
-
-                if (page < 1 || units < 0)
-                {
-                    _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}.");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest,"Pages or units input was invalid.");
-                }
-
+                _validator.GetAllUsersValidator(page, units);
                 #endregion
 
                 var users = await _service.GetAllUsersAsync(page, units);
 
                 _logger.LogInformation("All users were retrieved!");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, users);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
+
         }
 
         /// <summary>
@@ -92,36 +82,17 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetUser([FromRoute] int id)
         {
 
-            try
-            {
-
                 #region Validations
-
-                if (id < 0)
-                {
-                    _logger.LogInformation($"Id field was invalid, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                }
+                _validator.GetUserValidator(id);
                 #endregion
 
                 var user = await _service.GetUserByIdAsync(id);
 
-                #region Errors
-                if (user == null)
-                {
-                    _logger.LogInformation($"User was not found, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "User not found.");
-                }
-                #endregion
+                _validator.GetUserError(user);
 
                 _logger.LogInformation($"User was retrieved, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, user);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
+
         }
 
         /// <summary>
@@ -147,37 +118,13 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> CreateUser(UserCreateDto dto)
         {
 
-            try
-            {
-
-                #region Validations
-                if (dto.Dni < 0)
-                {
-                    _logger.LogInformation($"User was not created, invalid Dni, Dni = {dto.Dni}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The user was not created, Dni was invalid.");
-                }
-                #endregion
-
                 //It creates the user as a Consultor at first
                 var flag = await _service.CreateUserAsync(dto);
 
-                #region Errors
-
-                if (!flag)
-                {
-                    _logger.LogInformation($"User was not created, Dni = {dto.Dni}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The user was not created.");
-                }
-                #endregion
+                _validator.CreateUserValidator(dto, flag);
 
                 _logger.LogInformation($"User was created, Dni = {dto.Dni}");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The user was created!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
 
         }
 
@@ -203,50 +150,18 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> UpdateUser(int id, UserUpdateDto dto)
         {
 
-            try
-            {
                 #region Validations
-
-                if (id < 0 || id != dto.CodUser)
-                {
-                    _logger.LogInformation($"Id field was invalid, id = {id}");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                }
-
-                if (dto.Type > 2 || dto.Type < 1)
-                {
-                    _logger.LogInformation($"Type field was invalid, type = {dto.Type}");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The type field was invalid");
-                }
-
-                var user = await _service.GetUserByIdAsync(id);
-                if (user == null)
-                {
-                    _logger.LogInformation($"User was not found in the database, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "User was not found!");
-                }
-
+                await _validator.UpdateUserValidator(id, dto);
                 #endregion
 
                 var result = await _service.UpdateUser(dto);
 
                 #region Errors
-
-                if (!result)
-                {
-                    _logger.LogInformation($"Error updating the user, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the user.");
-                }
+                _validator.UpdateError(result, dto);
                 #endregion
 
                 _logger.LogInformation($"User was properly updated, id = {id}");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "User was properly updated!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
 
         }
 
@@ -271,36 +186,19 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
 
-            try
-            {
                 #region Validations
-
-                if (id < 0)
-                {
-                    _logger.LogInformation($"Id field was invalid.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                }
+                _validator.DeleteGetUserValidator(id);
                 #endregion
 
                 var result = await _service.DeleteUserAsync(id);
 
                 #region Errors
-
-                if (!result)
-                {
-                    _logger.LogInformation($"User was not found, id = {id}");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The user was not found!");
-                }
+                _validator.DeleteGetUserValidator(id, result);
                 #endregion
 
                 _logger.LogInformation($"User was deleted, id = {id}");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The user was deleted!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
+
         }
     }
 }

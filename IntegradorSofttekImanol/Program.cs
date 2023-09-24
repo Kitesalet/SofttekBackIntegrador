@@ -76,7 +76,9 @@ builder.Services.AddScoped<IWorkService, WorkService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 
 builder.Services.AddScoped<IProjectValidator, ProjectValidator>();
-
+builder.Services.AddScoped<IServiceValidator, ServiceValidator>();
+builder.Services.AddScoped<IWorkValidator, WorkValidator>();
+builder.Services.AddScoped<IUserValidator, UserValidator>();
 
 #endregion
 

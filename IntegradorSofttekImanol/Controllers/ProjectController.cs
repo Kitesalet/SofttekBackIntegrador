@@ -49,14 +49,18 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetAllProjects([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
 
-                #region Validations
-                _validator.GetAllValidator(page, units);
-                #endregion
+            #region Validations
+            var validation = _validator.GetAllValidator(page, units);
+            if(validation != null)
+            {              
+                return validation;
+            }
+            #endregion
 
-                var projects = await _service.GetAllProjectsAsync(page, units);
+            var projects = await _service.GetAllProjectsAsync(page, units);
 
-                _logger.LogInformation("All Projects were retrieved!.");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, projects);
+            _logger.LogInformation("All Projects were retrieved!.");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, projects);
 
         }
 
@@ -81,14 +85,15 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetAllProjectsByState(int state)
         {
 
-                #region Validations
-                _validator.GetAllProjectsByStateValidator(state);
-                #endregion
+            #region Validations
+            var validation = _validator.GetAllProjectsByStateValidator(state);
+            if()
+            #endregion
 
-                var projects = await _service.GetProjectByStateAsync(state);
+            var projects = await _service.GetProjectByStateAsync(state);
 
-                _logger.LogInformation("All filtered Projects were retrieved!");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, projects);
+            _logger.LogInformation("All filtered Projects were retrieved!");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, projects);
            
         }
 

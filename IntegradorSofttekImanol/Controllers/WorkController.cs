@@ -1,6 +1,7 @@
 ﻿using IntegradorSofttekImanol.Infrastructure;
 using IntegradorSofttekImanol.Models.DTOs.Trabajo;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
+using IntegradorSofttekImanol.Models.Interfaces.ValidationInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -18,16 +19,18 @@ namespace IntegradorSofttekImanol.Controllers
 
         private readonly IWorkService _service;
         private readonly ILogger<WorkController> _logger;
+        private readonly IWorkValidator _validator;
 
         /// <summary>
         /// Initializes an instance of WorkController using dependency injection with its parameters.
         /// </summary>
         /// <param name="work">An IWorkService.</param>
         /// <param name="logger">An ILogger.</param>
-        public WorkController(IWorkService work, ILogger<WorkController> logger)
+        public WorkController(IWorkService work,IWorkValidator validator, ILogger<WorkController> logger)
         {
             _service = work;
             _logger = logger;
+            _validator = validator;
         }
 
         /// <summary>
@@ -46,24 +49,13 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetAllWorks([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
 
-            try
-            {
-                if (page < 1 || units < 0)
-                {
-                    _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}.");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "Pages or units input was invalid.");
-                }
+                _validator.GetAllWorks(page, units);
 
                 var works = await _service.GetAllWorksAsync(page, units);
 
                 _logger.LogInformation("All works were retrieved!");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, works);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
-            }
+
         }
 
         /// <summary>
@@ -86,34 +78,22 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetWork([FromRoute] int id)
         {
 
-            try
-            {
+            
                 #region Validations
-                if (id < 0)
-                {
-                    _logger.LogInformation($"Id field was invalid, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                }
+                _validator.DeleteGetWorkValidator(id);
                 #endregion
 
                 var work = await _service.GetWorkByIdAsync(id);
 
                 #region Errors
-                if (work == null)
-                {
-                    _logger.LogInformation($"work was not found, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "work not found.");
-                }
+                _validator.GetError(work);
                 #endregion
 
                 _logger.LogInformation($"work was retrieved, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, work);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
-            }
+            
+
+
         }
 
         /// <summary>
@@ -139,34 +119,19 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> CreateWork(WorkCreateDto dto)
         {
 
-            try
-            {
                 #region Validations
-                if (dto.HourQty < 1)
-                {
-                    _logger.LogInformation($"HourQty field was invalid, HourValue = {dto.HourQty}");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "HourQty field was invalid!");
-                }
+                _validator.CreateWorkValidator(dto);
                 #endregion
 
                 var flag = await _service.CreateWorkAsync(dto);
 
                 #region Errors
-                if (!flag)
-                {
-                    _logger.LogInformation($"work was not created, Fecha = {dto.Date}, CodService = {dto.CodService}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The work was not created, check if the associated service state is active.");
-                }
+                _validator.CreateError(flag, dto);
                 #endregion
 
                 _logger.LogInformation($"work was created, Fecha = {dto.Date}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The work was created!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
+
 
         }
 
@@ -192,42 +157,18 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> UpdateWork(int id, WorkUpdateDto dto)
         {
 
-            try
-            {
                 #region Validations
-
-                if (id < 0 || id != dto.CodWork)
-                {
-                    _logger.LogInformation($"Id field was invalid.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                }
-
-                if (await _service.GetWorkByIdAsync(id) == null)
-                {
-                    _logger.LogInformation($"work was not found in the database, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "work was not found!");
-                }
-
+                _validator.UpdateWorkValidator(id, dto);
                 #endregion
 
                 var result = await _service.UpdateWork(dto);
 
                 #region Errors
-                if (!result)
-                {
-                    _logger.LogInformation($"Error updating the work, Id = {id}, CodService = {dto.CodService}");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the work, check if the associated service state is Active!");
-                }
+                _validator.UpdateError(result, dto);
                 #endregion
 
                 _logger.LogInformation($"work was properly updated, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "work was properly updated!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
 
         }
 
@@ -252,36 +193,20 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> DeleteWork([FromRoute] int id)
         {
 
-            try
-            {
+
                 #region Validations
-
-                if (id < 0)
-                {
-                    _logger.LogInformation($"Id field was invalid.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                }
-
+                _validator.DeleteGetWorkValidator(id);
                 #endregion
 
                 var result = await _service.DeleteWorkAsync(id);
 
                 #region Errors
-                if (!result)
-                {
-                    _logger.LogInformation($"work was not found, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The work was not found!");
-                }
+                _validator.DeleteError(id, result);
                 #endregion
 
-                _logger.LogInformation($"work was deleted ( soft deleted or hard deleted ), id = {id}.");
+                _logger.LogInformation($"work was deleted, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The work was deleted!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
+
         }
 
     }
