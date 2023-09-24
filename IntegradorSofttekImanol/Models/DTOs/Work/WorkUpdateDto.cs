@@ -7,7 +7,6 @@
         public int CodProject { get; set; }
         public int CodService { get; set; }
         public int HourQty { get; set; }
-        public DateTime? DeletedDate { get; set; }
 
     }
 }

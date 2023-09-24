@@ -36,7 +36,7 @@ namespace IntegradorSofttekImanol.Services
 
                 await _unitOfWork.ServiceRepository.AddAsync(service);
 
-                service.DeletedDate = DateTime.Now;
+                service.CreatedDate = DateTime.Now;
 
                 await _unitOfWork.Complete();
 
@@ -67,8 +67,6 @@ namespace IntegradorSofttekImanol.Services
 
             var services = await _unitOfWork.ServiceRepository.GetActiveServicesAsync();
 
-
-
             var servicesDto = _mapper.Map<List<ServiceGetDto>>(services);
 
             return servicesDto;
@@ -86,11 +84,11 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc />
-        public async Task<ServiceGetDto> GetServiceByIdAsync(int id, bool isUpdating = false)
+        public async Task<ServiceGetDto> GetServiceByIdAsync(int id)
         {
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
 
-            if (service == null || service.DeletedDate != null && isUpdating == false)
+            if(service == null || service.DeletedDate != null)
             {
                 return null;
             }
@@ -113,7 +111,6 @@ namespace IntegradorSofttekImanol.Services
                 service.State = serviceDto.State;
                 service.HourValue = serviceDto.HourValue;
                 service.UpdatedDate = DateTime.Now;
-                service.DeletedDate = serviceDto.DeletedDate;
 
                 _unitOfWork.ServiceRepository.Update(service);
 

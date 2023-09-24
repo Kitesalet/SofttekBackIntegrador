@@ -69,7 +69,7 @@ namespace IntegradorSofttekImanol.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
         }
 
@@ -116,7 +116,7 @@ namespace IntegradorSofttekImanol.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
         }
 
@@ -166,7 +166,7 @@ namespace IntegradorSofttekImanol.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
         }
 
@@ -214,7 +214,7 @@ namespace IntegradorSofttekImanol.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
 
         }
@@ -253,7 +253,7 @@ namespace IntegradorSofttekImanol.Controllers
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
 
-                if (await _service.GetProjectByIdAsync(id, isUpdating) == null)
+                if (await _service.GetProjectByIdAsync(id) == null)
                 {
                     _logger.LogInformation($"proyect was not found in the database, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "proyect was not found!");
@@ -276,7 +276,7 @@ namespace IntegradorSofttekImanol.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
 
         }
@@ -330,7 +330,7 @@ namespace IntegradorSofttekImanol.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
         }
 
