@@ -1,5 +1,6 @@
 ﻿using IntegradorSofttekImanol.Infrastructure;
 using IntegradorSofttekImanol.Models.DTOs.Proyecto;
+using IntegradorSofttekImanol.Models.Interfaces;
 using IntegradorSofttekImanol.Models.Interfaces.projectInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,16 +19,18 @@ namespace IntegradorSofttekImanol.Controllers
     {
         private readonly IProjectService _service;
         private readonly ILogger<ProjectController> _logger;
+        private readonly IProjectValidator _validator;
 
         /// <summary>
         /// Initializes an instance of ProjectController using dependency injection with its parameters.
         /// </summary>
         /// <param name="service">An IProjectService.</param>
         /// <param name="logger">An ILogger.</param>
-        public ProjectController(IProjectService service, ILogger<ProjectController> logger)
+        public ProjectController(IProjectService service,IProjectValidator validator, ILogger<ProjectController> logger)
         {
             _service = service;
             _logger = logger;
+            _validator = validator;
         }
 
         /// <summary>
@@ -46,31 +49,15 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetAllProjects([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
 
-            try
-            {
-
                 #region Validations
-
-                if (page < 1 || units < 0)
-                {
-                    _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}.");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "Pages or units input was invalid.");
-                }
+                _validator.GetAllValidator(page, units);
                 #endregion
 
                 var projects = await _service.GetAllProjectsAsync(page, units);
 
-                #region Erorrs
-                #endregion
-
                 _logger.LogInformation("All Projects were retrieved!.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, projects);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
+
         }
 
         /// <summary>
@@ -94,30 +81,15 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetAllProjectsByState(int state)
         {
 
-            try
-            {
                 #region Validations
-
-                if (state < 1 || state > 3)
-                {
-                    _logger.LogInformation($"State introduced was invalid, state = {state}.");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "The state introduced was invalid!");
-                }
+                _validator.GetAllProjectsByStateValidator(state);
                 #endregion
 
                 var projects = await _service.GetProjectByStateAsync(state);
 
-                #region Errors
-                #endregion
-
                 _logger.LogInformation("All filtered Projects were retrieved!");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, projects);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
+           
         }
 
         /// <summary>
@@ -140,34 +112,15 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetProject([FromRoute] int id)
         {
 
-            try
-            {
                 #region Validations
-                if (id < 0)
-                {
-                    _logger.LogInformation($"Id field was invalid, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                }
+                _validator.DeleteGetProjectValidator(id);
                 #endregion
 
                 var proyect = await _service.GetProjectByIdAsync(id);
 
-                #region Errors
-                if (proyect == null)
-                {
-                    _logger.LogInformation($"proyect was not found, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "proyect not found.");
-                }
-                #endregion
-
                 _logger.LogInformation($"proyect was retrieved, id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, proyect);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
+
         }
 
         /// <summary>
@@ -193,30 +146,17 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> CreateProject(ProjectCreateDto dto)
         {
 
-            try
-            {
-                #region Validations
-                #endregion
+       
 
                 var flag = await _service.CreateProjectAsync(dto);
 
-                #region Errors
-                if (!flag)
-                {
-                    _logger.LogInformation($"project was not created, Nombre = {dto.Name}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The project was not created");
-                }
+                #region Validations
+                _validator.CreateProjectValidator(flag);
                 #endregion
 
                 _logger.LogInformation($"proyect was created, Descr = {dto.Name}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The project was created!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
-
+            
         }
 
         /// <summary>
@@ -241,23 +181,9 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> UpdateProject(int id, ProjectUpdateDto dto)
         {
 
-            bool isUpdating = true;
-
-            try
-            {
 
                 #region Validations
-                if (id < 0 || dto.CodProject != id)
-                {
-                    _logger.LogInformation($"Id field was invalid.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                }
-
-                if (await _service.GetProjectByIdAsync(id) == null)
-                {
-                    _logger.LogInformation($"proyect was not found in the database, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "proyect was not found!");
-                }
+                await _validator.UpdateProjectValidator(id,dto);
                 #endregion
 
                 var result = await _service.UpdateProject(dto);
@@ -272,12 +198,6 @@ namespace IntegradorSofttekImanol.Controllers
 
                 _logger.LogInformation($"proyect was properly updated, id = {id}");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "project was properly updated!");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
 
         }
 
@@ -302,36 +222,15 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> DeleteProject([FromRoute] int id)
         {
 
-            try
-            {
                 #region Validations
-
-                if (id < 0)
-                {
-                    _logger.LogInformation($"Id field was invalid, it was 0.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                }
-
+                _validator.DeleteGetProjectValidator(id);
                 #endregion
 
                 var result = await _service.DeleteProjectAsync(id);
 
-                #region Errors
-                if (!result)
-                {
-                    _logger.LogInformation($"Project was not found, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The project was not found!");
-                }
-                #endregion
-
                 _logger.LogInformation($"Project was deleted ( soft deleted ), id = {id}.");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The Project was deleted!.");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error occurred.");
-                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-            }
+
         }
 
     }

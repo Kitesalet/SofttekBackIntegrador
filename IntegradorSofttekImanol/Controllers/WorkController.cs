@@ -192,8 +192,6 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> UpdateWork(int id, WorkUpdateDto dto)
         {
 
-            bool isUpdating = true;
-
             try
             {
                 #region Validations
