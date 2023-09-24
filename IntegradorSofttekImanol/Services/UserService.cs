@@ -86,12 +86,12 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<UserGetDto> GetUserByIdAsync(int id, bool isUpdating)
+        public async Task<UserGetDto> GetUserByIdAsync(int id)
         {
             
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
 
-            if (user == null || user.DeletedDate != null && isUpdating == false)
+            if (user == null || user.DeletedDate != null)
             {
                 return null;
             }
@@ -107,11 +107,11 @@ namespace IntegradorSofttekImanol.Services
 
             try
             {
+
                 user.Name = userDto.Name;
                 user.Type = (UserRole)userDto.Type;
                 user.Password = EncrypterHelper.Encrypter(userDto.Password, _configuration["EncryptKey"]);
                 user.UpdatedDate = DateTime.Now;
-                user.DeletedDate = userDto.DeletedDate;
 
                 _unitOfWork.UserRepository.Update(user);
 

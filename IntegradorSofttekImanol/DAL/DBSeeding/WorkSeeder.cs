@@ -20,10 +20,19 @@ namespace IntegradorSofttekImanol.DAL.DBSeeding
                 {
                     CodWork = 1,
                     Date = DateTime.Now,
-                    HourQty = 2,
+                    HourQty = 10,
                     CodProject = 1,
                     CodService = 1,
-                    HourValue = 4,
+                    HourValue = 100,
+                    CreatedDate = DateTime.Now
+                }, new Work
+                {
+                    CodWork = 2,
+                    Date = DateTime.Now,
+                    HourQty = 20,
+                    CodProject = 2,
+                    CodService = 2,
+                    HourValue = 120,
                     CreatedDate = DateTime.Now
                 }
                 );

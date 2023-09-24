@@ -72,9 +72,9 @@ namespace IntegradorSofttekImanol.Controllers
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "An unexpected error occurred.");
-                    return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
                 }
-            }
+        }
     
 
             /// <summary>
@@ -110,11 +110,10 @@ namespace IntegradorSofttekImanol.Controllers
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "An unexpected error occurred.");
-                    return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
-
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
                 }
-               
-            }
+
+        }
 
             /// <summary>
             /// Gets a service by their ID.
@@ -163,9 +162,9 @@ namespace IntegradorSofttekImanol.Controllers
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "An unexpected error occurred.");
-                    return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
                 }
-            }
+        }
 
             /// <summary>
             /// Creates a new service.
@@ -193,6 +192,11 @@ namespace IntegradorSofttekImanol.Controllers
                 try
                 {
                     #region Validations
+                    if(dto.HourValue < 0)
+                    {
+                    _logger.LogInformation($"service was not created, HourValue field was invalid, HourValue = {dto.HourValue}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "HourValue field was invalid!");
+                    }
                     #endregion
 
                     var flag = await _service.CreateServiceAsync(dto);
@@ -212,10 +216,10 @@ namespace IntegradorSofttekImanol.Controllers
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "An unexpected error occurred.");
-                    return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
                 }
 
-            }
+        }
 
             /// <summary>
             /// Updates an existing service by their ID.
@@ -252,10 +256,16 @@ namespace IntegradorSofttekImanol.Controllers
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
                     }
 
-                    if (await _service.GetServiceByIdAsync(id, isUpdating) == null)
+                    if (await _service.GetServiceByIdAsync(id) == null)
                     {
                         _logger.LogInformation($"service was not found in the database, id = {id}");
                         return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "service was not found!");
+                    }
+
+                    if (dto.HourValue < 0)
+                    {
+                        _logger.LogInformation($"service was not created, HourValue field was invalid, HourValue = {dto.HourValue}");
+                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "HourValue field was invalid!");
                     }
                     #endregion
 
@@ -275,7 +285,7 @@ namespace IntegradorSofttekImanol.Controllers
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "An unexpected error occurred.");
-                    return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
                 }
 
             }
@@ -328,9 +338,9 @@ namespace IntegradorSofttekImanol.Controllers
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "An unexpected error occurred.");
-                    return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
                 }
-            }
+        }
 
     }
 }

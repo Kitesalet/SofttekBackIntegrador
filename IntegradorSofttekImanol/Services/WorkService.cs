@@ -92,11 +92,11 @@ namespace IntegradorSofttekImanol.Services
         }
 
         /// <inheritdoc/>
-        public async Task<WorkGetDto> GetWorkByIdAsync(int id, bool isUpdating)
+        public async Task<WorkGetDto> GetWorkByIdAsync(int id)
         {
             var work = await _unitOfWork.WorkRepository.GetByIdAsync(id);
 
-            if (work == null || work.DeletedDate != null && isUpdating == false)
+            if(work == null || work.DeletedDate != null)
             {
                 return null;
             }
@@ -127,12 +127,18 @@ namespace IntegradorSofttekImanol.Services
 
             try
             {
+
+                //If the service is different, it will update the hourValue, if not
+                //it will stay the same as the first time the service was employed
+                if (work.Service.CodService != workDto.CodService)
+                {
+                    work.HourValue = service.HourValue;
+                    work.CodService = workDto.CodService;
+                }
+
                 work.CodProject = workDto.CodProject;
-                work.CodService = workDto.CodService;
                 work.HourQty = workDto.HourQty;
-                work.HourValue = service.HourValue;
                 work.UpdatedDate = DateTime.Now;
-                work.DeletedDate = workDto.DeletedDate;
 
                 _unitOfWork.WorkRepository.Update(work);
 

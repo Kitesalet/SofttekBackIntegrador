@@ -32,12 +32,11 @@ namespace IntegradorSofttekImanol.Controllers
         /// </summary>
         /// <param name="unitOfWork">UnitOfWork.</param>
         /// <param name="configuration">IOptions with JwtSettings.</param>
-        public LoginController(IUnitOfWork unitOfWork,ILogger logger, IOptions<JwtSettings> configuration)
+        public LoginController(IUnitOfWork unitOfWork, IOptions<JwtSettings> configuration)
         {
             
             _unitOfWork = unitOfWork;
             _tokenJWTHelper = new TokenJwtHelper(configuration);
-            _logger = logger;
 
         }
 
@@ -75,15 +74,13 @@ namespace IntegradorSofttekImanol.Controllers
                     Type = UserRoleDic.TranslateUserRole((int)userCredentials.Type)
                 };
 
-                _logger.LogInformation($"A user with the {userCredentials.CodUser} has logged in!");
                 return Ok(user);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
-
-            }    
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
+            }
 
         }
 

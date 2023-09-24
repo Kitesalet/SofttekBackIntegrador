@@ -68,7 +68,7 @@ namespace IntegradorSofttekImanol.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
         }
 
@@ -120,7 +120,7 @@ namespace IntegradorSofttekImanol.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
         }
 
@@ -151,6 +151,11 @@ namespace IntegradorSofttekImanol.Controllers
             {
 
                 #region Validations
+                if (dto.Dni < 0)
+                {
+                    _logger.LogInformation($"User was not created, invalid Dni, Dni = {dto.Dni}.");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The user was not created, Dni was invalid.");
+                }
                 #endregion
 
                 //It creates the user as a Consultor at first
@@ -171,7 +176,7 @@ namespace IntegradorSofttekImanol.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
 
         }
@@ -198,8 +203,6 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> UpdateUser(int id, UserUpdateDto dto)
         {
 
-            bool isUpdating = true;
-
             try
             {
                 #region Validations
@@ -216,8 +219,8 @@ namespace IntegradorSofttekImanol.Controllers
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "The type field was invalid");
                 }
 
-
-                if (await _service.GetUserByIdAsync(id, isUpdating) == null)
+                var user = await _service.GetUserByIdAsync(id);
+                if (user == null)
                 {
                     _logger.LogInformation($"User was not found in the database, id = {id}.");
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "User was not found!");
@@ -242,7 +245,7 @@ namespace IntegradorSofttekImanol.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
 
         }
@@ -290,13 +293,13 @@ namespace IntegradorSofttekImanol.Controllers
                 }
                 #endregion
 
-                _logger.LogInformation($"User was deleted ( soft deleted or hard deleted ), id = {id}");
+                _logger.LogInformation($"User was deleted, id = {id}");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The user was deleted!");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
             }
         }
     }

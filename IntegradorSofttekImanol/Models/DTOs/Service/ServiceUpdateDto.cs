@@ -6,7 +6,6 @@
         public string Descr { get; set; }
         public bool State { get; set; }
         public decimal HourValue { get; set; }
-        public DateTime? DeletedDate { get; set; }
 
 
     }

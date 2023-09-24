@@ -20,7 +20,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces
         /// </summary>
         /// <param name="id">An int.</param>
         /// <returns>One of the user entities as a UserGetDto.</returns>
-        Task<UserGetDto> GetUserByIdAsync(int id, bool isUpdating = false);
+        Task<UserGetDto> GetUserByIdAsync(int id);
 
         /// <summary>
         /// Creates an user.
