@@ -133,6 +133,9 @@ Imanol Echazarreta
 
 ## Version History
 
+* 1.0
+  * Release date: 25/9/2023
+
 * 0.2
     * Merge errado, versión creada 😅
       
