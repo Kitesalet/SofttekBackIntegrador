@@ -136,7 +136,6 @@ password:random
 
 
 
-
 ## Help
 
 Ante cualquier consulta o problema, comunicarse via email conmigo a : kitesalett@gmail.com
@@ -146,6 +145,9 @@ Ante cualquier consulta o problema, comunicarse via email conmigo a : kitesalett
 Imanol Echazarreta
 
 ## Version History
+
+* 1.0
+  * Release date: 25/9/2023
 
 * 0.2
     * Merge errado, versión creada 😅
