@@ -122,6 +122,20 @@ escribir los siguientes comandos en la Nugget Package Manager Console:
 
 ![image](https://github.com/Kitesalet/ProyectoIntegradorSofttekImanol/assets/104630744/3687c165-a8a8-4753-b87b-de9d10abd3ce)
 
+Cabe destacar que el programa contiene la data seedeada de dos usuarios, uno con el rol de Administrador y uno con el rol de Consultor,
+cuyo token es requerido.
+El mismo token se podrá conseguir desde el controller de Login, en el endpoint de Login, al realizar un login con las credenciales correctas de usuario.
+
+Para poder probar cada endpoint, se tendrá que obtener el Token del request del siguiente endpoint, como muestra a continuación, con las credenciales
+de usuario que se pueden ver en la próxima imagen:
+
+![image](https://github.com/Kitesalet/ProyectoIntegradorSofttekImanol/assets/104630744/28c5010a-1fa6-41ec-8f5b-0b13276b6f48)
+
+codUsuario:1
+password:random
+
+
+
 
 ## Help
 
