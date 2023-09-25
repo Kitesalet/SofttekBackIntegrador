@@ -215,6 +215,7 @@ ecf/
 rcf/
 
 # Windows Store app package directories and files
+appsettings.json
 AppPackages/
 BundleArtifacts/
 Package.StoreAssociation.xml
@@ -361,3 +362,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+

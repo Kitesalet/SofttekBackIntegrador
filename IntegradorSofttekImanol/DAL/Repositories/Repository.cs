@@ -1,32 +1,94 @@
-﻿using IntegradorSofttekImanol.DAL.Repositories.Interfaces;
+﻿using IntegradorSofttekImanol.DAL.Context;
+using IntegradorSofttekImanol.Models.Entities;
+using IntegradorSofttekImanol.Models.Interfaces.RepoInterfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace IntegradorSofttekImanol.DAL.Repositories
 {
-    public class Repository<T> : IRepository<T>
+    /// <summary>
+    /// The implemmentation that defines common operations for a repository handling entities of type T.
+    /// </summary>
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        public void Add(T entity)
+
+        private readonly AppDbContext _context;
+        private readonly DbSet<T> _set;
+
+        /// <summary>
+        /// Initializes an instance of Repository using dependency injection with its parameters.
+        /// </summary>
+        /// <param name="context">AppDbContext with DI.</param>
+        public Repository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _set = context.Set<T>();
         }
 
-        public void Delete(int id)
+        /// <inheritdoc/>
+        public virtual async Task AddAsync(T entity)
         {
-            throw new NotImplementedException();
+            await _set.AddAsync(entity);
         }
 
-        public Task<IEnumerable<T>> GetAll()
+        /// <inheritdoc/>
+        public virtual async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _set.FindAsync(id);
+
+            if (entity == null)
+            {
+                return false;
+            }
+
+            if(entity.DeletedDate == null) 
+            {
+                entity.DeletedDate = DateTime.Now;
+            }
+            else
+            {
+                return false;
+            } 
+
+            return true;
+
         }
 
-        public Task<T> GetById(int id)
+        /// <inheritdoc/>
+        public virtual async Task<IEnumerable<T>> GetAllAsync(int? page, int? units, params Expression<Func<T,object>>[] includes)
         {
-            throw new NotImplementedException();
+            
+            IQueryable<T> query = _set.Where(t => t.DeletedDate == null);
+
+            if(page != null)
+            {
+                query = query.Skip((int)((page - 1) * units));
+            }
+
+            if(units != null)
+            {
+                query = query.Take((int)units);
+            }
+
+            foreach(var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.ToListAsync();
         }
 
-        public void Update(T entity)
+        /// <inheritdoc/>
+        public virtual async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _set.FindAsync(id);
+        }
+
+        /// <inheritdoc/>
+        public virtual void Update(T entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
         }
     }
 }
