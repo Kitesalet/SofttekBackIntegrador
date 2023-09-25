@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>C:\Users\kites\source\repos\NewRepo3\IntegradorSofttekImanol\bin\Debug\net6.0\IntegradorSofttekImanol.xml</DocumentationFile>
   </PropertyGroup>
 
