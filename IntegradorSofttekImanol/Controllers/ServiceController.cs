@@ -1,6 +1,7 @@
 ﻿using IntegradorSofttekImanol.Infrastructure;
 using IntegradorSofttekImanol.Models.DTOs.Servicio;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
+using IntegradorSofttekImanol.Models.Interfaces.ValidationInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -20,16 +21,18 @@ namespace IntegradorSofttekImanol.Controllers
 
             private readonly IServiceService _service;
             private readonly ILogger<ServiceController> _logger;
+            private readonly IServiceValidator _validator;
 
             /// <summary>
             /// Initializes an instance of ServiceController using dependency injection with its parameters.
             /// </summary>
             /// <param name="service">An IServiceService.</param>
             /// <param name="logger">An ILogger.</param>
-            public ServiceController(IServiceService service, ILogger<ServiceController> logger)
+            public ServiceController(IServiceService service, IServiceValidator validator , ILogger<ServiceController> logger)
             {
-                _service = service;
-                _logger = logger;
+                    _service = service;
+                    _logger = logger;
+                    _validator = validator;
             }
 
             /// <summary>
@@ -50,31 +53,20 @@ namespace IntegradorSofttekImanol.Controllers
             public async Task<IActionResult> GetAllServices([FromQuery] int page = 1, [FromQuery] int units = 10)
             {
 
-                try
+                #region Validations
+                var validation = _validator.GetAllServicesValidator(page, units);
+                if(validation != null)
                 {
-                    #region Validations
-
-                    if (page < 1 || units < 0)
-                    {
-                        _logger.LogInformation($"Pages or unit input was invalid, pages = {page}, units = {units}.");
-                        return ResponseFactory.CreateSuccessResponse(HttpStatusCode.BadRequest, "Pages or units input was invalid.");
-                    }
-                    #endregion
-
-                    var services = await _service.GetAllServicesAsync(page, units);
-
-                    #region Errors
-                    #endregion
-
-                    _logger.LogInformation("All services were retrieved!");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, services);
+                    return validation;
                 }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "An unexpected error occurred.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-                }
-        }
+                #endregion
+
+                var services = await _service.GetAllServicesAsync(page, units);
+
+                _logger.LogInformation("All services were retrieved!");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, services);
+
+            }
     
 
             /// <summary>
@@ -93,27 +85,13 @@ namespace IntegradorSofttekImanol.Controllers
             [Route("services/active")]
             public async Task<IActionResult> GetAllActiveServices()
             {
-                try
-                {
 
-                    #region Validations
-                #endregion
+                 var activeServices = await _service.GetActiveServices();
 
-                    var activeServices = await _service.GetActiveServices();
+                 _logger.LogInformation("All active services were retrieved!");
+                 return Ok(activeServices);
 
-                    #region Errors
-                #endregion
-
-                    _logger.LogInformation("All active services were retrieved!");
-                    return Ok(activeServices);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "An unexpected error occurred.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-                }
-
-        }
+            }
 
             /// <summary>
             /// Gets a service by their ID.
@@ -134,37 +112,19 @@ namespace IntegradorSofttekImanol.Controllers
             [Route("service/{id:int}")]
             public async Task<IActionResult> GetService([FromRoute] int id)
             {
-
-                try
+                
+                var validation = await _validator.DeleteGetServiceValidator(id);
+                if(validation != null)
                 {
-
-                    #region Validations
-                    if (id < 0)
-                    {
-                        _logger.LogInformation($"Id field was invalid, id = {id}.");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                    }
-                    #endregion
-
-                    var service = await _service.GetServiceByIdAsync(id);
-
-                    #region Errors
-                    if (service == null)
-                    {
-                        _logger.LogInformation($"service was not found, id = {id}.");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "service not found.");
-                    }
-                    #endregion
-
-                    _logger.LogInformation($"service was retrieved, id = {id}");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, service);
+                    return validation;
                 }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "An unexpected error occurred.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-                }
-        }
+                
+                var service = await _service.GetServiceByIdAsync(id);
+
+                _logger.LogInformation($"service was retrieved, id = {id}");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, service);
+               
+            }
 
             /// <summary>
             /// Creates a new service.
@@ -189,19 +149,17 @@ namespace IntegradorSofttekImanol.Controllers
             public async Task<IActionResult> CreateService(ServiceCreateDto dto)
             {
 
-                try
+                #region Validations
+                var validation = _validator.CreateServiceValidator(dto);
+                if(validation != null)
                 {
-                    #region Validations
-                    if(dto.HourValue < 0)
-                    {
-                    _logger.LogInformation($"service was not created, HourValue field was invalid, HourValue = {dto.HourValue}");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "HourValue field was invalid!");
-                    }
-                    #endregion
+                    return validation;
+                }
+                #endregion
 
-                    var flag = await _service.CreateServiceAsync(dto);
+                var flag = await _service.CreateServiceAsync(dto);
 
-                    #region Errors
+                #region Errors
  
                     if (!flag)
                     {
@@ -210,16 +168,11 @@ namespace IntegradorSofttekImanol.Controllers
                     }
                     #endregion
 
-                    _logger.LogInformation($"service was created, Descr = {dto.Descr}");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The service was created!");
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "An unexpected error occurred.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-                }
+                _logger.LogInformation($"service was created, Descr = {dto.Descr}");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The service was created!");
 
-        }
+
+            }
 
             /// <summary>
             /// Updates an existing service by their ID.
@@ -243,35 +196,17 @@ namespace IntegradorSofttekImanol.Controllers
             public async Task<IActionResult> UpdateService(int id, ServiceUpdateDto dto)
             {
 
-                bool isUpdating = true;
-
-                try
+                #region Validations
+                var validation = await _validator.UpdateServiceValidator(id, dto);
+                if(validation != null)
                 {
+                    return validation;
+                }
+                #endregion
 
-                    #region Validations
+                var result = await _service.UpdateService(dto);
 
-                    if (id < 0 || id != dto.CodService)
-                    {
-                        _logger.LogInformation($"Id field was invalid, it was 0");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid");
-                    }
-
-                    if (await _service.GetServiceByIdAsync(id) == null)
-                    {
-                        _logger.LogInformation($"service was not found in the database, id = {id}");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "service was not found!");
-                    }
-
-                    if (dto.HourValue < 0)
-                    {
-                        _logger.LogInformation($"service was not created, HourValue field was invalid, HourValue = {dto.HourValue}");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "HourValue field was invalid!");
-                    }
-                    #endregion
-
-                    var result = await _service.UpdateService(dto);
-
-                    #region Errors
+                #region Errors
                     if (!result)
                     {
                         _logger.LogInformation($"Error updating the service, id = {id}");
@@ -279,14 +214,9 @@ namespace IntegradorSofttekImanol.Controllers
                     }
                     #endregion
 
-                    _logger.LogInformation($"service was properly updated, id = {id}");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "service was properly updated!");
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "An unexpected error occurred.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
-                }
+                _logger.LogInformation($"service was properly updated, id = {id}");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "service was properly updated!");
+
 
             }
 
@@ -311,36 +241,28 @@ namespace IntegradorSofttekImanol.Controllers
             public async Task<IActionResult> DeleteService([FromRoute] int id)
             {
 
-                try
+                #region Validations
+                var validation = await _validator.DeleteGetServiceValidator(id);
+                if(validation != null)
                 {
-                    #region Validations
-
-                     if (id < 0)
-                     {
-                        _logger.LogInformation($"Id field was invalid.");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
-                     }
+                    return validation;
+                }
                 #endregion
 
-                    var result = await _service.DeleteServiceAsync(id);
+                var result = await _service.DeleteServiceAsync(id);
 
-                    #region Errors
-                    if (!result)
-                    {
-                        _logger.LogInformation($"service was not found, id = {id}");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The service was not found!");
-                    }
-                    #endregion
-
-                    _logger.LogInformation($"service was deleted ( soft deleted or hard deleted ), id = {id}.");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The service was deleted!");
-                }
-                catch (Exception ex)
+                #region Errors
+                if (!result)
                 {
-                    _logger.LogError(ex, "An unexpected error occurred.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.InternalServerError, "An unexpected error occurred.");
+                    _logger.LogInformation($"service was not found, id = {id}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The service was not found!");
                 }
-        }
+                #endregion
+
+                _logger.LogInformation($"service was deleted ( soft deleted or hard deleted ), id = {id}.");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The service was deleted!");
+
+            }
 
     }
 }

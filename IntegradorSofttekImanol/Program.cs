@@ -1,3 +1,4 @@
+using IntegradorSofttekImanol.ControllerValidations;
 using IntegradorSofttekImanol.DAL.Context;
 using IntegradorSofttekImanol.DAL.UnitOfWork;
 using IntegradorSofttekImanol.Helpers;
@@ -5,6 +6,7 @@ using IntegradorSofttekImanol.Models.HelperClasses;
 using IntegradorSofttekImanol.Models.Interfaces.OtherInterfaces;
 using IntegradorSofttekImanol.Models.Interfaces.projectInterfaces;
 using IntegradorSofttekImanol.Models.Interfaces.ServiceInterfaces;
+using IntegradorSofttekImanol.Models.Interfaces.ValidationInterfaces;
 using IntegradorSofttekImanol.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -73,6 +75,10 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IWorkService, WorkService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 
+builder.Services.AddScoped<IProjectValidator, ProjectValidator>();
+builder.Services.AddScoped<IServiceValidator, ServiceValidator>();
+builder.Services.AddScoped<IWorkValidator, WorkValidator>();
+builder.Services.AddScoped<IUserValidator, UserValidator>();
 
 #endregion
 
