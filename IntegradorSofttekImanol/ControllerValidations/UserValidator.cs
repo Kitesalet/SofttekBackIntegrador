@@ -112,11 +112,11 @@ namespace IntegradorSofttekImanol.ControllerValidations
             return null;
         }
 
-        public IActionResult GetUserError(UserGetDto? user)
+        public IActionResult GetUserError(UserGetDto? user, int id)
         {
             if (user == null)
             {
-                _logger.LogInformation($"User was not found, id = {user.CodUser}.");
+                _logger.LogInformation($"User was not found, id = {id}.");
                 return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "User not found.");
             }
 

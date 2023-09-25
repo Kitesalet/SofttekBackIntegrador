@@ -15,7 +15,7 @@ namespace IntegradorSofttekImanol.Models.Interfaces.ValidationInterfaces
         
         Task<IActionResult> UpdateUserValidator(int id, UserUpdateDto dto);
 
-        IActionResult GetUserError(UserGetDto? user);
+        IActionResult GetUserError(UserGetDto? user, int id);
        
         
     }

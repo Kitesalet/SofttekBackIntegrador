@@ -85,6 +85,12 @@ namespace IntegradorSofttekImanol.ControllerValidations
                     return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Id field is invalid.");
                 }
 
+                if((int)dto.State < 1 || (int)dto.State > 3)
+                {
+                  _logger.LogInformation("State field was invalid.");
+                  return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "State field was invalid.");
+                }
+
                 return null;         
 
         }

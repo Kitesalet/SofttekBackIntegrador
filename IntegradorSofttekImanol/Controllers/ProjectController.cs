@@ -87,7 +87,10 @@ namespace IntegradorSofttekImanol.Controllers
 
             #region Validations
             var validation = _validator.GetAllProjectsByStateValidator(state);
-            if()
+            if(validation != null)
+            {
+                return validation;
+            }
             #endregion
 
             var projects = await _service.GetProjectByStateAsync(state);
@@ -117,14 +120,18 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetProject([FromRoute] int id)
         {
 
-                #region Validations
-                _validator.DeleteGetProjectValidator(id);
-                #endregion
+            #region Validations
+            var validation = await _validator.DeleteGetProjectValidator(id);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var proyect = await _service.GetProjectByIdAsync(id);
+            var proyect = await _service.GetProjectByIdAsync(id);
 
-                _logger.LogInformation($"proyect was retrieved, id = {id}.");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, proyect);
+            _logger.LogInformation($"proyect was retrieved, id = {id}.");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, proyect);
 
         }
 
@@ -151,14 +158,18 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> CreateProject(ProjectCreateDto dto)
         {
 
-                var flag = await _service.CreateProjectAsync(dto);
+            var flag = await _service.CreateProjectAsync(dto);
 
-                #region Validations
-                _validator.CreateProjectValidator(flag);
-                #endregion
+            #region Validations
+            var validation = _validator.CreateProjectValidator(flag);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                _logger.LogInformation($"proyect was created, Descr = {dto.Name}.");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The project was created!");
+            _logger.LogInformation($"proyect was created, Descr = {dto.Name}.");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The project was created!");
             
         }
 
@@ -185,22 +196,26 @@ namespace IntegradorSofttekImanol.Controllers
         {
 
 
-                #region Validations
-                await _validator.UpdateProjectValidator(id,dto);
-                #endregion
+            #region Validations
+            var validation = await _validator.UpdateProjectValidator(id,dto);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var result = await _service.UpdateProject(dto);
+            var result = await _service.UpdateProject(dto);
 
-                #region Errors
-                if (!result)
-                {
-                    _logger.LogInformation($"Error updating the proyect, id = {id}.");
-                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the project.");
-                }
-                #endregion
+            #region Errors
+            if (!result)
+            {
+                _logger.LogInformation($"Error updating the proyect, id = {id}.");
+                return ResponseFactory.CreateErrorResponse(HttpStatusCode.BadRequest, "Error updating the project.");
+            }
+            #endregion
 
-                _logger.LogInformation($"proyect was properly updated, id = {id}");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "project was properly updated!");
+            _logger.LogInformation($"proyect was properly updated, id = {id}");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "project was properly updated!");
 
         }
 
@@ -225,14 +240,18 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> DeleteProject([FromRoute] int id)
         {
 
-                #region Validations
-                _validator.DeleteGetProjectValidator(id);
-                #endregion
+            #region Validations
+            var validation = await _validator.DeleteGetProjectValidator(id);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var result = await _service.DeleteProjectAsync(id);
+            await _service.DeleteProjectAsync(id);
 
-                _logger.LogInformation($"Project was deleted ( soft deleted ), id = {id}.");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The Project was deleted!.");
+            _logger.LogInformation($"Project was deleted ( soft deleted ), id = {id}.");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The Project was deleted!.");
 
         }
 

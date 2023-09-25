@@ -1,0 +1,1372 @@
+{
+	"info": {
+		"_postman_id": "06b66327-daa7-4103-b68f-15ecb1664cec",
+		"name": "Api Softtek Imanol",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27565801"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codUser\": \"1\",\r\n  \"password\": \"random\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/login",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "GetAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/users?page=1&units=5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "units",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"New User\",\r\n  \"dni\": 39321874,\r\n  \"password\": \"random\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/users/register",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codUser\": 4,\r\n  \"name\": \"changed user\",\r\n  \"type\": 2,\r\n  \"password\": \"changed password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/user/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/project/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"project",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Project",
+					"item": [
+						{
+							"name": "GetAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/projects?page=1&units=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"projects"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "units",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/project/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"project",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetByState",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/projects/state/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"projects",
+										"state",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"NewService\",\r\n  \"address\": \"New Service Address\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/project/register",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"project",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codProject\": 5,\r\n  \"name\": \"ChangedName\",\r\n  \"address\": \"Changed Address\",\r\n  \"state\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/project/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"project",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Service",
+					"item": [
+						{
+							"name": "GetAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/services?page=1&units=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"services"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "units",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetActives",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/services/active",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"services",
+										"active"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"descr\": \"newService\",\r\n  \"state\": true,\r\n  \"hourValue\": 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/service/register",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"service",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codUser\": 4,\r\n  \"name\": \"changed user\",\r\n  \"type\": 2,\r\n  \"password\": \"changed password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/service/16",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"service",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Works",
+					"item": [
+						{
+							"name": "GetAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/users?page=1&units=5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "units",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"New User\",\r\n  \"dni\": 39321874,\r\n  \"password\": \"random\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/users/register",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codUser\": 4,\r\n  \"name\": \"changed user\",\r\n  \"type\": 2,\r\n  \"password\": \"changed password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/user/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{Token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Consultor",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codUser\": \"1\",\r\n  \"password\": \"random\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/login",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "GetAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/users?page=1&units=5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "units",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"New User\",\r\n  \"dni\": 39321874,\r\n  \"password\": \"random\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/users/register",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codUser\": 4,\r\n  \"name\": \"changed user\",\r\n  \"type\": 2,\r\n  \"password\": \"changed password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/user/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/project/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"project",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Project",
+					"item": [
+						{
+							"name": "GetAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/projects?page=1&units=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"projects"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "units",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/project/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"project",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetByState",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/projects/state/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"projects",
+										"state",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"NewService\",\r\n  \"address\": \"New Service Address\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/project/register",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"project",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codProject\": 5,\r\n  \"name\": \"ChangedName\",\r\n  \"address\": \"Changed Address\",\r\n  \"state\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/project/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"project",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Service",
+					"item": [
+						{
+							"name": "GetAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/services?page=1&units=10",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"services"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "units",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetActives",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/services/active",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"services",
+										"active"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"descr\": \"newService\",\r\n  \"state\": true,\r\n  \"hourValue\": 1000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/service/register",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"service",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codUser\": 4,\r\n  \"name\": \"changed user\",\r\n  \"type\": 2,\r\n  \"password\": \"changed password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/service/16",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"service",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Works",
+					"item": [
+						{
+							"name": "GetAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/users?page=1&units=5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "units",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"New User\",\r\n  \"dni\": 39321874,\r\n  \"password\": \"random\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/users/register",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codUser\": 4,\r\n  \"name\": \"changed user\",\r\n  \"type\": 2,\r\n  \"password\": \"changed password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7147/api/user/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7147/api/user/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7147",
+									"path": [
+										"api",
+										"user",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{TokenConsultor}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{Token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TokenAdministrador",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJNeVN1YiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJyYW5kb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzU1NjUzNDEzfQ.qug3VFyZuEK-R09_x7RNMDstFM4v2MiMH34kd_BCKQo",
+			"type": "string"
+		},
+		{
+			"key": "TokenConsultor",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJNeVN1YiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJyYW5kb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDb25zdWx0b3IiLCJleHAiOjE3NTU2NTczOTN9.SU0xe3CRw7-QU0ZDfoy90FAXzcj8G4aF7ChEKrhg4LQ",
+			"type": "string"
+		}
+	]
+}

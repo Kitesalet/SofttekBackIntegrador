@@ -42,6 +42,11 @@ namespace IntegradorSofttekImanol.Services
 
                 user.Password = EncrypterHelper.Encrypter(user.Password, _configuration["EncryptKey"] );
 
+                if(userDto.Dni < 1)
+                {
+                    return false;
+                }
+
                 await _unitOfWork.UserRepository.AddAsync(user);
 
                 user.CreatedDate = DateTime.Now;

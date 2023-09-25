@@ -48,13 +48,18 @@ namespace IntegradorSofttekImanol.Controllers
         [Route("works")]
         public async Task<IActionResult> GetAllWorks([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
+            #region Validations
+            var validation = _validator.GetAllWorks(page, units);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                _validator.GetAllWorks(page, units);
+            var works = await _service.GetAllWorksAsync(page, units);
 
-                var works = await _service.GetAllWorksAsync(page, units);
-
-                _logger.LogInformation("All works were retrieved!");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, works);
+            _logger.LogInformation("All works were retrieved!");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, works);
 
         }
 
@@ -79,18 +84,26 @@ namespace IntegradorSofttekImanol.Controllers
         {
 
             
-                #region Validations
-                _validator.DeleteGetWorkValidator(id);
-                #endregion
+            #region Validations
+            var validation = _validator.DeleteGetWorkValidator(id);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var work = await _service.GetWorkByIdAsync(id);
+            var work = await _service.GetWorkByIdAsync(id);
 
-                #region Errors
-                _validator.GetError(work);
-                #endregion
+            #region Errors
+            var error = _validator.GetError(work);
+            if(error != null)
+            {
+                return error;
+            }
+            #endregion
 
-                _logger.LogInformation($"work was retrieved, id = {id}.");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, work);
+            _logger.LogInformation($"work was retrieved, id = {id}.");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, work);
             
 
 
@@ -119,18 +132,26 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> CreateWork(WorkCreateDto dto)
         {
 
-                #region Validations
-                _validator.CreateWorkValidator(dto);
-                #endregion
+            #region Validations
+            var validation = _validator.CreateWorkValidator(dto);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var flag = await _service.CreateWorkAsync(dto);
+            var flag = await _service.CreateWorkAsync(dto);
 
-                #region Errors
-                _validator.CreateError(flag, dto);
-                #endregion
+            #region Errors
+            var error = _validator.CreateError(flag, dto);
+            if(error != null)
+            {
+                return error;
+            }
+            #endregion
 
-                _logger.LogInformation($"work was created, Fecha = {dto.Date}.");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The work was created!");
+            _logger.LogInformation($"work was created, Fecha = {dto.Date}.");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The work was created!");
 
 
         }
@@ -157,18 +178,26 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> UpdateWork(int id, WorkUpdateDto dto)
         {
 
-                #region Validations
-                _validator.UpdateWorkValidator(id, dto);
-                #endregion
+            #region Validations
+            var validation = await _validator.UpdateWorkValidator(id, dto);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var result = await _service.UpdateWork(dto);
+            var result = await _service.UpdateWork(dto);
 
-                #region Errors
-                _validator.UpdateError(result, dto);
-                #endregion
+            #region Errors
+            var error = _validator.UpdateError(result, dto);
+            if(error != null)
+            {
+                return error;
+            }
+            #endregion
 
-                _logger.LogInformation($"work was properly updated, id = {id}.");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "work was properly updated!");
+            _logger.LogInformation($"work was properly updated, id = {id}.");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "work was properly updated!");
 
         }
 
@@ -194,18 +223,26 @@ namespace IntegradorSofttekImanol.Controllers
         {
 
 
-                #region Validations
-                _validator.DeleteGetWorkValidator(id);
-                #endregion
+            #region Validations
+            var validation = _validator.DeleteGetWorkValidator(id);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var result = await _service.DeleteWorkAsync(id);
+            var result = await _service.DeleteWorkAsync(id);
 
-                #region Errors
-                _validator.DeleteError(id, result);
-                #endregion
+            #region Errors
+            var error = _validator.DeleteError(id, result);
+            if(error != null)
+            {
+                return error;
+            }
+            #endregion
 
-                _logger.LogInformation($"work was deleted, id = {id}.");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The work was deleted!");
+            _logger.LogInformation($"work was deleted, id = {id}.");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The work was deleted!");
 
         }
 

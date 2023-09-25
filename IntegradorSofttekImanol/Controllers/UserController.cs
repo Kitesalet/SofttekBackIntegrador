@@ -16,7 +16,6 @@ namespace IntegradorSofttekImanol.Controllers
     
     [Route("api")]
     [ApiController]
-    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
@@ -51,14 +50,18 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int units = 10)
         {
 
-                #region Validations
-                _validator.GetAllUsersValidator(page, units);
-                #endregion
+            #region Validations           
+            var validation = _validator.GetAllUsersValidator(page, units);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var users = await _service.GetAllUsersAsync(page, units);
+            var users = await _service.GetAllUsersAsync(page, units);
 
-                _logger.LogInformation("All users were retrieved!");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, users);
+            _logger.LogInformation("All users were retrieved!");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, users);
 
         }
 
@@ -82,16 +85,24 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> GetUser([FromRoute] int id)
         {
 
-                #region Validations
-                _validator.GetUserValidator(id);
-                #endregion
+            #region Validations
+            var validation = _validator.GetUserValidator(id);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var user = await _service.GetUserByIdAsync(id);
+            var user = await _service.GetUserByIdAsync(id);
 
-                _validator.GetUserError(user);
+            var error = _validator.GetUserError(user, id);
+            if(error != null)
+            {
+                return error;
+            }
 
-                _logger.LogInformation($"User was retrieved, id = {id}.");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, user);
+            _logger.LogInformation($"User was retrieved, id = {id}.");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, user);
 
         }
 
@@ -118,13 +129,17 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> CreateUser(UserCreateDto dto)
         {
 
-                //It creates the user as a Consultor at first
-                var flag = await _service.CreateUserAsync(dto);
+            //It creates the user as a Consultor at first
+            var flag = await _service.CreateUserAsync(dto);
 
-                _validator.CreateUserValidator(dto, flag);
+            var validationError = _validator.CreateUserValidator(dto, flag);
+            if(validationError != null)
+            {
+                return validationError;
+            }
 
-                _logger.LogInformation($"User was created, Dni = {dto.Dni}");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The user was created!");
+            _logger.LogInformation($"User was created, Dni = {dto.Dni}");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The user was created!");
 
         }
 
@@ -150,18 +165,26 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> UpdateUser(int id, UserUpdateDto dto)
         {
 
-                #region Validations
-                await _validator.UpdateUserValidator(id, dto);
-                #endregion
+            #region Validations
+            var validation = await _validator.UpdateUserValidator(id, dto);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var result = await _service.UpdateUser(dto);
+            var result = await _service.UpdateUser(dto);
 
-                #region Errors
-                _validator.UpdateError(result, dto);
-                #endregion
+            #region Errors
+            var error = _validator.UpdateError(result, dto);
+            if(error != null)
+            {
+                return error;
+            }
+            #endregion
 
-                _logger.LogInformation($"User was properly updated, id = {id}");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "User was properly updated!");
+            _logger.LogInformation($"User was properly updated, id = {id}");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "User was properly updated!");
 
         }
 
@@ -186,18 +209,26 @@ namespace IntegradorSofttekImanol.Controllers
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
 
-                #region Validations
-                _validator.DeleteGetUserValidator(id);
-                #endregion
+            #region Validations
+            var validation = _validator.DeleteGetUserValidator(id);
+            if(validation != null)
+            {
+                return validation;
+            }
+            #endregion
 
-                var result = await _service.DeleteUserAsync(id);
+            var result = await _service.DeleteUserAsync(id);
 
-                #region Errors
-                _validator.DeleteGetUserValidator(id, result);
-                #endregion
+            #region Errors
+            var error = _validator.DeleteGetUserValidator(id, result);
+            if(error != null)
+            {
+                return error;
+            }
+            #endregion
 
-                _logger.LogInformation($"User was deleted, id = {id}");
-                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The user was deleted!");
+            _logger.LogInformation($"User was deleted, id = {id}");
+            return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The user was deleted!");
 
         }
     }

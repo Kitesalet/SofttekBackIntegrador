@@ -53,14 +53,18 @@ namespace IntegradorSofttekImanol.Controllers
             public async Task<IActionResult> GetAllServices([FromQuery] int page = 1, [FromQuery] int units = 10)
             {
 
-                    #region Validations
-                    _validator.GetAllServicesValidator(page, units);
-                    #endregion
+                #region Validations
+                var validation = _validator.GetAllServicesValidator(page, units);
+                if(validation != null)
+                {
+                    return validation;
+                }
+                #endregion
 
-                    var services = await _service.GetAllServicesAsync(page, units);
+                var services = await _service.GetAllServicesAsync(page, units);
 
-                    _logger.LogInformation("All services were retrieved!");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, services);
+                _logger.LogInformation("All services were retrieved!");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, services);
 
             }
     
@@ -108,10 +112,14 @@ namespace IntegradorSofttekImanol.Controllers
             [Route("service/{id:int}")]
             public async Task<IActionResult> GetService([FromRoute] int id)
             {
-
-                await _validator.DeleteGetServiceValidator(id);
-
-                var service = _service.GetServiceByIdAsync(id);
+                
+                var validation = await _validator.DeleteGetServiceValidator(id);
+                if(validation != null)
+                {
+                    return validation;
+                }
+                
+                var service = await _service.GetServiceByIdAsync(id);
 
                 _logger.LogInformation($"service was retrieved, id = {id}");
                 return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, service);
@@ -141,13 +149,17 @@ namespace IntegradorSofttekImanol.Controllers
             public async Task<IActionResult> CreateService(ServiceCreateDto dto)
             {
 
-                    #region Validations
-                    _validator.CreateServiceValidator(dto);
-                    #endregion
+                #region Validations
+                var validation = _validator.CreateServiceValidator(dto);
+                if(validation != null)
+                {
+                    return validation;
+                }
+                #endregion
 
-                    var flag = await _service.CreateServiceAsync(dto);
+                var flag = await _service.CreateServiceAsync(dto);
 
-                    #region Errors
+                #region Errors
  
                     if (!flag)
                     {
@@ -156,8 +168,8 @@ namespace IntegradorSofttekImanol.Controllers
                     }
                     #endregion
 
-                    _logger.LogInformation($"service was created, Descr = {dto.Descr}");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The service was created!");
+                _logger.LogInformation($"service was created, Descr = {dto.Descr}");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.Created, "The service was created!");
 
 
             }
@@ -184,13 +196,17 @@ namespace IntegradorSofttekImanol.Controllers
             public async Task<IActionResult> UpdateService(int id, ServiceUpdateDto dto)
             {
 
-                    #region Validations
-                    await _validator.UpdateServiceValidator(id, dto);
-                    #endregion
+                #region Validations
+                var validation = await _validator.UpdateServiceValidator(id, dto);
+                if(validation != null)
+                {
+                    return validation;
+                }
+                #endregion
 
-                    var result = await _service.UpdateService(dto);
+                var result = await _service.UpdateService(dto);
 
-                    #region Errors
+                #region Errors
                     if (!result)
                     {
                         _logger.LogInformation($"Error updating the service, id = {id}");
@@ -198,8 +214,8 @@ namespace IntegradorSofttekImanol.Controllers
                     }
                     #endregion
 
-                    _logger.LogInformation($"service was properly updated, id = {id}");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "service was properly updated!");
+                _logger.LogInformation($"service was properly updated, id = {id}");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "service was properly updated!");
 
 
             }
@@ -225,22 +241,26 @@ namespace IntegradorSofttekImanol.Controllers
             public async Task<IActionResult> DeleteService([FromRoute] int id)
             {
 
-                     #region Validations
-                     await _validator.DeleteGetServiceValidator(id);
-                     #endregion
+                #region Validations
+                var validation = await _validator.DeleteGetServiceValidator(id);
+                if(validation != null)
+                {
+                    return validation;
+                }
+                #endregion
 
-                    var result = await _service.DeleteServiceAsync(id);
+                var result = await _service.DeleteServiceAsync(id);
 
-                    #region Errors
-                    if (!result)
-                    {
-                        _logger.LogInformation($"service was not found, id = {id}");
-                        return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The service was not found!");
-                    }
-                    #endregion
+                #region Errors
+                if (!result)
+                {
+                    _logger.LogInformation($"service was not found, id = {id}");
+                    return ResponseFactory.CreateErrorResponse(HttpStatusCode.NotFound, "The service was not found!");
+                }
+                #endregion
 
-                    _logger.LogInformation($"service was deleted ( soft deleted or hard deleted ), id = {id}.");
-                    return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The service was deleted!");
+                _logger.LogInformation($"service was deleted ( soft deleted or hard deleted ), id = {id}.");
+                return ResponseFactory.CreateSuccessResponse(HttpStatusCode.OK, "The service was deleted!");
 
             }
 
