@@ -29,7 +29,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         public async Task<IEnumerable<Project>> GetProjectByState(int state)
         {
             var projects = await _context.Projects.Include(e => e.Works)
-                                                    .Where(p => p.State == (ProjectState)state)
+                                                    .Where(p => p.State == (ProjectState)state && s.DeletedDate != null)
                                                     .ToListAsync();
 
             return projects;
