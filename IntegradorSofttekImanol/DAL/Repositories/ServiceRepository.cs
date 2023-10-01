@@ -27,7 +27,7 @@ namespace IntegradorSofttekImanol.DAL.Repositories
         public async Task<IEnumerable<Service>> GetActiveServicesAsync()
         {
             return await _context.Services.Include(e => e.Works)
-                                            .Where(s => s.State == true)
+                                            .Where(s => s.State == true && s.DeletedDate != null)
                                             .ToListAsync();
         }
     }
